@@ -1,0 +1,102 @@
+/* sidebar.component.scss */
+:host {
+  margin-right: 5em;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3.8em; /* Approximately 60px */
+  height: 100vh;
+  background-color: #131a25;
+  color: #fff;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Slight shadow to the right */
+  padding: 1em;
+}
+
+.logo {
+  width: 100%;
+  text-align: center;
+  padding: 1.3em 0; /* Approximately 20px */
+  font-size: 1.9em; /* Approximately 30px */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.username {
+  margin-top: 0.5em;
+  font-size: 1.1em;
+  color: #fff;
+  text-align: center;
+}
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #444; /* 1px for the divider */
+  margin: 0.6em 0; /* Approximately 10px */
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* Space between menu items */
+}
+
+.menu-item {
+  width: 100%;
+  padding: 1em 1.2em; /* Soft padding */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+  border-radius: 10px; /* Rounded corners for menu items */
+}
+
+.menu-item:hover {
+  background-color: #757575;
+  font-weight: bold;
+}
+
+.menu-icon {
+  font-size: 1.4em; /* Approximately 22px */
+  margin-right: 1em; /* Approximately 15px */
+  transition: margin 0.3s ease;
+}
+
+.menu-text {
+  font-size: 1.3em; /* Approximately 20px */
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover {
+  width: 12.5em; /* Approximately 200px */
+}
+
+.sidebar:hover .menu-text {
+  opacity: 1; /* Show text on hover */
+}
+
+.sidebar:hover .menu-icon {
+  margin-right: 1em; /* Maintain space for text on hover */
+}
+.logout {
+  margin-top: auto; /* Push the logout item to the bottom */
+  margin-bottom: 5em;
+}
+
+.logout-item {
+  border-top: 1px solid #444; /* Optional: Add a border at the top */
+  padding-top: 1em; /* Optional: Add some padding to separate it */
+}

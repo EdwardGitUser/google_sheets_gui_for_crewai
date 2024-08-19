@@ -1,0 +1,80 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Create Your Account</h2>
+  <p>Enter your details below to sign up.</p>
+
+  <div class="control">
+    <label for="username">Username</label>
+    <input
+      id="username"
+      type="text"
+      name="username"
+      formControlName="username"
+    />
+
+    @if(usernameIsInvalid){
+    <div class="control-error">
+      <small>
+        Username is required and must be at least 3 characters long.
+      </small>
+    </div>
+    } @if(usernameTaken()){
+    <div class="control-error">
+      <small>
+        This username is already taken. Please choose another one.
+      </small>
+    </div>
+    }
+  </div>
+
+  <div formGroupName="passwords">
+    <div class="control">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        formControlName="password"
+      />
+      @if(passwordIsInvalid){
+      <div class="control-error">
+        <small>
+          Password is required and must be at least 6 characters long.
+        </small>
+      </div>
+      }
+    </div>
+
+    <div class="control">
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        id="confirm-password"
+        type="password"
+        name="confirmPassword"
+        formControlName="confirmPassword"
+      />
+      @if(confirmPasswordIsInvalid){
+      <div class="control-error">
+        <small> Confirmation is required. </small>
+      </div>
+      }
+    </div>
+
+    <!-- Show the password mismatch error -->
+    @if (passwordsMismatch){
+    <div class="control-error">
+      <small>Passwords do not match.</small>
+    </div>
+    }
+  </div>
+
+  <div class="form-actions">
+    <button
+      type="submit"
+      class="button"
+      [ngClass]="{ 'button-invalid': form.invalid }"
+      [disabled]="form.invalid"
+    >
+      Sign Up
+    </button>
+  </div>
+</form>

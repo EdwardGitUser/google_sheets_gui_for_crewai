@@ -1,0 +1,36 @@
+<div class="sidebar">
+  <div class="logo">
+    <span>UI</span>
+  </div>
+  <hr class="divider" />
+
+  <div class="menu">
+    <div *ngIf="!isLoggedIn()">
+      <div routerLink="login" class="menu-item">
+        <div class="menu-icon">
+          <i class="fa fa-sign-in-alt"></i>
+        </div>
+        <div class="menu-text">Login</div>
+      </div>
+      <div routerLink="signup" class="menu-item">
+        <div class="menu-icon">
+          <i class="fa fa-plus"></i>
+        </div>
+        <div class="menu-text">Sign Up</div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="isLoggedIn()"
+    class="menu logout"
+    [ngClass]="{ 'logout-item': true }"
+  >
+    <div class="menu-item" (click)="logout()">
+      <div class="menu-icon">
+        <i class="fa fa-sign-out-alt"></i>
+      </div>
+      <div class="menu-text">Logout</div>
+    </div>
+  </div>
+</div>

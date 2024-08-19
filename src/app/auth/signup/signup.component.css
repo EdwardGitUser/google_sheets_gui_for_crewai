@@ -1,0 +1,89 @@
+form {
+  max-width: 500px;
+  margin: 3em auto;
+  padding: 2.5em;
+  background-color: #f9f9f9;
+  border: 1px solid black;
+  border-radius: 15px; /* Larger rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow */
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  color: #131a25; /* Primary color */
+  margin-bottom: 1.5em; /* More space below the heading */
+  font-size: 2em; /* Larger font size for the heading */
+}
+
+p {
+  text-align: center;
+  color: #555;
+  margin-bottom: 2.5em; /* More space below the paragraph */
+  font-size: 1.2em; /* Larger font size for the paragraph */
+}
+
+.control {
+  margin-bottom: 2em; /* Increased spacing between controls */
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75em; /* More space below labels */
+  font-weight: bold;
+  color: #131a25; /* Primary color */
+  font-size: 1.2em; /* Larger font size for labels */
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 1em 0 1em 1em; /* Increased padding */
+  border: 1px solid #ddd;
+  border-radius: 10px; /* Larger rounded corners */
+  font-size: 1.2em; /* Larger font size for input text */
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #131a25; /* Primary color on focus */
+  outline: none;
+  box-shadow: 0 0 8px rgba(19, 26, 37, 0.3); /* Slightly stronger shadow on focus */
+}
+
+.control-error {
+  color: #d9534f; /* Red color for errors */
+  font-size: 0.875em;
+  margin-top: 0.5em;
+}
+
+.control-error small {
+  display: block;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 2.5em; /* More space above the buttons */
+}
+
+.button {
+  padding: 1em 2em; /* Larger button padding */
+  background-color: #131a25; /* Primary color */
+  border: none;
+  border-radius: 10px; /* Larger rounded corners */
+  color: #fff;
+  font-size: 1.2em; /* Larger font size for buttons */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0f141d; /* Slightly darker primary color */
+  transform: translateY(-3px); /* More noticeable lift on hover */
+}
+.button-invalid {
+  background-color: #757575; /* Less bright color when form is invalid */
+  cursor: not-allowed; /* Change cursor to indicate non-clickable button */
+}

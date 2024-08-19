@@ -1,0 +1,56 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Login</h2>
+
+  <div class="control">
+    <label for="username">Username</label>
+    <input
+      id="username"
+      type="text"
+      name="username"
+      formControlName="username"
+    />
+
+    @if(usernameIsInvalid){
+    <div class="control-error">
+      <small>
+        Username is required and must be at least 3 characters long.
+      </small>
+    </div>
+    }
+  </div>
+
+  <div class="control">
+    <label for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      name="password"
+      formControlName="password"
+    />
+    @if(passwordIsInvalid){
+    <div class="control-error">
+      <small>
+        Password is required and must be at least 6 characters long.
+      </small>
+    </div>
+    }
+  </div>
+
+  @if(loginFailed()){
+
+  <div class="control-error">
+    <small> Invalid credentials </small>
+  </div>
+
+  }
+  <div class="form-actions">
+    <button
+      type="submit"
+      class="button"
+      [ngClass]="{ 'button-invalid': form.invalid }"
+      [disabled]="form.invalid"
+    >
+      Sign Up
+    </button>
+  </div>
+</form>
