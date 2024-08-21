@@ -7,6 +7,9 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { AgentsComponent } from './main-page/agents/agents.component';
 import { CreateCrewComponent } from './main-page/crew/create-crew/create-crew.component';
 import { CreateAgentComponent } from './main-page/agents/create-agent/create-agent.component';
+import { TasksComponent } from './main-page/tasks/tasks.component';
+import { AddTaskComponent } from './main-page/tasks/add-task/add-task.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -16,15 +19,23 @@ export const routes: Routes = [
         path: 'crew/:id/agents',
         component: AgentsComponent,
       },
+      {
+        path: 'crew/:id/agents/add', // New route for adding an agent
+        component: CreateAgentComponent,
+      },
+      {
+        path: 'crew/:id/tasks',
+        component: TasksComponent,
+      },
+      {
+        path: 'crew/:id/tasks/add',
+        component: AddTaskComponent,
+      },
     ],
   },
   {
     path: 'create-crew',
     component: CreateCrewComponent,
-  },
-  {
-    path: 'create-agent',
-    component: CreateAgentComponent, // Moved to the same level as CreateCrewComponent
   },
   {
     path: 'login',

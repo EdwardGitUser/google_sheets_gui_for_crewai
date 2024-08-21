@@ -9,13 +9,12 @@
 }
 .agents-table th,
 .agents-table td {
-  padding: 8px 10px; /* Smaller padding */
-  border-bottom: 1px solid #ddd;
+  padding: 1em 0.625em;
+  border: 1px solid #ddd; /* Add border to show column lines */
   text-align: left;
   vertical-align: middle;
-  height: 50px; /* Fixed height */
+  height: 3.125em; /* 50px -> 3.125em */
 }
-
 .agents-table th {
   background-color: #161d2a; /* Primary color */
   color: #fff;
@@ -96,8 +95,7 @@
   margin-top: 10px; /* Smaller margin */
   display: flex;
   gap: 10px; /* Smaller gap */
-
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 /* Button Styles */

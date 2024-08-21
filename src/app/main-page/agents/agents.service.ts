@@ -5,7 +5,7 @@ import { Agent } from './agents.model';
   providedIn: 'root',
 })
 export class AgentsService {
-  private agents: Agent[] = this.loadAgentsFromLocalStorage();
+  private agents: Agent[];
 
   constructor() {
     const storedAgents = localStorage.getItem('agents');

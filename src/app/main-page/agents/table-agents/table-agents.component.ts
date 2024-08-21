@@ -142,14 +142,9 @@ export class TableAgentsComponent implements OnInit {
     this.tempAgents = this.tempAgents.filter((agent) => agent.id !== agentId);
   }
 
-  navigateToCreateAgent() {
-    const confirmNavigate = window.confirm(
-      'Do you want to create a new agent? Unsaved changes will be lost.'
-    );
-    if (confirmNavigate) {
-      this.router.navigate(['/create-agent'], {
-        queryParams: { crewId: this.crewId },
-      });
+  navigateToAddAgent() {
+    if (this.crewId) {
+      this.router.navigate([`/crew/${this.crewId}/agents/add`]);
     }
   }
 }

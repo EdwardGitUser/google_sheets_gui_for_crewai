@@ -1,0 +1,25 @@
+<div class="tasks-container">
+  <h2>Tasks List</h2>
+
+  <!-- List of tasks -->
+  <ul class="tasks-list" *ngIf="tasks.length > 0; else noTasks">
+    <li *ngFor="let task of tasks">
+      <div class="task-item">
+        <h3>{{ task.title }}</h3>
+        <p><strong>Description:</strong> {{ task.description }}</p>
+        <p><strong>Expected Output:</strong> {{ task.expected_output }}</p>
+        <p><strong>Assigned to Agent ID:</strong> {{ task.agentId }}</p>
+      </div>
+    </li>
+  </ul>
+
+  <!-- No tasks placeholder -->
+  <ng-template #noTasks>
+    <p>No tasks available for this crew.</p>
+  </ng-template>
+
+  <!-- Button to add a new task -->
+  <div class="buttons-container">
+    <button class="add-task-btn" (click)="navigateToAddTask()">Add Task</button>
+  </div>
+</div>

@@ -1,12 +1,27 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+  z-index: 900;
+}
+
 .form-container {
   background-color: #ffffff; /* White background */
   border: 2px solid #131a25; /* Primary color for border */
   border-radius: 8px;
   padding: 2em;
-  max-width: 37.5em;
+  width: 40em; /* Fixed width */
+  max-width: 100%;
   margin: 0 auto; /* Center the form horizontally */
-  margin-top: 3.125em; /* Add some space at the top */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pixels retained for shadow */
+  z-index: 1000;
 }
 
 h2 {
@@ -44,12 +59,10 @@ select {
   border-radius: 4px; /* Pixels retained for border-radius */
   box-sizing: border-box;
 }
+
 textarea {
   font-size: 1.3em;
   height: 9em;
-}
-
-textarea {
   resize: none; /* Disable resizing of the textarea */
 }
 
@@ -106,4 +119,39 @@ select:focus {
 .submit-btn:hover:not(.button-invalid) {
   background-color: #0f141d;
   transform: translateY(-2px);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .form-container {
+    width: 90%; /* Reduce width for smaller screens */
+    padding: 1.5em; /* Adjust padding */
+  }
+
+  h2 {
+    font-size: 1.8em; /* Reduce font size */
+  }
+
+  .form-group label {
+    font-size: 1.1em; /* Reduce label font size */
+  }
+
+  .submit-btn {
+    font-size: 1.3em; /* Reduce button font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    width: 95%; /* Further reduce width for very small screens */
+    padding: 1em; /* Adjust padding */
+  }
+
+  h2 {
+    font-size: 1.6em; /* Further reduce font size */
+  }
+
+  .submit-btn {
+    font-size: 1.2em; /* Further reduce button font size */
+  }
 }

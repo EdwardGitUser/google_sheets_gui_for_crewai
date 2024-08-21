@@ -99,3 +99,37 @@ button:hover:not(.not-logged-in) {
   padding: 10px;
   font-size: 1.2em;
 }
+/* Container for the tabs */
+.navigation-tabs {
+  display: flex;
+  margin-top: 20px;
+  border-bottom: 2px solid #ddd; /* Line under the tabs */
+}
+
+/* Styling for each tab */
+.navigation-tabs a {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: #444;
+  text-decoration: none;
+  background-color: #f1f3f4;
+  border: 1px solid #ddd;
+  border-bottom: none; /* Remove bottom border to blend with content */
+  border-radius: 5px 5px 0 0; /* Rounded top corners */
+  margin-right: 5px; /* Space between tabs */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover effect for tabs */
+.navigation-tabs a:hover {
+  background-color: #e8eaed;
+  color: #202124;
+}
+
+/* Active tab style */
+.navigation-tabs a.active {
+  background-color: #ffffff;
+  color: #202124;
+  font-weight: bold;
+  border-bottom: 2px solid #ffffff; /* Ensures tab appears raised */
+}

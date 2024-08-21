@@ -15,7 +15,7 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 export class MainPageComponent implements OnInit {
   crews: Crew[] = [];
   hovered = false;
-
+  crewId: number | null = null;
   constructor(
     private crewService: CrewService,
     private authService: AuthService,
@@ -54,10 +54,10 @@ export class MainPageComponent implements OnInit {
 
   viewAgents(crewId: number) {
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
+      this.crewId = crewId; // Store the selected crew ID
       this.router.navigate([`/crew/${crewId}/agents`]);
     }
   }
-
   createCrew() {
     if (window.confirm('Are you sure you want to create a new crew?')) {
       this.router.navigate(['/create-crew']);

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,7 +9,7 @@ import {
 import { NgClass, NgIf, Location } from '@angular/common';
 import { lettersOnlyValidator, lettersRequiredValidator } from '../validators';
 import { AgentsService } from '../agents.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-agent',
@@ -22,32 +22,43 @@ export class CreateAgentComponent implements OnInit {
   agentForm!: FormGroup;
   crewId!: number;
 
-  //я отримую стрінгу а треба намбер для всіх айді, можу переписати в стрінгу всі айді якщо треба
-  // crewId = input.required();
-
   constructor(
     private fb: FormBuilder,
     private location: Location,
     private agentsService: AgentsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.crewId = +params['crewId']; // Retrieve crewId from query params
+    this.route.params.subscribe((params) => {
+      this.crewId = +params['id']; // Retrieve crewId from params
     });
 
     this.agentForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(200),
+        ],
+      ],
       role: [
         '',
-        [Validators.required, Validators.minLength(3), lettersOnlyValidator()],
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(200),
+          lettersOnlyValidator(),
+        ],
       ],
       goal: [
         '',
         [
           Validators.required,
           Validators.minLength(5),
+          Validators.maxLength(200),
           lettersRequiredValidator(),
         ],
       ],
@@ -56,36 +67,13 @@ export class CreateAgentComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
+          Validators.maxLength(200),
           lettersRequiredValidator(),
         ],
       ],
       verbose: [false],
-      tool: ['some_tool1', Validators.required],
+      tool: ['some_tool1', [Validators.required]],
     });
-  }
-
-  get name() {
-    return this.agentForm.get('name');
-  }
-
-  get role() {
-    return this.agentForm.get('role');
-  }
-
-  get goal() {
-    return this.agentForm.get('goal');
-  }
-
-  get backstory() {
-    return this.agentForm.get('backstory');
-  }
-
-  get verbose() {
-    return this.agentForm.get('verbose');
-  }
-
-  get tool() {
-    return this.agentForm.get('tool');
   }
 
   onSubmit(): void {
@@ -103,8 +91,12 @@ export class CreateAgentComponent implements OnInit {
 
       console.log('Agent created:', newAgent);
 
-      this.goBack();
+      this.navigateToAgents(); // Navigate to the agents list after creation
     }
+  }
+
+  navigateToAgents(): void {
+    this.router.navigate([`/crew/${this.crewId}/agents`]);
   }
 
   goBack(): void {
