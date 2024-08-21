@@ -1,0 +1,101 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 9em;
+  padding-top: 20px;
+  padding-bottom: 32px;
+  border-radius: 16px;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-size: 3em;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+p {
+  font-size: 1.5em;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.load-crew-container {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+button.not-logged-in {
+  background-color: #888;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+button.load-crew {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button.create-crew {
+  background-color: #28a745;
+  color: #fff;
+}
+
+button:hover:not(.not-logged-in) {
+  transform: scale(1.05);
+}
+
+.crew-list {
+  margin-top: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.crew-list ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.crew-list li {
+  padding: 8px 12px;
+  background-color: #f4f4f4;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.crew-list li:hover {
+  background-color: #e0e0e0;
+}
+
+.crew-list p {
+  color: #555;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
+}

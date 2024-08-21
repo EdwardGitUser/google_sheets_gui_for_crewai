@@ -1,0 +1,53 @@
+<div class="main-container">
+  <h1>Google Sheet Gui for crewAI</h1>
+
+  <!-- Conditionally display the username if the user is logged in -->
+  <p *ngIf="isLoggedIn(); else notLoggedIn">{{ username }}</p>
+  <ng-template #notLoggedIn>
+    <p>You are not logged in.</p>
+  </ng-template>
+
+  <!-- Buttons inline and styled differently if not logged in -->
+  <div class="buttons-container">
+    <div
+      class="load-crew-container"
+      (mouseenter)="onHover()"
+      (mouseleave)="onLeave()"
+    >
+      <button
+        [ngClass]="{
+          'not-logged-in': !isLoggedIn(),
+          'load-crew': isLoggedIn()
+        }"
+        [disabled]="!isLoggedIn()"
+      >
+        <i class="fas fa-folder-open"></i> Load Crew
+      </button>
+
+      <!-- Crew list appears when hovering over Load Crew button or the list itself -->
+      <div *ngIf="hovered && isLoggedIn()" class="crew-list">
+        <ul *ngIf="crews.length > 0; else noCrews">
+          <li *ngFor="let crew of crews" (click)="viewAgents(crew.id)">
+            {{ crew.name }}
+          </li>
+        </ul>
+        <ng-template #noCrews>
+          <p>No crews available</p>
+        </ng-template>
+      </div>
+    </div>
+
+    <button
+      [ngClass]="{
+        'not-logged-in': !isLoggedIn(),
+        'create-crew': isLoggedIn()
+      }"
+      [disabled]="!isLoggedIn()"
+      routerLink="/create-crew"
+    >
+      <i class="fas fa-plus-circle"></i> Create Crew
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

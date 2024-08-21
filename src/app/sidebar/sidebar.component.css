@@ -1,6 +1,6 @@
-/* sidebar.component.scss */
 :host {
   margin-right: 5em;
+  z-index: 1;
 }
 
 .sidebar {
@@ -16,7 +16,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Slight shadow to the right */
   padding: 1em;
 }
@@ -32,12 +31,6 @@
   justify-content: center;
 }
 
-.username {
-  margin-top: 0.5em;
-  font-size: 1.1em;
-  color: #fff;
-  text-align: center;
-}
 .divider {
   width: 100%;
   border: none;
@@ -60,6 +53,10 @@
   cursor: pointer;
   transition: background-color 0.3s ease, font-weight 0.3s ease;
   border-radius: 10px; /* Rounded corners for menu items */
+}
+
+.home {
+  width: 1em;
 }
 
 .menu-item:hover {
@@ -91,6 +88,7 @@
 .sidebar:hover .menu-icon {
   margin-right: 1em; /* Maintain space for text on hover */
 }
+
 .logout {
   margin-top: auto; /* Push the logout item to the bottom */
   margin-bottom: 5em;
@@ -99,4 +97,51 @@
 .logout-item {
   border-top: 1px solid #444; /* Optional: Add a border at the top */
   padding-top: 1em; /* Optional: Add some padding to separate it */
+}
+
+/* Responsive Styles */
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 3em; /* Smaller sidebar on tablets and small screens */
+  }
+
+  .sidebar:hover {
+    width: 3em; /* Prevent expansion on hover */
+  }
+
+  .menu-icon {
+    font-size: 1.2em; /* Slightly smaller icons */
+    margin-right: 0.8em; /* Adjust margin */
+  }
+
+  .menu-text {
+    display: none; /* Hide text on smaller screens */
+  }
+  .logout {
+    margin-top: auto; /* Push the logout item to the bottom */
+    margin-bottom: 10em;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 2.5em; /* Even smaller sidebar on very small screens */
+  }
+
+  .sidebar:hover {
+    width: 2.5em; /* Prevent expansion on hover */
+  }
+
+  .menu-icon {
+    font-size: 1em; /* Smaller icons */
+    margin-right: 0.5em; /* Adjust margin */
+  }
+
+  .menu-text {
+    display: none; /* Hide text on very small screens */
+  }
+  .logout {
+    margin-top: auto; /* Push the logout item to the bottom */
+    margin-bottom: 10em;
+  }
 }

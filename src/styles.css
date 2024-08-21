@@ -23,6 +23,21 @@ button {
   border: none;
   cursor: pointer;
 }
-input {
+
+input,
+textarea {
   box-sizing: border-box;
+}
+
+/* Reset for p and h tags */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
 }

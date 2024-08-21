@@ -1,11 +1,19 @@
 <div class="sidebar">
-  <div class="logo">
+  <div routerLink="" class="logo">
     <span>UI</span>
   </div>
   <hr class="divider" />
 
   <div class="menu">
-    <div *ngIf="!isLoggedIn()">
+    @if(!getUser()){
+    <div>
+      <div routerLink="" class="menu-item">
+        <div class="menu-icon home">
+          <i class="fa fa-home"></i>
+          <!-- Home icon for Main Page -->
+        </div>
+        <div class="menu-text">Main Page</div>
+      </div>
       <div routerLink="login" class="menu-item">
         <div class="menu-icon">
           <i class="fa fa-sign-in-alt"></i>
@@ -19,13 +27,18 @@
         <div class="menu-text">Sign Up</div>
       </div>
     </div>
+    }
   </div>
 
-  <div
-    *ngIf="isLoggedIn()"
-    class="menu logout"
-    [ngClass]="{ 'logout-item': true }"
-  >
+  @if(getUser()){
+  <div routerLink="" class="menu-item">
+    <div class="menu-icon home">
+      <i class="fa fa-home"></i>
+      <!-- Home icon for Main Page -->
+    </div>
+    <div class="menu-text">Main Page</div>
+  </div>
+  <div class="menu logout" [ngClass]="{ 'logout-item': true }">
     <div class="menu-item" (click)="logout()">
       <div class="menu-icon">
         <i class="fa fa-sign-out-alt"></i>
@@ -33,4 +46,5 @@
       <div class="menu-text">Logout</div>
     </div>
   </div>
+  }
 </div>

@@ -1,0 +1,10 @@
+<div *ngIf="agents.length > 0; else noAgents">
+  <h2>Agents List</h2>
+  <ul>
+    <li *ngFor="let agent of agents">{{ agent.name }}</li>
+  </ul>
+</div>
+
+<ng-template #noAgents>
+  <p>No agents found for this crew.</p>
+</ng-template>

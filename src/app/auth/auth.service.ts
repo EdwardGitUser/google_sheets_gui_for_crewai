@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { User } from './user.model'; // Adjust the import path based on your project structure
+import { Injectable, signal } from '@angular/core';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,48 +7,21 @@ import { User } from './user.model'; // Adjust the import path based on your pro
 export class AuthService {
   private users: User[] = [];
 
+  private loggedInUser = signal<User | null>(null);
+
   constructor() {
-    // Load users from localStorage if they exist
     const storedUsers = localStorage.getItem('users');
     if (storedUsers) {
       this.users = JSON.parse(storedUsers);
     }
-  }
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('loggedInUser');
-  }
-
-  getUsers(): User[] {
-    return this.users;
-  }
-
-  getLoggedInUsername(): string | null {
-    return localStorage.getItem('loggedInUser');
-  }
-
-  private userExists(username: string): boolean {
-    return this.users.some((user) => user.username === username);
-  }
-
-  signUp(username: string, password: string): User | null {
-    if (this.userExists(username)) {
-      return null; // Return null if the username already exists
+    const storedUser = localStorage.getItem('loggedInUser');
+    if (storedUser) {
+      this.loggedInUser.set(JSON.parse(storedUser)); // Parse the stored user object
     }
-
-    const newUser: User = {
-      id: Math.floor(Math.random() * 1000000), // Generate a random ID
-      username,
-      password, // In a real-world app, you should hash the password before storing it
-    };
-
-    this.users.push(newUser);
-    this.saveUsersToLocalStorage();
-
-    return newUser;
   }
 
-  private saveUsersToLocalStorage(): void {
-    localStorage.setItem('users', JSON.stringify(this.users));
+  get currentUser() {
+    return this.loggedInUser();
   }
 
   login(username: string, password: string): boolean {
@@ -56,7 +29,28 @@ export class AuthService {
       (user) => user.username === username && user.password === password
     );
     if (user) {
-      localStorage.setItem('loggedInUser', username);
+      localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store the user object
+      this.loggedInUser.set(user);
+      return true;
+    }
+    return false;
+  }
+
+  signUp(username: string, password: string): boolean {
+    const userExists = this.users.some((user) => user.username === username);
+    if (!userExists) {
+      const newUser: User = {
+        id: Math.floor(Math.random() * 1000000), // Generate a random ID
+        username,
+        password, // In a real-world app, you should hash the password before storing it
+      };
+      this.users.push(newUser);
+      this.saveUsersToLocalStorage();
+
+      // Automatically log in the user after sign-up
+      localStorage.setItem('loggedInUser', JSON.stringify(newUser)); // Store the user object
+      this.loggedInUser.set(newUser);
+
       return true;
     }
     return false;
@@ -64,5 +58,10 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('loggedInUser');
+    this.loggedInUser.set(null);
+  }
+
+  private saveUsersToLocalStorage(): void {
+    localStorage.setItem('users', JSON.stringify(this.users));
   }
 }
