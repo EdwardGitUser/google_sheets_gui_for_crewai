@@ -1,0 +1,174 @@
+.agents-table {
+  max-width: 112.5em; /* 1800px -> 112.5em */
+  margin: 0 auto;
+  border-collapse: collapse;
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+  border-radius: 0.75em;
+  overflow: hidden;
+  font-size: 1em;
+}
+.agents-table th,
+.agents-table td {
+  padding: 8px 10px; /* Smaller padding */
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+  height: 50px; /* Fixed height */
+}
+
+.agents-table th {
+  background-color: #161d2a; /* Primary color */
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.agents-table td {
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.agents-table td input,
+.agents-table td select,
+.agents-table td textarea {
+  border: none;
+  padding: 6px; /* Smaller padding */
+  font-size: 1em;
+  border-radius: 4px; /* px for border-radius */
+  background-color: transparent;
+}
+
+.agents-table td textarea {
+  resize: vertical;
+  max-height: 150px; /* px for textarea max height */
+  min-height: 80px; /* px for textarea min height */
+  font-family: "Roboto", sans-serif;
+}
+
+.id {
+  text-align: center;
+  width: 1em;
+}
+
+.agents-table th:nth-child(1),
+.agents-table td:nth-child(1) {
+  width: 3em;
+}
+
+/* BACKSTORY SIZING */
+.backstory {
+  width: 25em;
+}
+.agents-table th:nth-child(3),
+.agents-table td:nth-child(3) {
+  width: 25em;
+}
+
+/* ROLE SIZING */
+.role {
+  width: 8em;
+}
+.agents-table th:nth-child(4),
+.agents-table td:nth-child(4) {
+  width: 8em;
+} /* Role Column */
+
+.agents-table td select {
+  width: 100%;
+}
+
+.agents-table td input:focus,
+.agents-table td select:focus,
+.agents-table td textarea:focus {
+  outline: none;
+}
+
+.agents-table td:hover {
+  background-color: rgba(22, 29, 42, 0.1);
+  color: #161d2a;
+}
+
+/* Button Container */
+.buttons-container {
+  margin-top: 10px; /* Smaller margin */
+  display: flex;
+  gap: 10px; /* Smaller gap */
+
+  justify-content: space-between;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 15px; /* Smaller padding */
+  font-size: 1em;
+  color: #fff;
+  background-color: #161d2a; /* Primary color */
+  border: none;
+  border-radius: 6px; /* px for border-radius */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #0f141d;
+  transform: translateY(-2px); /* Smaller transform */
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.create-agent-btn {
+  background-color: #28a745;
+}
+
+.create-agent-btn:hover {
+  background-color: #218838;
+}
+
+.save-btn {
+  font-size: 1.125em;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125em;
+  color: red;
+  transition: color 0.3s ease;
+}
+
+.delete-btn:hover {
+  color: darkred;
+}
+
+.noAgents {
+  font-size: 1.125em;
+  color: #555;
+  margin-top: 10px; /* Smaller margin */
+  text-align: center;
+}
+
+/* Validation Errors */
+.validation-errors {
+  color: red;
+  margin-top: 10px; /* Smaller margin */
+}
+
+.validation-errors h4 {
+  margin-bottom: 5px; /* Smaller margin */
+}
+
+.validation-errors ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.validation-errors li {
+  margin-bottom: 5px; /* Smaller margin */
+}

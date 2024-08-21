@@ -4,16 +4,17 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  FormsModule,
 } from '@angular/forms';
 import { NgClass, NgIf, Location } from '@angular/common';
-import { lettersOnlyValidator, lettersRequiredValidator } from './validators';
+import { lettersOnlyValidator, lettersRequiredValidator } from '../validators';
 import { AgentsService } from '../agents.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-agent',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, FormsModule],
   templateUrl: './create-agent.component.html',
   styleUrls: ['./create-agent.component.css'],
 })

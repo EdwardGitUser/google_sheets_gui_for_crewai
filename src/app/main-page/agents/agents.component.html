@@ -1,12 +1,9 @@
 <!-- agents.component.html -->
 <div class="agents-container">
   <h2>Agents List</h2>
-  <ul *ngIf="agents.length > 0">
-    <li *ngFor="let agent of agents">{{ agent.name }} - {{ agent.role }}</li>
-  </ul>
-  <p *ngIf="agents.length === 0">No agents available.</p>
+  <app-table-agents></app-table-agents>
 
-  <button class="create-agent-btn" (click)="navigateToCreateAgent()">
+  <!-- <button class="create-agent-btn" (click)="navigateToCreateAgent()">
     Create Agent
-  </button>
+  </button> -->
 </div>

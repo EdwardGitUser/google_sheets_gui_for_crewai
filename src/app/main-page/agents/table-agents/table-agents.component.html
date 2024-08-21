@@ -1,0 +1,91 @@
+<div class="agents-table-container" *ngIf="agents.length > 0; else noAgents">
+  <table class="agents-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Backstory</th>
+        <th>Role</th>
+        <th>Goal</th>
+        <th>Tool</th>
+        <th>Verbose</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let agent of tempAgents; let i = index">
+        <td class="id">{{ agent.id }}</td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="agent.name"
+            (input)="onInputChange()"
+          />
+        </td>
+        <td>
+          <textarea
+            class="backstory"
+            [(ngModel)]="agent.backstory"
+            (input)="onInputChange()"
+            rows="3"
+          ></textarea>
+        </td>
+        <td>
+          <input
+            class="role"
+            type="text"
+            [(ngModel)]="agent.role"
+            (input)="onInputChange()"
+          />
+        </td>
+        <td>
+          <textarea
+            [(ngModel)]="agent.goal"
+            (input)="onInputChange()"
+            rows="1"
+          ></textarea>
+        </td>
+        <td>
+          <select [(ngModel)]="agent.tool" (change)="onInputChange()">
+            <option value="crewAI Tool 1">crewAI Tool 1</option>
+            <option value="crewAI Tool 2">crewAI Tool 2</option>
+            <option value="crewAI Tool 3">crewAI Tool 3</option>
+            <option value="crewAI Tool 4">crewAI Tool 4</option>
+            <option value="crewAI Tool 5">crewAI Tool 5</option>
+          </select>
+        </td>
+        <td>
+          <select [(ngModel)]="agent.verbose" (change)="onInputChange()">
+            <option [value]="true">True</option>
+            <option [value]="false">False</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="buttons-container">
+  <button class="create-agent-btn" (click)="navigateToCreateAgent()">
+    Create Agent
+  </button>
+  <button *ngIf="agents.length > 0" class="save-btn" (click)="saveAgents()">
+    Save
+  </button>
+</div>
+
+<div
+  *ngIf="validationErrors.length > 0 && agents.length > 0"
+  class="validation-errors"
+>
+  <h4>Validation Errors:</h4>
+  <ul>
+    <li *ngFor="let error of validationErrors">{{ error }}</li>
+  </ul>
+</div>
+<ng-template #noAgents>
+  <p>No agents available.</p>
+</ng-template>

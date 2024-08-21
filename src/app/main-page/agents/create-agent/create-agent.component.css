@@ -44,6 +44,14 @@ select {
   border-radius: 4px; /* Pixels retained for border-radius */
   box-sizing: border-box;
 }
+textarea {
+  font-size: 1.3em;
+  height: 9em;
+}
+
+textarea {
+  resize: none; /* Disable resizing of the textarea */
+}
 
 input:focus,
 textarea:focus,

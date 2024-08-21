@@ -8,13 +8,12 @@ export class AgentsService {
   private agents: Agent[] = this.loadAgentsFromLocalStorage();
 
   constructor() {
-    // Load agents from localStorage if they exist
     const storedAgents = localStorage.getItem('agents');
     if (storedAgents) {
       this.agents = JSON.parse(storedAgents);
     } else {
-      this.agents = this.getInitialAgents(); // Set initial dummy data
-      this.saveAgentsToLocalStorage(); // Save initial dummy data
+      this.agents = this.getInitialAgents();
+      this.saveAgentsToLocalStorage();
     }
   }
 
@@ -29,6 +28,12 @@ export class AgentsService {
     this.saveAgentsToLocalStorage();
   }
 
+  // Save agents array to local storage
+  saveAgents(agents: Agent[]): void {
+    this.agents = agents;
+    this.saveAgentsToLocalStorage();
+  }
+
   // Save agents to local storage
   private saveAgentsToLocalStorage(): void {
     localStorage.setItem('agents', JSON.stringify(this.agents));
@@ -40,6 +45,16 @@ export class AgentsService {
     return agents ? JSON.parse(agents) : [];
   }
 
+  updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
+    // Filter out agents not belonging to the given crewId
+    this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
+
+    // Add the updated agents for the crewId
+    this.agents.push(...updatedAgents);
+
+    // Save to local storage
+    this.saveAgentsToLocalStorage();
+  }
   // Initial dummy agents for testing
   private getInitialAgents(): Agent[] {
     return [
