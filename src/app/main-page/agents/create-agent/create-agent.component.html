@@ -1,0 +1,82 @@
+<div class="form-container">
+  <h2><i class="fas fa-robot"></i> Create New Agent</h2>
+
+  <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" />
+      <div *ngIf="name?.invalid && name?.touched" class="error">
+        <small>Name is required and must be at least 3 characters long.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input id="role" type="text" formControlName="role" />
+      <div *ngIf="role?.invalid && role?.touched" class="error">
+        <small
+          >Role is required, must be at least 3 characters long, and must
+          contain only letters.</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="goal">Goal</label>
+      <input id="goal" type="text" formControlName="goal" />
+      <div *ngIf="goal?.invalid && goal?.touched" class="error">
+        <small
+          >Goal is required, must be at least 5 characters long, and must
+          contain letters.</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="backstory">Backstory</label>
+      <textarea id="backstory" formControlName="backstory"></textarea>
+      <div *ngIf="backstory?.invalid && backstory?.touched" class="error">
+        <small
+          >Backstory is required, must be at least 10 characters long, and must
+          contain letters.</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="verbose">Verbose</label>
+      <select id="verbose" formControlName="verbose">
+        <option [value]="false">False</option>
+        <option [value]="true">True</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="tool">Tool</label>
+      <select id="tool" formControlName="tool">
+        <option value="some_tool1">Some Tool 1</option>
+        <option value="some_tool2">Some Tool 2</option>
+        <option value="some_tool3">Some Tool 3</option>
+        <option value="some_tool4">Some Tool 4</option>
+        <option value="some_tool5">Some Tool 5</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <!-- Back Button -->
+      <button type="button" class="back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+
+      <!-- Save Button -->
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="agentForm.invalid"
+        [ngClass]="{ 'button-invalid': agentForm.invalid }"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

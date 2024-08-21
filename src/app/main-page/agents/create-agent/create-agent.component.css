@@ -1,0 +1,101 @@
+.form-container {
+  background-color: #ffffff; /* White background */
+  border: 2px solid #131a25; /* Primary color for border */
+  border-radius: 8px;
+  padding: 2em;
+  max-width: 37.5em;
+  margin: 0 auto; /* Center the form horizontally */
+  margin-top: 3.125em; /* Add some space at the top */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pixels retained for shadow */
+}
+
+h2 {
+  font-size: 2em;
+  color: #131a25; /* Primary color */
+  text-align: center;
+  margin-bottom: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 i {
+  margin-right: 10px; /* Pixels retained for icon margin */
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+label {
+  display: block;
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 0.5em;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.625em;
+  font-size: 1.1em;
+  border: 1px solid #ccc; /* Pixels retained for border */
+  border-radius: 4px; /* Pixels retained for border-radius */
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #131a25; /* Primary color on focus */
+  outline: none;
+}
+
+.error {
+  color: red;
+  font-size: 0.9em;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Space between the buttons */
+  align-items: center;
+  margin-top: 1.5em; /* Add space above the buttons */
+}
+
+.back-btn {
+  padding: 0.75em 1em;
+  font-size: 1.2em;
+  color: black;
+  background-color: transparent;
+  border: 2px solid #131a25;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #131a25;
+  color: white;
+}
+
+.submit-btn {
+  padding: 0.75em 1.5em;
+  font-size: 1.5em;
+  color: #fff;
+  background-color: #28a745; /* Green color */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-btn.button-invalid {
+  background-color: #757575; /* Disabled color */
+}
+
+.submit-btn:hover:not(.button-invalid) {
+  background-color: #0f141d;
+  transform: translateY(-2px);
+}

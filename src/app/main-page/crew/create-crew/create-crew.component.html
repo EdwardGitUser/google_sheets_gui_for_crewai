@@ -1,5 +1,39 @@
-<div class="create-crew-container">
-  <h2>Create New Crew</h2>
-  <input [(ngModel)]="crewName" placeholder="Enter Crew Name" />
-  <button (click)="createCrew()">Create</button>
+<div class="form-container">
+  <h2>Create Crew <i class="fas fa-users"></i></h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Crew Name</label>
+      <input id="name" formControlName="name" />
+      <div *ngIf="name?.invalid && name?.touched" class="error">
+        <small>
+          Crew name is required and must be at least 3 characters long.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="process">Process Type</label>
+      <select id="process" formControlName="process">
+        <option value="sequential">Sequential</option>
+        <option value="hierarchical">Hierarchical</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <!-- Back Button on the Left -->
+      <button type="button" class="back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+
+      <!-- Submit Button on the Right -->
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        [ngClass]="{ 'button-disabled': form.invalid }"
+      >
+        Create Crew
+      </button>
+    </div>
+  </form>
 </div>

@@ -43,7 +43,7 @@
         'create-crew': isLoggedIn()
       }"
       [disabled]="!isLoggedIn()"
-      routerLink="/create-crew"
+      (click)="createCrew()"
     >
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>

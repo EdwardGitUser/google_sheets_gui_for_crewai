@@ -53,6 +53,14 @@ export class MainPageComponent implements OnInit {
   }
 
   viewAgents(crewId: number) {
-    this.router.navigate([`/crew/${crewId}/agents`]);
+    if (window.confirm('Are you sure you want to view agents for this crew?')) {
+      this.router.navigate([`/crew/${crewId}/agents`]);
+    }
+  }
+
+  createCrew() {
+    if (window.confirm('Are you sure you want to create a new crew?')) {
+      this.router.navigate(['/create-crew']);
+    }
   }
 }

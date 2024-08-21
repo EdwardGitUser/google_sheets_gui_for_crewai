@@ -6,7 +6,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AgentsComponent } from './main-page/agents/agents.component';
 import { CreateCrewComponent } from './main-page/crew/create-crew/create-crew.component';
-
+import { CreateAgentComponent } from './main-page/agents/create-agent/create-agent.component';
 export const routes: Routes = [
   {
     path: '',
@@ -20,7 +20,11 @@ export const routes: Routes = [
   },
   {
     path: 'create-crew',
-    component: CreateCrewComponent, // Add this route
+    component: CreateCrewComponent,
+  },
+  {
+    path: 'create-agent',
+    component: CreateAgentComponent, // Moved to the same level as CreateCrewComponent
   },
   {
     path: 'login',

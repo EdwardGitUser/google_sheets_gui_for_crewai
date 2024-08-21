@@ -1,5 +1,10 @@
 export interface Agent {
   id: number;
-  name: string;
   crewId: number;
+  name: string;
+  role: string;
+  goal: string;
+  backstory: string;
+  verbose: boolean; //default faulse
+  tool: string;
 }

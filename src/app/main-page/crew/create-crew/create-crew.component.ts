@@ -1,32 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CrewService } from '../crew.service';
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { NgClass, NgIf } from '@angular/common';
+import { Location } from '@angular/common'; // Import Location service
 
 @Component({
   selector: 'app-create-crew',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf, NgClass, ReactiveFormsModule],
   templateUrl: './create-crew.component.html',
-  styleUrl: './create-crew.component.css',
+  styleUrls: ['./create-crew.component.css'],
 })
 export class CreateCrewComponent {
-  crewName: string = '';
+  form: FormGroup;
 
   constructor(
-    private crewService: CrewService,
+    private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private crewService: CrewService,
+    private router: Router,
+    private location: Location // Inject Location service
+  ) {
+    this.form = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      process: ['sequential', Validators.required],
+    });
+  }
 
-  createCrew() {
-    if (this.authService.currentUser) {
+  get name() {
+    return this.form.get('name');
+  }
+
+  onSubmit() {
+    if (this.form.valid && this.authService.currentUser) {
       this.crewService.createCrew(
-        this.crewName,
-        this.authService.currentUser.id
+        this.form.value.name,
+        this.authService.currentUser.id,
+        this.form.value.process
       );
       this.router.navigate(['/']);
     }
+  }
+
+  goBack() {
+    this.location.back(); // Navigate back using Location service
   }
 }
