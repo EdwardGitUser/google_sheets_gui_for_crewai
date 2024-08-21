@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -40,7 +41,7 @@ export class SignupComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  //validators
+  //validator
   passwordMatchValidator(control: AbstractControl) {
     let password = control.get('password')?.value;
     let confirmPassword = control.get('confirmPassword')?.value;
@@ -84,7 +85,6 @@ export class SignupComponent {
     );
   }
 
-  //Submission Form
   onSubmit() {
     if (this.form.valid) {
       const username = this.form.get('username')!.value!;

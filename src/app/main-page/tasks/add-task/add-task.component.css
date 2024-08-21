@@ -7,15 +7,23 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Darker background for better contrast */
   z-index: 1000;
 }
-
+i {
+  font-size: 1.5em;
+  padding-left: 0.85em;
+}
 .modal-content {
-  background-color: #fff;
+  background-color: #f9f9f9; /* Softer background color */
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
   max-width: 500px;
   width: 100%;
   position: relative;
@@ -30,6 +38,7 @@
 
 .modal-header h2 {
   font-size: 24px;
+  color: #131a25; /* Primary color */
   margin: 0;
 }
 
@@ -37,27 +46,42 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: #333;
+  color: #131a25; /* Primary color */
   cursor: pointer;
   transition: color 0.3s ease;
   margin-left: auto; /* Ensure it's aligned to the right */
+}
+
+.modal-header .close-btn:hover {
+  color: #ff5a5f; /* Slight hover effect for the close button */
 }
 
 .modal-content label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #333;
 }
 
 .modal-content input,
 .modal-content textarea,
 .modal-content select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  border-color: #131a25; /* Primary color on focus */
+  box-shadow: 0 0 5px rgba(19, 26, 37, 0.3);
+  outline: none;
 }
 
 .modal-content textarea {
@@ -66,36 +90,38 @@
 }
 
 .modal-content button[type="submit"] {
-  padding: 10px 20px;
-  background-color: #007bff;
+  padding: 12px 20px;
+  background-color: #28a745; /* Consistent with previous form buttons */
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .modal-content button[type="submit"]:disabled {
-  background-color: #ccc;
+  background-color: #b2b2b2; /* Softer disabled color */
   cursor: not-allowed;
 }
 
 .modal-content button[type="submit"]:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px);
 }
 
 .modal-content button[type="button"] {
-  padding: 10px 20px;
+  padding: 12px 20px;
   background-color: #6c757d;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .modal-content button[type="button"]:hover {
-  background-color: #5a6268;
+  background-color: #5a6268; /* Darker gray on hover */
+  transform: translateY(-2px);
 }
 
 .button-group {
@@ -106,33 +132,9 @@
 
 button[type="submit"],
 button[type="button"] {
-  padding: 10px 20px;
   font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
-}
-
-button[type="submit"]:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-button[type="submit"]:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-button[type="button"] {
-  background-color: #6c757d;
-  color: #fff;
-}
-
-button[type="button"]:hover {
-  background-color: #5a6268;
+small {
+  color: red;
 }

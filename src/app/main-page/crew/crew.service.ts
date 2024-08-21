@@ -5,11 +5,7 @@ import { Crew } from './crew.model';
   providedIn: 'root',
 })
 export class CrewService {
-  private crews: Crew[] = [
-    { id: 1, name: 'Alpha Team', userId: 108311, process: 'sequential' },
-    { id: 2, name: 'Bravo Squad', userId: 457762, process: 'hierarchical' },
-    { id: 3, name: 'Charlie Unit', userId: 108311, process: 'sequential' },
-  ];
+  private crews: Crew[] = [];
 
   constructor() {
     // Load crews from localStorage if they exist
@@ -17,7 +13,7 @@ export class CrewService {
     if (storedCrews) {
       this.crews = JSON.parse(storedCrews);
     } else {
-      this.saveCrewsToLocalStorage(); // Save initial dummy data
+      this.saveCrewsToLocalStorage(); // Save an empty array to local storage
     }
   }
 
@@ -46,6 +42,12 @@ export class CrewService {
     this.crews.push(newCrew);
     this.saveCrewsToLocalStorage();
     return newCrew;
+  }
+
+  // Delete a crew by ID
+  deleteCrew(crewId: number): void {
+    this.crews = this.crews.filter((crew) => crew.id !== crewId);
+    this.saveCrewsToLocalStorage();
   }
 
   // Save crews to localStorage

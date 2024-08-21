@@ -136,10 +136,26 @@ export class TableAgentsComponent implements OnInit {
       // Display validation errors below the table
     }
   }
-
   deleteAgent(agentId: number) {
-    // Remove the agent from the tempAgents list
-    this.tempAgents = this.tempAgents.filter((agent) => agent.id !== agentId);
+    // Confirm the deletion with the user
+    if (
+      window.confirm(
+        'Are you sure you want to delete this agent? This action cannot be undone.'
+      )
+    ) {
+      // Remove the agent from the tempAgents list
+      this.tempAgents = this.tempAgents.filter((agent) => agent.id !== agentId);
+
+      // Automatically save the updated list of agents
+      if (this.validateAgents()) {
+        this.agents = JSON.parse(JSON.stringify(this.tempAgents)); // Copy tempAgents back to the original agents array
+        this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
+        console.log('Agents updated after deletion:', this.agents);
+      } else {
+        console.log('Validation Errors:', this.validationErrors);
+        // Optionally, display validation errors
+      }
+    }
   }
 
   navigateToAddAgent() {

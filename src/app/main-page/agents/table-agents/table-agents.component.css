@@ -13,7 +13,7 @@
   border: 1px solid #ddd; /* Add border to show column lines */
   text-align: left;
   vertical-align: middle;
-  height: 3.125em; /* 50px -> 3.125em */
+  height: 3.2em; /* 50px -> 3.125em */
 }
 .agents-table th {
   background-color: #161d2a; /* Primary color */
@@ -95,7 +95,7 @@
   margin-top: 10px; /* Smaller margin */
   display: flex;
   gap: 10px; /* Smaller gap */
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 /* Button Styles */
@@ -111,7 +111,6 @@ button {
 }
 
 button:hover {
-  background-color: #0f141d;
   transform: translateY(-2px); /* Smaller transform */
 }
 
@@ -129,6 +128,7 @@ button:disabled {
 }
 
 .save-btn {
+  background-color: #28a745;
   font-size: 1.125em;
 }
 
@@ -169,4 +169,11 @@ button:disabled {
 
 .validation-errors li {
   margin-bottom: 5px; /* Smaller margin */
+}
+.agents-table td select {
+  padding: 0.5em; /* Adjust this value if needed */
+  margin: 0; /* Ensure no unnecessary margin is applied */
+}
+.agents-table td {
+  overflow: visible; /* Ensure dropdowns are not clipped */
 }

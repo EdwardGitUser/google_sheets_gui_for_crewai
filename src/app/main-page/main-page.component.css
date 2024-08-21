@@ -64,7 +64,9 @@ button.create-crew {
 button:hover:not(.not-logged-in) {
   transform: scale(1.05);
 }
-
+.delete-crew {
+  padding-left: 10em;
+}
 .crew-list {
   margin-top: 5px;
   padding: 10px;
@@ -73,7 +75,6 @@ button:hover:not(.not-logged-in) {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
 .crew-list ul {
   margin: 0;
   padding: 0;
@@ -81,6 +82,9 @@ button:hover:not(.not-logged-in) {
 }
 
 .crew-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 8px 12px;
   background-color: #f4f4f4;
   margin-bottom: 8px;
@@ -91,6 +95,10 @@ button:hover:not(.not-logged-in) {
 
 .crew-list li:hover {
   background-color: #e0e0e0;
+}
+
+.crew-list li i {
+  color: #555;
 }
 
 .crew-list p {
@@ -132,4 +140,10 @@ button:hover:not(.not-logged-in) {
   color: #202124;
   font-weight: bold;
   border-bottom: 2px solid #ffffff; /* Ensures tab appears raised */
+}
+.kickoff-btn {
+  margin-top: 15em;
+  background-color: #161d2a;
+  border-color: #555;
+  color: #ffffff;
 }

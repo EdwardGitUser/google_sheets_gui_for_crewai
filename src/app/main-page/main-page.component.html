@@ -1,8 +1,9 @@
 <div class="main-container">
-  <h1>Google Sheet Gui for crewAI</h1>
+  <h1>Simple Google Sheet Gui for crewAI</h1>
 
   <!-- Conditionally display the username if the user is logged in -->
   <p *ngIf="isLoggedIn(); else notLoggedIn">{{ username }}</p>
+
   <ng-template #notLoggedIn>
     <p>You are not logged in.</p>
   </ng-template>
@@ -28,7 +29,8 @@
       <div *ngIf="hovered && isLoggedIn()" class="crew-list">
         <ul *ngIf="crews.length > 0; else noCrews">
           <li *ngFor="let crew of crews" (click)="viewAgents(crew.id)">
-            {{ crew.name }}
+            <span class="crew-name">{{ crew.name }}</span>
+            <i class="fas fa-arrow-right"></i>
           </li>
         </ul>
         <ng-template #noCrews>
@@ -47,7 +49,13 @@
     >
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>
+
+    <!-- Delete Crew Button, only visible when a crew is selected -->
+    <button *ngIf="crewId !== null" class="delete-crew" (click)="deleteCrew()">
+      <i class="fas fa-trash-alt"></i> Delete Crew
+    </button>
   </div>
+
   <div class="main-page-container" *ngIf="crewId">
     <div class="navigation-tabs">
       <a [routerLink]="['/crew', crewId, 'agents']" routerLinkActive="active"
@@ -59,4 +67,6 @@
     </div>
     <router-outlet></router-outlet>
   </div>
+  <!-- Kickoff button, only enabled if conditions are met -->
+  <button (click)="navigateToKickoff()" class="kickoff-btn">Kickoff</button>
 </div>

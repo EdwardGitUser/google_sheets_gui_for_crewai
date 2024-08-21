@@ -55,6 +55,10 @@ export class AgentsService {
     // Save to local storage
     this.saveAgentsToLocalStorage();
   }
+  // Retrieve all agents
+  getAgents(): Agent[] {
+    return this.agents;
+  }
   // Initial dummy agents for testing
   private getInitialAgents(): Agent[] {
     return [

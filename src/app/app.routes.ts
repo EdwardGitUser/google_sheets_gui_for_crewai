@@ -9,6 +9,7 @@ import { CreateCrewComponent } from './main-page/crew/create-crew/create-crew.co
 import { CreateAgentComponent } from './main-page/agents/create-agent/create-agent.component';
 import { TasksComponent } from './main-page/tasks/tasks.component';
 import { AddTaskComponent } from './main-page/tasks/add-task/add-task.component';
+import { KickoffComponent } from './kickoff/kickoff.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +47,10 @@ export const routes: Routes = [
     path: 'signup',
     component: SignupComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'kickoff', // New route for KickoffComponent
+    component: KickoffComponent,
   },
   {
     path: '**',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from './auth.service'; // Adjust the path based on your structure
+import { AuthService } from './auth.service'; 
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.currentUser) {
-      this.router.navigate(['/']); // Redirect to home if already logged in
+      this.router.navigate(['/']); 
       return false;
     }
     return true;

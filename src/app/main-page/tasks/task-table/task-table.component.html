@@ -1,0 +1,66 @@
+<div class="tasks-table-container">
+  <!-- Check if there are tasks to display -->
+  <table *ngIf="tempTasks.length > 0" class="tasks-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Expected Output</th>
+        <th>Assigned Agent ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tempTasks">
+        <td>{{ task.id }}</td>
+        <td>
+          <input [(ngModel)]="task.title" (ngModelChange)="onInputChange()" />
+        </td>
+        <td>
+          <textarea
+            [(ngModel)]="task.description"
+            (ngModelChange)="onInputChange()"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            [(ngModel)]="task.expected_output"
+            (ngModelChange)="onInputChange()"
+          ></textarea>
+        </td>
+        <td>
+          <select [(ngModel)]="task.agentId" (ngModelChange)="onInputChange()">
+            <option *ngFor="let agent of agents" [value]="agent.id">
+              {{ agent.name }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <button (click)="deleteTask(task.id)">❌</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Display a message if no tasks are available -->
+  <div *ngIf="tempTasks.length === 0">
+    <p>No tasks available.</p>
+  </div>
+
+  <!-- Display validation errors -->
+  <div *ngIf="validationErrors.length > 0" class="validation-errors">
+    <ul>
+      <li *ngFor="let error of validationErrors">{{ error }}</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Buttons to add and save tasks -->
+<div class="buttons-container">
+  <button class="add-task-btn" (click)="navigateToAddTask()">Add Task</button>
+  @if(tempTasks.length > 0){
+  <button class="save-task-btn" (click)="saveTasks()">Update Tasks</button>
+
+  }
+</div>

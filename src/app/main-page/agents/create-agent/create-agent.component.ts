@@ -72,18 +72,25 @@ export class CreateAgentComponent implements OnInit {
         ],
       ],
       verbose: [false],
-      tool: ['some_tool1', [Validators.required]],
+      tool: ['', Validators.required],
     });
   }
 
   onSubmit(): void {
     if (this.agentForm.valid) {
+      console.log('Tool selected:', this.agentForm.value.tool);
+      console.log('this.crewId,', this.crewId);
+      console.log('this.crewId,', this.agentForm.value.name);
+      console.log('this.crewId,', this.agentForm.value.name);
+      console.log('this.crewId,', this.agentForm.value.backstory);
+      console.log('this.crewId,', this.agentForm.value.verbose);
+
       const newAgent = this.agentsService.addAgent({
         id: Math.floor(Math.random() * 1000000),
         crewId: this.crewId,
         name: this.agentForm.value.name,
         role: this.agentForm.value.role,
-        goal: this.agentForm.value.goal,
+        goal: this.agentForm.value.name,
         backstory: this.agentForm.value.backstory,
         verbose: this.agentForm.value.verbose,
         tool: this.agentForm.value.tool,
