@@ -54,7 +54,7 @@
     >
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>
-
+    <button (click)="navigateToKickoff()" class="kickoff-btn">Kickoff</button>
     @if(crewId !== null){
     <button class="delete-crew" (click)="deleteCrew()">
       <i class="fas fa-trash-alt"></i> Delete Crew
@@ -75,6 +75,4 @@
     <router-outlet></router-outlet>
   </div>
   }
-
-  <button (click)="navigateToKickoff()" class="kickoff-btn">Kickoff</button>
 </div>

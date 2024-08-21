@@ -143,7 +143,6 @@ button:hover:not(.not-logged-in) {
 }
 
 .kickoff-btn {
-  margin-top: 15em;
   background-color: #161d2a;
   border-color: #555;
   color: #ffffff;
@@ -183,7 +182,6 @@ button:hover:not(.not-logged-in) {
   }
 
   .kickoff-btn {
-    margin-top: 10em;
     font-size: 1.2em;
   }
 }
