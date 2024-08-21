@@ -10,32 +10,28 @@
       <div>
         <label for="title">Title:</label>
         <input id="title" formControlName="title" />
-        <div
-          *ngIf="
-            taskForm.get('title')?.invalid && taskForm.get('title')?.touched
-          "
-        >
+        @if(taskForm.get('title')?.invalid && taskForm.get('title')?.touched){
+        <div>
           <small
             >Title is required, must be at least 3 characters long, and no more
             than 200 characters.</small
           >
         </div>
+        }
       </div>
 
       <div>
         <label for="description">Description:</label>
         <textarea id="description" formControlName="description"></textarea>
-        <div
-          *ngIf="
-            taskForm.get('description')?.invalid &&
-            taskForm.get('description')?.touched
-          "
-        >
+        @if(taskForm.get('description')?.invalid &&
+        taskForm.get('description')?.touched){
+        <div>
           <small
             >Description is required, must contain letters, be at least 10
             characters long, and no more than 200 characters.</small
           >
         </div>
+        }
       </div>
 
       <div>
@@ -44,34 +40,33 @@
           id="expected_output"
           formControlName="expected_output"
         ></textarea>
-        <div
-          *ngIf="
-            taskForm.get('expected_output')?.invalid &&
-            taskForm.get('expected_output')?.touched
-          "
-        >
+        @if( taskForm.get('expected_output')?.invalid &&
+        taskForm.get('expected_output')?.touched){
+        <div>
           <small
             >Expected Output is required, must contain letters, be at least 10
             characters long, and no more than 200 characters.</small
           >
         </div>
+        }
       </div>
 
       <div>
         <label for="agentId">Assign to Agent:</label>
         <select id="agentId" formControlName="agentId">
           <option value="" disabled>Select an agent</option>
-          <option *ngFor="let agent of agents" [value]="agent.id">
+          @for(agent of agents; track agent.id){
+          <option [value]="agent.id">
             {{ agent.name }}
           </option>
+          }
         </select>
-        <div
-          *ngIf="
-            taskForm.get('agentId')?.invalid && taskForm.get('agentId')?.touched
-          "
-        >
+        @if( taskForm.get('agentId')?.invalid &&
+        taskForm.get('agentId')?.touched){
+        <div>
           <small>Please select an agent.</small>
         </div>
+        }
       </div>
 
       <div class="button-group">

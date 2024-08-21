@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Agent } from '../agents.model';
-import { NgFor, NgIf } from '@angular/common';
+
 import { AgentsService } from '../agents.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule, ValidatorFn, FormControl } from '@angular/forms';
@@ -14,15 +14,15 @@ import {
 @Component({
   selector: 'app-table-agents',
   standalone: true,
-  imports: [NgFor, NgIf, RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './table-agents.component.html',
   styleUrls: ['./table-agents.component.css'],
 })
 export class TableAgentsComponent implements OnInit {
   agents: Agent[] = [];
-  tempAgents: Agent[] = []; // Temporary array to hold editable agents
+  tempAgents: Agent[] = [];
   crewId: number | null = null;
-  validationErrors: string[] = []; // To store validation errors
+  validationErrors: string[] = [];
 
   constructor(
     private agentsService: AgentsService,
@@ -35,12 +35,10 @@ export class TableAgentsComponent implements OnInit {
       this.crewId = +params['id'];
       this.loadAgents();
 
-      // Run validation on component load
       if (this.agents.length > 0) {
         this.validateAgents();
         if (this.validationErrors.length > 0) {
           console.log('Validation Errors on Load:', this.validationErrors);
-          // Optionally, display the validation errors immediately
         }
       } else {
         this.validationErrors.length = 0;
@@ -51,13 +49,8 @@ export class TableAgentsComponent implements OnInit {
   loadAgents() {
     if (this.crewId !== null) {
       this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-      this.tempAgents = JSON.parse(JSON.stringify(this.agents)); // Create a deep copy of the agents array
+      this.tempAgents = JSON.parse(JSON.stringify(this.agents));
     }
-  }
-
-  onInputChange() {
-    // Changes only update tempAgents, not the original agents array
-    console.log('Temporary Agents Updated:', this.tempAgents);
   }
 
   validateAgents(): boolean {
@@ -127,33 +120,28 @@ export class TableAgentsComponent implements OnInit {
     if (this.validateAgents()) {
       const confirmSave = window.confirm('Do you want to save the changes?');
       if (confirmSave) {
-        this.agents = JSON.parse(JSON.stringify(this.tempAgents)); // Copy tempAgents back to the original agents array
+        this.agents = JSON.parse(JSON.stringify(this.tempAgents));
         this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
         console.log('Agents saved:', this.agents);
       }
     } else {
       console.log('Validation Errors:', this.validationErrors);
-      // Display validation errors below the table
     }
   }
   deleteAgent(agentId: number) {
-    // Confirm the deletion with the user
     if (
       window.confirm(
         'Are you sure you want to delete this agent? This action cannot be undone.'
       )
     ) {
-      // Remove the agent from the tempAgents list
       this.tempAgents = this.tempAgents.filter((agent) => agent.id !== agentId);
 
-      // Automatically save the updated list of agents
       if (this.validateAgents()) {
-        this.agents = JSON.parse(JSON.stringify(this.tempAgents)); // Copy tempAgents back to the original agents array
+        this.agents = JSON.parse(JSON.stringify(this.tempAgents));
         this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
         console.log('Agents updated after deletion:', this.agents);
       } else {
         console.log('Validation Errors:', this.validationErrors);
-        // Optionally, display validation errors
       }
     }
   }

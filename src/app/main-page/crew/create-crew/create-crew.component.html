@@ -5,11 +5,13 @@
     <div class="form-group">
       <label for="name">Crew Name</label>
       <input id="name" formControlName="name" />
-      <div *ngIf="name?.invalid && name?.touched" class="error">
+      @if(name?.invalid && name?.touched){
+      <div class="error">
         <small>
           Crew name is required and must be at least 3 characters long.
         </small>
       </div>
+      }
     </div>
 
     <div class="form-group">
@@ -21,12 +23,12 @@
     </div>
 
     <div class="button-group">
-      <!-- Back Button on the Left -->
+    
       <button type="button" class="back-btn" (click)="goBack()">
         <i class="fas fa-arrow-left"></i> Back
       </button>
 
-      <!-- Submit Button on the Right -->
+ 
       <button
         type="submit"
         [disabled]="form.invalid"

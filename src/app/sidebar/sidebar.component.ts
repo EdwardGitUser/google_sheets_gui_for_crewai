@@ -20,7 +20,7 @@ export class SidebarComponent {
 
   logout() {
     this.authService.logout();
-    // Redirect to the root path after logging out
+
     this.router.navigate(['login']);
   }
 }

@@ -21,7 +21,7 @@ export const routes: Routes = [
         component: AgentsComponent,
       },
       {
-        path: 'crew/:id/agents/add', // New route for adding an agent
+        path: 'crew/:id/agents/add', 
         component: CreateAgentComponent,
       },
       {
@@ -49,7 +49,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'kickoff', // New route for KickoffComponent
+    path: 'kickoff', 
     component: KickoffComponent,
   },
   {

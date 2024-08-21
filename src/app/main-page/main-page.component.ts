@@ -2,15 +2,13 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CrewService } from './crew/crew.service';
 import { Crew } from './crew/crew.model';
 import { AuthService } from '../auth/auth.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { TasksService } from './tasks/tasks.service';
-import { AgentsService } from './agents/agents.service';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NgIf, NgFor, RouterOutlet, NgClass, RouterModule],
+  imports: [RouterOutlet, NgClass, RouterModule],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
@@ -18,12 +16,11 @@ export class MainPageComponent implements OnInit {
   crews: Crew[] = [];
   hovered = false;
   crewId: number | null = null;
-
+  selectedCrewName: string | null = null;
   constructor(
     private router: Router,
     private crewService: CrewService,
-    private agentsService: AgentsService,
-    private tasksService: TasksService,
+
     private authService: AuthService
   ) {}
   ngOnInit() {
@@ -61,8 +58,11 @@ export class MainPageComponent implements OnInit {
   }
 
   viewAgents(crewId: number) {
+    const selectedCrew = this.crews.find((crew) => crew.id === crewId);
+    this.selectedCrewName = selectedCrew ? selectedCrew.name : null; 
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
-      this.crewId = crewId; // Store the selected crew ID
+      this.crewId = crewId;
+
       this.router.navigate([`/crew/${crewId}/agents`]);
     }
   }
@@ -79,9 +79,10 @@ export class MainPageComponent implements OnInit {
       window.confirm('Are you sure you want to delete this crew?')
     ) {
       this.crewService.deleteCrew(this.crewId);
-      this.crewId = null; // Reset the selected crew ID
-      this.router.navigate(['/']); // Redirect back to the main page
-      this.loadCrews(); // Reload the crew list
+      this.crewId = null;
+      this.selectedCrewName = null;
+      this.router.navigate(['/']);
+      this.loadCrews();
     }
   }
 }

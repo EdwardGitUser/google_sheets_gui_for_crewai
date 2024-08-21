@@ -1,4 +1,5 @@
-<div class="agents-table-container" *ngIf="agents.length > 0; else noAgents">
+@if(agents.length > 0){
+<div class="agents-table-container">
   <table class="agents-table">
     <thead>
       <tr>
@@ -13,40 +14,27 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let agent of tempAgents; let i = index">
+      @for(agent of tempAgents; track $index){
+      <tr>
         <td class="id">{{ agent.id }}</td>
         <td>
-          <input
-            type="text"
-            [(ngModel)]="agent.name"
-            (input)="onInputChange()"
-          />
+          <input type="text" [(ngModel)]="agent.name" />
         </td>
         <td>
           <textarea
             class="backstory"
             [(ngModel)]="agent.backstory"
-            (input)="onInputChange()"
             rows="3"
           ></textarea>
         </td>
         <td>
-          <input
-            class="role"
-            type="text"
-            [(ngModel)]="agent.role"
-            (input)="onInputChange()"
-          />
+          <input class="role" type="text" [(ngModel)]="agent.role" />
         </td>
         <td>
-          <textarea
-            [(ngModel)]="agent.goal"
-            (input)="onInputChange()"
-            rows="1"
-          ></textarea>
+          <textarea [(ngModel)]="agent.goal" rows="1"></textarea>
         </td>
         <td>
-          <select [(ngModel)]="agent.tool" (change)="onInputChange()">
+          <select [(ngModel)]="agent.tool">
             <option value="crewAI Tool 1">crewAI Tool 1</option>
             <option value="crewAI Tool 2">crewAI Tool 2</option>
             <option value="crewAI Tool 3">crewAI Tool 3</option>
@@ -55,7 +43,7 @@
           </select>
         </td>
         <td>
-          <select [(ngModel)]="agent.verbose" (change)="onInputChange()">
+          <select [(ngModel)]="agent.verbose">
             <option [value]="true">True</option>
             <option [value]="false">False</option>
           </select>
@@ -64,28 +52,32 @@
           <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button>
         </td>
       </tr>
+      }
     </tbody>
   </table>
 </div>
+}@else{
+<p>No agents available.</p>
+}
 
 <div class="buttons-container">
   <button class="add-agent-btn" (click)="navigateToAddAgent()">
     Add Agent
   </button>
-  <button *ngIf="agents.length > 0" class="save-btn" (click)="saveAgents()">
-    Update Crew
-  </button>
-</div>
 
-<div
-  *ngIf="validationErrors.length > 0 && agents.length > 0"
-  class="validation-errors"
->
+  @if(agents.length > 0){
+  <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+  }
+</div>
+@if(validationErrors.length > 0 && agents.length > 0){
+<div class="validation-errors">
   <h4>Validation Errors:</h4>
   <ul>
-    <li *ngFor="let error of validationErrors">{{ error }}</li>
+    @for(error of validationErrors; track $index){
+
+    <li>{{ error }}</li>
+    }
   </ul>
 </div>
-<ng-template #noAgents>
-  <p>No agents available.</p>
-</ng-template>
+
+}

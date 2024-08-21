@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { NgClass, NgIf, Location } from '@angular/common';
+import { NgClass, Location } from '@angular/common';
 import { lettersOnlyValidator, lettersRequiredValidator } from '../validators';
 import { AgentsService } from '../agents.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-create-agent',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass, FormsModule],
+  imports: [ReactiveFormsModule, NgClass, FormsModule],
   templateUrl: './create-agent.component.html',
   styleUrls: ['./create-agent.component.css'],
 })
@@ -31,8 +31,9 @@ export class CreateAgentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //анугляр сам відписується тут
     this.route.params.subscribe((params) => {
-      this.crewId = +params['id']; // Retrieve crewId from params
+      this.crewId = +params['id'];
     });
 
     this.agentForm = this.fb.group({
@@ -98,7 +99,7 @@ export class CreateAgentComponent implements OnInit {
 
       console.log('Agent created:', newAgent);
 
-      this.navigateToAgents(); // Navigate to the agents list after creation
+      this.navigateToAgents();
     }
   }
 

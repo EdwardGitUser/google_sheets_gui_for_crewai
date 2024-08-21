@@ -9,13 +9,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgClass, NgIf } from '@angular/common';
-import { Location } from '@angular/common'; // Import Location service
+import { NgClass } from '@angular/common';
+import { Location } from '@angular/common'; 
 
 @Component({
   selector: 'app-create-crew',
   standalone: true,
-  imports: [FormsModule, NgIf, NgClass, ReactiveFormsModule],
+  imports: [FormsModule, NgClass, ReactiveFormsModule],
   templateUrl: './create-crew.component.html',
   styleUrls: ['./create-crew.component.css'],
 })
@@ -27,7 +27,7 @@ export class CreateCrewComponent {
     private authService: AuthService,
     private crewService: CrewService,
     private router: Router,
-    private location: Location // Inject Location service
+    private location: Location
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -51,6 +51,6 @@ export class CreateCrewComponent {
   }
 
   goBack() {
-    this.location.back(); // Navigate back using Location service
+    this.location.back(); 
   }
 }

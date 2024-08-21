@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf, NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+
 import { TableAgentsComponent } from './table-agents/table-agents.component';
 
 @Component({

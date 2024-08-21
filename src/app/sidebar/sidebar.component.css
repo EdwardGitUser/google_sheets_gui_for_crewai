@@ -7,7 +7,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 3.8em; /* Approximately 60px */
+  width: 3.8em;
   height: 100vh;
   background-color: #131a25;
   color: #fff;
@@ -16,15 +16,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Slight shadow to the right */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   padding: 1em;
 }
 
 .logo {
   width: 100%;
   text-align: center;
-  padding: 1.3em 0; /* Approximately 20px */
-  font-size: 1.9em; /* Approximately 30px */
+  padding: 1.3em 0;
+  font-size: 1.9em;
   color: #fff;
   display: flex;
   align-items: center;
@@ -34,25 +34,25 @@
 .divider {
   width: 100%;
   border: none;
-  border-top: 1px solid #444; /* 1px for the divider */
-  margin: 0.6em 0; /* Approximately 10px */
+  border-top: 1px solid #444;
+  margin: 0.6em 0;
 }
 
 .menu {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1em; /* Space between menu items */
+  gap: 1em;
 }
 
 .menu-item {
   width: 100%;
-  padding: 1em 1.2em; /* Soft padding */
+  padding: 1em 1.2em;
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s ease, font-weight 0.3s ease;
-  border-radius: 10px; /* Rounded corners for menu items */
+  border-radius: 10px;
 }
 
 .home {
@@ -65,83 +65,104 @@
 }
 
 .menu-icon {
-  font-size: 1.4em; /* Approximately 22px */
-  margin-right: 1em; /* Approximately 15px */
+  font-size: 1.4em;
+  margin-right: 1em;
   transition: margin 0.3s ease;
 }
 
 .menu-text {
-  font-size: 1.3em; /* Approximately 20px */
+  font-size: 1.3em;
   opacity: 0;
   white-space: nowrap;
   transition: opacity 0.3s ease;
 }
 
 .sidebar:hover {
-  width: 12.5em; /* Approximately 200px */
+  width: 12.5em;
 }
 
 .sidebar:hover .menu-text {
-  opacity: 1; /* Show text on hover */
+  opacity: 1;
 }
 
 .sidebar:hover .menu-icon {
-  margin-right: 1em; /* Maintain space for text on hover */
+  margin-right: 1em;
 }
 
 .logout {
-  margin-top: auto; /* Push the logout item to the bottom */
+  margin-top: auto;
   margin-bottom: 5em;
 }
 
 .logout-item {
-  border-top: 1px solid #444; /* Optional: Add a border at the top */
-  padding-top: 1em; /* Optional: Add some padding to separate it */
+  border-top: 1px solid #444;
+  padding-top: 1em;
 }
 
-/* Responsive Styles */
 @media (max-width: 1100px) {
   .sidebar {
-    width: 3em; /* Smaller sidebar on tablets and small screens */
+    width: 3em;
   }
 
   .sidebar:hover {
-    width: 3em; /* Prevent expansion on hover */
+    width: 3em;
   }
 
   .menu-icon {
-    font-size: 1.2em; /* Slightly smaller icons */
-    margin-right: 0.8em; /* Adjust margin */
+    font-size: 1.2em;
+    margin-right: 0.8em;
   }
 
   .menu-text {
-    display: none; /* Hide text on smaller screens */
+    display: none;
   }
+
   .logout {
-    margin-top: auto; /* Push the logout item to the bottom */
+    margin-top: auto;
     margin-bottom: 10em;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 2.8em;
+  }
+
+  .sidebar:hover {
+    width: 2.8em;
+  }
+
+  .menu-icon {
+    font-size: 1.1em;
+    margin-right: 0.6em;
+  }
+
+  .logout {
+    margin-top: auto;
+    margin-bottom: 8em;
   }
 }
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 2.5em; /* Even smaller sidebar on very small screens */
+    width: 2.5em;
   }
 
   .sidebar:hover {
-    width: 2.5em; /* Prevent expansion on hover */
+    width: 2.5em;
   }
 
   .menu-icon {
-    font-size: 1em; /* Smaller icons */
-    margin-right: 0.5em; /* Adjust margin */
+    font-size: 1em;
+    margin-right: 0.5em;
   }
 
   .menu-text {
-    display: none; /* Hide text on very small screens */
+    display: none;
   }
+
   .logout {
-    margin-top: auto; /* Push the logout item to the bottom */
+    margin-top: auto;
     margin-bottom: 10em;
   }
 }

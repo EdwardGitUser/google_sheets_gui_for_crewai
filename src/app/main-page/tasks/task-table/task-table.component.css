@@ -14,7 +14,7 @@
   border: 1px solid #ddd;
   padding: 0.75em;
   text-align: left;
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  transition: background-color 0.3s ease;
 }
 
 .tasks-table th {
@@ -23,7 +23,7 @@
 }
 
 .tasks-table td:hover {
-  background-color: #f0f0f0; /* Slight hover effect on cells */
+  background-color: #f0f0f0;
 }
 
 .tasks-table input,
@@ -35,13 +35,13 @@
   font-size: 1em;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: transparent; /* Ensure the background is transparent */
+  background-color: transparent;
 }
 
 .tasks-table input:focus,
 .tasks-table textarea:focus,
 .tasks-table select:focus {
-  outline: none; /* Remove the default outline on focus */
+  outline: none;
 }
 
 .tasks-table input {
@@ -100,4 +100,48 @@
 
 .validation-errors li {
   margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .tasks-table {
+    font-size: 1.2em;
+  }
+
+  .tasks-table th,
+  .tasks-table td {
+    padding: 0.5em;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-task-btn,
+  .add-task-btn {
+    padding: 0.75em 1.25em;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .tasks-table {
+    font-size: 1em;
+  }
+
+  .tasks-table th,
+  .tasks-table td {
+    padding: 0.5em;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .save-task-btn,
+  .add-task-btn {
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+  }
 }

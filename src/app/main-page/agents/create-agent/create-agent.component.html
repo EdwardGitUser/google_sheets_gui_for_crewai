@@ -6,60 +6,57 @@
     <div class="form-group">
       <label for="name">Name</label>
       <input id="name" type="text" formControlName="name" />
-      <div
-        *ngIf="agentForm.get('name')?.invalid && agentForm.get('name')?.touched"
-        class="error"
-      >
+
+      @if(agentForm.get('name')?.invalid && agentForm.get('name')?.touched){
+      <div class="error">
         <small
           >Name is required and must be at least 3 characters long and no more
           than 200 characters.</small
         >
       </div>
+      }
     </div>
 
     <div class="form-group">
       <label for="role">Role</label>
       <input id="role" type="text" formControlName="role" />
-      <div
-        *ngIf="agentForm.get('role')?.invalid && agentForm.get('role')?.touched"
-        class="error"
-      >
+      @if(agentForm.get('role')?.invalid && agentForm.get('role')?.touched){
+      <div class="error">
         <small
           >Role is required, must be at least 3 characters long, must contain
           only letters, and no more than 200 characters.</small
         >
       </div>
+      }
     </div>
 
     <div class="form-group">
       <label for="goal">Goal</label>
       <input id="goal" type="text" formControlName="goal" />
-      <div
-        *ngIf="agentForm.get('goal')?.invalid && agentForm.get('goal')?.touched"
-        class="error"
-      >
+      @if(agentForm.get('goal')?.invalid && agentForm.get('goal')?.touched){
+
+      <div class="error">
         <small
           >Goal is required, must be at least 5 characters long, must contain
           letters, and no more than 200 characters.</small
         >
       </div>
+      }
     </div>
 
     <div class="form-group">
       <label for="backstory">Backstory</label>
       <textarea id="backstory" formControlName="backstory"></textarea>
-      <div
-        *ngIf="
-          agentForm.get('backstory')?.invalid &&
-          agentForm.get('backstory')?.touched
-        "
-        class="error"
-      >
+      @if(agentForm.get('backstory')?.invalid &&
+      agentForm.get('backstory')?.touched){
+
+      <div class="error">
         <small
           >Backstory is required, must be at least 10 characters long, must
           contain letters, and no more than 200 characters.</small
         >
       </div>
+      }
     </div>
 
     <div class="form-group">

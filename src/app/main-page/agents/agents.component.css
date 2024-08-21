@@ -1,23 +1,23 @@
 .add-agent-btn {
-  background-color: #28a745; /* Green color to indicate an action */
-  color: #fff; /* White text color */
-  padding: 0.75em 1.5em; /* Padding for a nice button size */
-  font-size: 1em; /* Font size */
-  border: none; /* Remove default border */
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
-  display: inline-flex; /* Center content */
-  align-items: center; /* Align text and icon vertically */
-  gap: 0.5em; /* Space between text and icon (if added) */
+  background-color: #28a745;
+  color: #fff;
+  padding: 0.75em 1.5em;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .add-agent-btn:hover {
-  background-color: #218838; /* Darker green on hover */
-  transform: translateY(-2px); /* Slight lift on hover */
+  background-color: #218838;
+  transform: translateY(-2px);
 }
 
 .add-agent-btn:disabled {
-  background-color: #6c757d; /* Gray color when disabled */
-  cursor: not-allowed; /* Not-allowed cursor when disabled */
+  background-color: #6c757d;
+  cursor: not-allowed;
 }

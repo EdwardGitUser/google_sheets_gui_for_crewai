@@ -64,9 +64,11 @@ button.create-crew {
 button:hover:not(.not-logged-in) {
   transform: scale(1.05);
 }
+
 .delete-crew {
   padding-left: 10em;
 }
+
 .crew-list {
   margin-top: 5px;
   padding: 10px;
@@ -75,6 +77,7 @@ button:hover:not(.not-logged-in) {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 .crew-list ul {
   margin: 0;
   padding: 0;
@@ -107,14 +110,13 @@ button:hover:not(.not-logged-in) {
   padding: 10px;
   font-size: 1.2em;
 }
-/* Container for the tabs */
+
 .navigation-tabs {
   display: flex;
   margin-top: 20px;
-  border-bottom: 2px solid #ddd; /* Line under the tabs */
+  border-bottom: 2px solid #ddd;
 }
 
-/* Styling for each tab */
 .navigation-tabs a {
   padding: 10px 20px;
   font-size: 1.2em;
@@ -122,28 +124,105 @@ button:hover:not(.not-logged-in) {
   text-decoration: none;
   background-color: #f1f3f4;
   border: 1px solid #ddd;
-  border-bottom: none; /* Remove bottom border to blend with content */
-  border-radius: 5px 5px 0 0; /* Rounded top corners */
-  margin-right: 5px; /* Space between tabs */
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  margin-right: 5px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Hover effect for tabs */
 .navigation-tabs a:hover {
   background-color: #e8eaed;
   color: #202124;
 }
 
-/* Active tab style */
 .navigation-tabs a.active {
   background-color: #ffffff;
   color: #202124;
   font-weight: bold;
-  border-bottom: 2px solid #ffffff; /* Ensures tab appears raised */
+  border-bottom: 2px solid #ffffff;
 }
+
 .kickoff-btn {
   margin-top: 15em;
   background-color: #161d2a;
   border-color: #555;
   color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+
+  button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+  }
+
+  .crew-list {
+    padding: 8px;
+  }
+
+  .crew-list li {
+    font-size: 1em;
+    padding: 6px 10px;
+  }
+
+  .navigation-tabs a {
+    padding: 8px 15px;
+    font-size: 1em;
+  }
+
+  .kickoff-btn {
+    margin-top: 10em;
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  button {
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+
+  .crew-list {
+    padding: 6px;
+  }
+
+  .crew-list li {
+    font-size: 0.9em;
+    padding: 4px 8px;
+  }
+
+  .navigation-tabs a {
+    padding: 6px 10px;
+    font-size: 0.9em;
+  }
+
+  .kickoff-btn {
+    margin-top: 8em;
+    font-size: 1em;
+  }
 }

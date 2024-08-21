@@ -1,5 +1,5 @@
 .agents-table {
-  max-width: 112.5em; /* 1800px -> 112.5em */
+  max-width: 112.5em;
   margin: 0 auto;
   border-collapse: collapse;
   box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
@@ -7,16 +7,18 @@
   overflow: hidden;
   font-size: 1em;
 }
+
 .agents-table th,
 .agents-table td {
   padding: 1em 0.625em;
-  border: 1px solid #ddd; /* Add border to show column lines */
+  border: 1px solid #ddd;
   text-align: left;
   vertical-align: middle;
-  height: 3.2em; /* 50px -> 3.125em */
+  height: 3.2em;
 }
+
 .agents-table th {
-  background-color: #161d2a; /* Primary color */
+  background-color: #161d2a;
   color: #fff;
   text-transform: uppercase;
   font-size: 0.9em;
@@ -34,16 +36,16 @@
 .agents-table td select,
 .agents-table td textarea {
   border: none;
-  padding: 6px; /* Smaller padding */
+  padding: 6px;
   font-size: 1em;
-  border-radius: 4px; /* px for border-radius */
+  border-radius: 4px;
   background-color: transparent;
 }
 
 .agents-table td textarea {
   resize: vertical;
-  max-height: 150px; /* px for textarea max height */
-  min-height: 80px; /* px for textarea min height */
+  max-height: 150px;
+  min-height: 80px;
   font-family: "Roboto", sans-serif;
 }
 
@@ -57,26 +59,28 @@
   width: 3em;
 }
 
-/* BACKSTORY SIZING */
 .backstory {
   width: 25em;
 }
+
 .agents-table th:nth-child(3),
 .agents-table td:nth-child(3) {
   width: 25em;
 }
 
-/* ROLE SIZING */
 .role {
   width: 8em;
 }
+
 .agents-table th:nth-child(4),
 .agents-table td:nth-child(4) {
   width: 8em;
-} /* Role Column */
+}
 
 .agents-table td select {
   width: 100%;
+  padding: 0.5em;
+  margin: 0;
 }
 
 .agents-table td input:focus,
@@ -90,28 +94,26 @@
   color: #161d2a;
 }
 
-/* Button Container */
 .buttons-container {
-  margin-top: 10px; /* Smaller margin */
+  margin-top: 10px;
   display: flex;
-  gap: 10px; /* Smaller gap */
+  gap: 10px;
   justify-content: space-between;
 }
 
-/* Button Styles */
 button {
-  padding: 10px 15px; /* Smaller padding */
+  padding: 10px 15px;
   font-size: 1em;
   color: #fff;
-  background-color: #161d2a; /* Primary color */
+  background-color: #161d2a;
   border: none;
-  border-radius: 6px; /* px for border-radius */
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-  transform: translateY(-2px); /* Smaller transform */
+  transform: translateY(-2px);
 }
 
 button:disabled {
@@ -148,18 +150,17 @@ button:disabled {
 .noAgents {
   font-size: 1.125em;
   color: #555;
-  margin-top: 10px; /* Smaller margin */
+  margin-top: 10px;
   text-align: center;
 }
 
-/* Validation Errors */
 .validation-errors {
   color: red;
-  margin-top: 10px; /* Smaller margin */
+  margin-top: 10px;
 }
 
 .validation-errors h4 {
-  margin-bottom: 5px; /* Smaller margin */
+  margin-bottom: 5px;
 }
 
 .validation-errors ul {
@@ -168,12 +169,103 @@ button:disabled {
 }
 
 .validation-errors li {
-  margin-bottom: 5px; /* Smaller margin */
+  margin-bottom: 5px;
 }
-.agents-table td select {
-  padding: 0.5em; /* Adjust this value if needed */
-  margin: 0; /* Ensure no unnecessary margin is applied */
-}
+
 .agents-table td {
-  overflow: visible; /* Ensure dropdowns are not clipped */
+  overflow: visible;
+}
+
+@media (max-width: 768px) {
+  .agents-table {
+    font-size: 0.875em;
+  }
+
+  .agents-table td,
+  .agents-table th {
+    padding: 0.75em 0.5em;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+
+  .save-btn,
+  .create-agent-btn {
+    font-size: 1em;
+  }
+
+  .delete-btn {
+    font-size: 1em;
+  }
+
+  .noAgents {
+    font-size: 1em;
+    margin-top: 8px;
+  }
+
+  .validation-errors {
+    margin-top: 8px;
+  }
+
+  .validation-errors h4 {
+    margin-bottom: 4px;
+  }
+
+  .validation-errors li {
+    margin-bottom: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agents-table {
+    font-size: 0.75em;
+  }
+
+  .agents-table td,
+  .agents-table th {
+    padding: 0.5em 0.25em;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  button {
+    padding: 6px 10px;
+    font-size: 0.8em;
+  }
+
+  .save-btn,
+  .create-agent-btn {
+    font-size: 0.9em;
+  }
+
+  .delete-btn {
+    font-size: 0.9em;
+  }
+
+  .noAgents {
+    font-size: 0.9em;
+    margin-top: 6px;
+  }
+
+  .validation-errors {
+    margin-top: 6px;
+  }
+
+  .validation-errors h4 {
+    margin-bottom: 3px;
+  }
+
+  .validation-errors li {
+    margin-bottom: 3px;
+  }
 }

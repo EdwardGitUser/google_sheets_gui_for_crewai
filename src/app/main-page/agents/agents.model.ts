@@ -5,6 +5,6 @@ export interface Agent {
   role: string;
   goal: string;
   backstory: string;
-  verbose: boolean; //default faulse
+  verbose: boolean; //default false
   tool: string;
 }

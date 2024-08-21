@@ -1,6 +1,7 @@
 <div class="tasks-table-container">
-  <!-- Check if there are tasks to display -->
-  <table *ngIf="tempTasks.length > 0" class="tasks-table">
+
+  @if(tempTasks.length > 0){
+  <table class="tasks-table">
     <thead>
       <tr>
         <th>ID</th>
@@ -12,7 +13,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of tempTasks">
+      @for(task of tempTasks; track task.id){
+      <tr>
         <td>{{ task.id }}</td>
         <td>
           <input [(ngModel)]="task.title" (ngModelChange)="onInputChange()" />
@@ -31,32 +33,41 @@
         </td>
         <td>
           <select [(ngModel)]="task.agentId" (ngModelChange)="onInputChange()">
-            <option *ngFor="let agent of agents" [value]="agent.id">
+            @for(agent of agents; track agent.id){
+            <option [value]="agent.id">
               {{ agent.name }}
             </option>
+            }
           </select>
         </td>
         <td>
           <button (click)="deleteTask(task.id)">❌</button>
         </td>
       </tr>
+      }
     </tbody>
   </table>
+  }
 
-  <!-- Display a message if no tasks are available -->
-  <div *ngIf="tempTasks.length === 0">
+ 
+  @if(tempTasks.length === 0){
+  <div>
     <p>No tasks available.</p>
   </div>
+  }
 
-  <!-- Display validation errors -->
-  <div *ngIf="validationErrors.length > 0" class="validation-errors">
+
+  @if(validationErrors.length > 0){
+  <div class="validation-errors">
     <ul>
+      //нехай вже буде ngFor
       <li *ngFor="let error of validationErrors">{{ error }}</li>
     </ul>
   </div>
+  }
 </div>
 
-<!-- Buttons to add and save tasks -->
+
 <div class="buttons-container">
   <button class="add-task-btn" (click)="navigateToAddTask()">Add Task</button>
   @if(tempTasks.length > 0){

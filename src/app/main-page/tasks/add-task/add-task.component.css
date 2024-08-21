@@ -7,23 +7,20 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.6
-  ); /* Darker background for better contrast */
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 }
+
 i {
   font-size: 1.5em;
   padding-left: 0.85em;
 }
+
 .modal-content {
-  background-color: #f9f9f9; /* Softer background color */
+  background-color: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   max-width: 500px;
   width: 100%;
   position: relative;
@@ -31,14 +28,14 @@ i {
 
 .modal-header {
   display: flex;
-  justify-content: space-between; /* Adjust spacing to fit the close button */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
 .modal-header h2 {
   font-size: 24px;
-  color: #131a25; /* Primary color */
+  color: #131a25;
   margin: 0;
 }
 
@@ -46,14 +43,14 @@ i {
   background: none;
   border: none;
   font-size: 24px;
-  color: #131a25; /* Primary color */
+  color: #131a25;
   cursor: pointer;
   transition: color 0.3s ease;
-  margin-left: auto; /* Ensure it's aligned to the right */
+  margin-left: auto;
 }
 
 .modal-header .close-btn:hover {
-  color: #ff5a5f; /* Slight hover effect for the close button */
+  color: #ff5a5f;
 }
 
 .modal-content label {
@@ -79,7 +76,7 @@ i {
 .modal-content input:focus,
 .modal-content textarea:focus,
 .modal-content select:focus {
-  border-color: #131a25; /* Primary color on focus */
+  border-color: #131a25;
   box-shadow: 0 0 5px rgba(19, 26, 37, 0.3);
   outline: none;
 }
@@ -91,7 +88,7 @@ i {
 
 .modal-content button[type="submit"] {
   padding: 12px 20px;
-  background-color: #28a745; /* Consistent with previous form buttons */
+  background-color: #28a745;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -100,12 +97,12 @@ i {
 }
 
 .modal-content button[type="submit"]:disabled {
-  background-color: #b2b2b2; /* Softer disabled color */
+  background-color: #b2b2b2;
   cursor: not-allowed;
 }
 
 .modal-content button[type="submit"]:hover:not(:disabled) {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
   transform: translateY(-2px);
 }
 
@@ -120,7 +117,7 @@ i {
 }
 
 .modal-content button[type="button"]:hover {
-  background-color: #5a6268; /* Darker gray on hover */
+  background-color: #5a6268;
   transform: translateY(-2px);
 }
 
@@ -137,4 +134,62 @@ button[type="button"] {
 
 small {
   color: red;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .modal-header h2 {
+    font-size: 20px;
+  }
+
+  .modal-content input,
+  .modal-content textarea,
+  .modal-content select {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .modal-content button[type="submit"],
+  .modal-content button[type="button"] {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 10px;
+    max-width: 95%;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-content input,
+  .modal-content textarea,
+  .modal-content select {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .modal-content button[type="submit"],
+  .modal-content button[type="button"] {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
