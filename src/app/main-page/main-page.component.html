@@ -10,6 +10,7 @@
     <p>Selected Crew: {{ selectedCrewName }}</p>
   </div>
   }
+  
   <div class="buttons-container">
     <div
       class="load-crew-container"
@@ -54,7 +55,8 @@
     >
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>
-    <button (click)="navigateToKickoff()" class="kickoff-btn">Kickoff</button>
+    <button [routerLink]="['/kickoff']" class="kickoff-btn">Kickoff</button>
+
     @if(crewId !== null){
     <button class="delete-crew" (click)="deleteCrew()">
       <i class="fas fa-trash-alt"></i> Delete Crew

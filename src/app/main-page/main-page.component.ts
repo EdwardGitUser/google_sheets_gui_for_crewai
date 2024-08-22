@@ -17,18 +17,16 @@ export class MainPageComponent implements OnInit {
   hovered = false;
   crewId: number | null = null;
   selectedCrewName: string | null = null;
+
   constructor(
     private router: Router,
     private crewService: CrewService,
 
     private authService: AuthService
   ) {}
+
   ngOnInit() {
     this.loadCrews();
-  }
-
-  navigateToKickoff(): void {
-    this.router.navigate(['/kickoff']);
   }
 
   get username(): string | null {
@@ -59,7 +57,7 @@ export class MainPageComponent implements OnInit {
 
   viewAgents(crewId: number) {
     const selectedCrew = this.crews.find((crew) => crew.id === crewId);
-    this.selectedCrewName = selectedCrew ? selectedCrew.name : null; 
+    this.selectedCrewName = selectedCrew ? selectedCrew.name : null;
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
       this.crewId = crewId;
 
