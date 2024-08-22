@@ -44,6 +44,12 @@ export class MainPageComponent implements OnInit {
     //     }
     //   }
     // });
+    const storedCrewId = localStorage.getItem('currentCrewId');
+    if (storedCrewId) {
+      this.crewId = +storedCrewId; // Convert to number and set crewId
+      this.selectedCrewName =
+        this.crews().find((crew) => crew.id === this.crewId)?.name || null;
+    }
   }
 
   get username(): string | null {
@@ -69,6 +75,7 @@ export class MainPageComponent implements OnInit {
     this.selectedCrewName = selectedCrew ? selectedCrew.name : null;
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
       this.crewId = crewId;
+      localStorage.setItem('currentCrewId', String(crewId));
       this.router.navigate([`/crew/${crewId}/agents`]);
     }
   }
