@@ -18,7 +18,7 @@
       <tr>
         <td class="id">{{ agent.id }}</td>
         <td>
-          <input type="text" [(ngModel)]="agent.name" />
+          <input class="name" type="text" [(ngModel)]="agent.name" />
         </td>
         <td>
           <textarea
@@ -66,9 +66,13 @@
   </button>
 
   @if(agents.length > 0){
-  <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+  <div>
+    <button class="reload-btn" (click)="reloadAgents()">Reload Crew</button>
+    <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+  </div>
   }
 </div>
+
 @if(validationErrors.length > 0 && agents.length > 0){
 <div class="validation-errors">
   <h4>Validation Errors:</h4>

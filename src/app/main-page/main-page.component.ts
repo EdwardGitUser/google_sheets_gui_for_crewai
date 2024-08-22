@@ -3,7 +3,12 @@ import { CrewService } from './crew/crew.service';
 import { Crew } from './crew/crew.model';
 import { AuthService } from '../auth/auth.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -30,7 +35,15 @@ export class MainPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.crews());
+    // set crewId to null so buttons agents and tasks dont display
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     if (event.url === '/' || event.urlAfterRedirects === '/') {
+    //       this.crewId = null;
+    //       this.selectedCrewName = null;
+    //     }
+    //   }
+    // });
   }
 
   get username(): string | null {

@@ -56,7 +56,7 @@
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>
     <button
-      [routerLink]="['/kickoff']"
+      routerLink="/kickoff"
       [ngClass]="{
         'not-logged-in': !isLoggedIn(),
         'kickoff-btn': isLoggedIn()
@@ -65,8 +65,7 @@
     >
       Kickoff
     </button>
-
-    @if(crewId !== null){
+    @if(crewId){
     <button class="delete-crew" (click)="deleteCrew()">
       <i class="fas fa-trash-alt"></i> Delete Crew
     </button>

@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
+import { isLoggedInGuard } from './auth/isLoggedIn.guard';
 import { MainPageComponent } from './main-page/main-page.component';
 
 import { CreateCrewComponent } from './main-page/crew/create-crew/create-crew.component';
@@ -21,22 +22,27 @@ export const routes: Routes = [
       {
         path: 'crew/:id/agents',
         component: TableAgentsComponent,
+        canActivate: [isLoggedInGuard],
       },
       {
         path: 'crew/:id/agents/add',
         component: CreateAgentComponent,
+        canActivate: [isLoggedInGuard],
       },
       {
         path: 'crew/:id/tasks',
         component: TaskTableComponent,
+        canActivate: [isLoggedInGuard],
       },
       {
         path: 'crew/:id/tasks/add',
         component: AddTaskComponent,
+        canActivate: [isLoggedInGuard],
       },
       {
         path: 'create-crew',
         component: CreateCrewComponent,
+        canActivate: [isLoggedInGuard],
       },
     ],
   },

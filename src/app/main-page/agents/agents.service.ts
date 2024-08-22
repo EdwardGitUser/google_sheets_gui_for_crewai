@@ -5,30 +5,19 @@ import { Agent } from './agents.model';
   providedIn: 'root',
 })
 export class AgentsService {
-  private agents: Agent[];
+  private agents: Agent[] = [];
 
   constructor() {
-    const storedAgents = localStorage.getItem('agents');
-    if (storedAgents) {
-      this.agents = JSON.parse(storedAgents);
-    } else {
-      this.agents = [];
-      this.saveAgentsToLocalStorage();
-    }
+    this.agents = this.loadAgentsFromLocalStorage();
+  }
+
+  //GET
+  getAgents(): Agent[] {
+    return this.agents;
   }
 
   getAgentsByCrewId(crewId: number): Agent[] {
     return this.agents.filter((agent) => agent.crewId === crewId);
-  }
-
-  addAgent(agent: Agent): void {
-    this.agents.push(agent);
-    this.saveAgentsToLocalStorage();
-  }
-
-  saveAgents(agents: Agent[]): void {
-    this.agents = agents;
-    this.saveAgentsToLocalStorage();
   }
 
   private saveAgentsToLocalStorage(): void {
@@ -40,6 +29,33 @@ export class AgentsService {
     return agents ? JSON.parse(agents) : [];
   }
 
+  //CREATE
+  createAgent(
+    name: string,
+    crewId: number,
+    role: string,
+    goal: string,
+    backstory: string,
+    verbose: boolean = false,
+    tool: string
+  ): Agent {
+    const newAgent: Agent = {
+      id: Math.floor(Math.random() * 1000000),
+      crewId,
+      name,
+      role,
+      goal,
+      backstory,
+      verbose,
+      tool,
+    };
+
+    this.agents.push(newAgent);
+    this.saveAgentsToLocalStorage();
+    return newAgent;
+  }
+
+  //UPDATE
   updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
     this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
 
@@ -48,7 +64,9 @@ export class AgentsService {
     this.saveAgentsToLocalStorage();
   }
 
-  getAgents(): Agent[] {
-    return this.agents;
+  //DELETE
+  deleteAgentsByCrewId(crewId: number): void {
+    this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
+    this.saveAgentsToLocalStorage();
   }
 }

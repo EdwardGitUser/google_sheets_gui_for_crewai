@@ -53,6 +53,11 @@ export class TableAgentsComponent implements OnInit {
     }
   }
 
+  reloadAgents() {
+    this.tempAgents = JSON.parse(JSON.stringify(this.agents));
+    console.log('Agents reloaded to original state:', this.tempAgents);
+  }
+
   validateAgents(): boolean {
     this.validationErrors = [];
     let isValid = true;

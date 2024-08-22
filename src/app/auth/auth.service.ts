@@ -10,20 +10,37 @@ export class AuthService {
   private loggedInUser = signal<User | null>(null);
 
   constructor() {
+    this.loadUsersFromLocalStorage();
+    this.loadLoggedInUserFromLocalStorage();
+  }
+
+  //GET
+  get currentUser() {
+    return this.loggedInUser();
+  }
+
+  private loadUsersFromLocalStorage(): void {
     const storedUsers = localStorage.getItem('users');
     if (storedUsers) {
       this.users = JSON.parse(storedUsers);
+    } else {
+      this.users = [];
     }
+  }
+
+  private loadLoggedInUserFromLocalStorage(): void {
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       this.loggedInUser.set(JSON.parse(storedUser));
     }
   }
 
-  get currentUser() {
-    return this.loggedInUser();
+  //SAVE
+  private saveUsersToLocalStorage(): void {
+    localStorage.setItem('users', JSON.stringify(this.users));
   }
 
+  //LOGIN
   login(username: string, password: string): boolean {
     const user = this.users.find(
       (user) => user.username === username && user.password === password
@@ -36,6 +53,7 @@ export class AuthService {
     return false;
   }
 
+  //SIGN UP
   signUp(username: string, password: string): boolean {
     const userExists = this.users.some((user) => user.username === username);
     if (!userExists) {
@@ -55,12 +73,9 @@ export class AuthService {
     return false;
   }
 
+  //LOGOUT
   logout() {
     localStorage.removeItem('loggedInUser');
     this.loggedInUser.set(null);
-  }
-
-  private saveUsersToLocalStorage(): void {
-    localStorage.setItem('users', JSON.stringify(this.users));
   }
 }

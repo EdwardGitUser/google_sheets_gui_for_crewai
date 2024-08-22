@@ -31,11 +31,11 @@ export class CreateAgentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //анугляр сам відписується тут
-    this.route.params.subscribe((params) => {
-      this.crewId = +params['id'];
-    });
+    this.crewId = +this.route.snapshot.paramMap.get('id')!;
+    this.initializeForm();
+  }
 
+  private initializeForm(): void {
     this.agentForm = this.fb.group({
       name: [
         '',
@@ -78,17 +78,16 @@ export class CreateAgentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.agentForm.valid) {
-      const newAgent = this.agentsService.addAgent({
-        id: Math.floor(Math.random() * 1000000),
-        crewId: this.crewId,
-        name: this.agentForm.value.name,
-        role: this.agentForm.value.role,
-        goal: this.agentForm.value.name,
-        backstory: this.agentForm.value.backstory,
-        verbose: this.agentForm.value.verbose,
-        tool: this.agentForm.value.tool,
-      });
+    if (this.agentForm.valid && this.crewId !== null) {
+      const newAgent = this.agentsService.createAgent(
+        this.agentForm.value.name,
+        this.crewId,
+        this.agentForm.value.role,
+        this.agentForm.value.goal,
+        this.agentForm.value.backstory,
+        this.agentForm.value.verbose,
+        this.agentForm.value.tool
+      );
 
       console.log('Agent created:', newAgent);
 

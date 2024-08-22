@@ -16,9 +16,12 @@ import { Agent } from '../../agents/agents.model';
 })
 export class TaskTableComponent implements OnInit {
   tasks: Task[] = [];
-  tempTasks: Task[] = [];
+
+  tempTasks: Task[] = []; //COPY FOR TABLE SO NGMODEL DOESNT EFFECT THE ORIGINAL
+
   agents: Agent[] = [];
   crewId: number | null = null;
+
   validationErrors: string[] = [];
 
   constructor(
@@ -28,14 +31,13 @@ export class TaskTableComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.crewId = +params['id'];
-      this.loadTasks();
-      this.loadAgents();
-    });
+  ngOnInit(): void {
+    this.crewId = +this.route.snapshot.paramMap.get('id')!;
+    this.loadTasks();
+    this.loadAgents();
   }
 
+  //GET
   loadTasks() {
     if (this.crewId !== null) {
       this.tasks = this.tasksService.getTasksByCrewId(this.crewId);
@@ -46,16 +48,10 @@ export class TaskTableComponent implements OnInit {
   loadAgents() {
     if (this.crewId !== null) {
       this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-      console.log('Agents loaded for crew:', this.agents);
     }
   }
 
-  onInputChange() {
-    console.log('Temporary Tasks Updated:', this.tempTasks);
-  }
-  navigateToAddTask() {
-    this.router.navigate([`/crew/${this.crewId}/tasks/add`]);
-  }
+  //VALIDATORS
   validateTasks(): boolean {
     this.validationErrors = [];
     let isValid = true;
@@ -74,6 +70,7 @@ export class TaskTableComponent implements OnInit {
     return isValid;
   }
 
+  //SAVE
   saveTasks() {
     if (this.validateTasks()) {
       const confirmSave = window.confirm('Do you want to save the changes?');
@@ -87,6 +84,7 @@ export class TaskTableComponent implements OnInit {
     }
   }
 
+  //DELETE
   deleteTask(taskId: number) {
     if (
       window.confirm(
@@ -103,5 +101,9 @@ export class TaskTableComponent implements OnInit {
         console.log('Validation Errors:', this.validationErrors);
       }
     }
+  }
+
+  navigateToAddTask() {
+    this.router.navigate([`/crew/${this.crewId}/tasks/add`]);
   }
 }

@@ -34,11 +34,19 @@ export class AddTaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.crewId = +params['id'];
-      this.loadAgents();
-    });
+    this.crewId = +this.route.snapshot.paramMap.get('id')!;
+    this.loadAgents();
+    this.initializeForm();
+  }
 
+  
+  loadAgents(): void {
+    if (this.crewId) {
+      this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
+    }
+  }
+
+  private initializeForm(): void {
     this.taskForm = this.fb.group({
       title: [
         '',
@@ -70,24 +78,16 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  loadAgents(): void {
-    if (this.crewId) {
-      this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-    }
-  }
-
+  //SUBMIT FORM
   onSubmit(): void {
     if (this.taskForm.valid) {
-      const newTask: Task = {
-        id: Math.floor(Math.random() * 10000),
-        crewId: this.crewId,
-        agentId: +this.taskForm.value.agentId,
-        title: this.taskForm.value.title,
-        description: this.taskForm.value.description,
-        expected_output: this.taskForm.value.expected_output,
-      };
-
-      this.tasksService.addTask(newTask);
+      this.tasksService.addTask(
+        this.crewId,
+        +this.taskForm.value.agentId,
+        this.taskForm.value.title,
+        this.taskForm.value.description,
+        this.taskForm.value.expected_output
+      );
       this.router.navigate([`/crew/${this.crewId}/tasks`]);
     }
   }

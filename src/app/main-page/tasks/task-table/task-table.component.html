@@ -1,5 +1,4 @@
 <div class="tasks-table-container">
-
   @if(tempTasks.length > 0){
   <table class="tasks-table">
     <thead>
@@ -17,22 +16,16 @@
       <tr>
         <td>{{ task.id }}</td>
         <td>
-          <input [(ngModel)]="task.title" (ngModelChange)="onInputChange()" />
+          <input [(ngModel)]="task.title" />
         </td>
         <td>
-          <textarea
-            [(ngModel)]="task.description"
-            (ngModelChange)="onInputChange()"
-          ></textarea>
+          <textarea [(ngModel)]="task.description"></textarea>
         </td>
         <td>
-          <textarea
-            [(ngModel)]="task.expected_output"
-            (ngModelChange)="onInputChange()"
-          ></textarea>
+          <textarea [(ngModel)]="task.expected_output"></textarea>
         </td>
         <td>
-          <select [(ngModel)]="task.agentId" (ngModelChange)="onInputChange()">
+          <select [(ngModel)]="task.agentId">
             @for(agent of agents; track agent.id){
             <option [value]="agent.id">
               {{ agent.name }}
@@ -47,17 +40,11 @@
       }
     </tbody>
   </table>
-  }
-
- 
-  @if(tempTasks.length === 0){
+  } @if(tempTasks.length === 0){
   <div>
     <p>No tasks available.</p>
   </div>
-  }
-
-
-  @if(validationErrors.length > 0){
+  } @if(validationErrors.length > 0){
   <div class="validation-errors">
     <ul>
       //нехай вже буде ngFor
@@ -66,7 +53,6 @@
   </div>
   }
 </div>
-
 
 <div class="buttons-container">
   <button class="add-task-btn" (click)="navigateToAddTask()">Add Task</button>

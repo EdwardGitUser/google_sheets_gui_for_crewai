@@ -17,35 +17,45 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  form = new FormGroup({
-    username: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(3)],
-    }),
-    password: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6)],
-    }),
-  });
-
+  form!: FormGroup;
   loginFailed = signal(false);
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
+    this.form = new FormGroup({
+      username: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      password: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(6)],
+      }),
+    });
+  }
+
   get usernameIsInvalid() {
+    const usernameControl = this.form.get('username');
     return (
-      this.form.controls.username.touched &&
-      this.form.controls.username.dirty &&
-      this.form.controls.username.invalid
+      usernameControl?.touched &&
+      usernameControl?.dirty &&
+      usernameControl?.invalid
     );
   }
 
   get passwordIsInvalid() {
+    const passwordControl = this.form.get('passwords.password');
     return (
-      this.form.controls.password.touched &&
-      this.form.controls.password.dirty &&
-      this.form.controls.password.invalid
+      passwordControl?.touched &&
+      passwordControl?.dirty &&
+      passwordControl?.invalid
     );
   }
 
+  //Form Submit
   onSubmit() {
     if (this.form.valid) {
       const username = this.form.get('username')!.value!;

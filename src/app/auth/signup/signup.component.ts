@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -17,31 +17,38 @@ import { Router } from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
-export class SignupComponent {
-  form = new FormGroup({
-    username: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(3)],
-    }),
-    passwords: new FormGroup(
-      {
-        password: new FormControl('', {
-          validators: [Validators.required, Validators.minLength(6)],
-        }),
-        confirmPassword: new FormControl('', {
-          validators: [Validators.required],
-        }),
-      },
-      {
-        validators: [this.passwordMatchValidator],
-      }
-    ),
-  });
-
-  usernameTaken = signal(false); //for checking
+export class SignupComponent implements OnInit {
+  form!: FormGroup;
+  usernameTaken = signal(false);
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  //validator
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  private initializeForm() {
+    this.form = new FormGroup({
+      username: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      passwords: new FormGroup(
+        {
+          password: new FormControl('', {
+            validators: [Validators.required, Validators.minLength(6)],
+          }),
+          confirmPassword: new FormControl('', {
+            validators: [Validators.required],
+          }),
+        },
+        {
+          validators: [this.passwordMatchValidator],
+        }
+      ),
+    });
+  }
+
+  //Validators
   passwordMatchValidator(control: AbstractControl) {
     let password = control.get('password')?.value;
     let confirmPassword = control.get('confirmPassword')?.value;
@@ -49,26 +56,29 @@ export class SignupComponent {
   }
 
   get usernameIsInvalid() {
+    const usernameControl = this.form.get('username');
     return (
-      this.form.get('username')?.touched &&
-      this.form.get('username')?.dirty &&
-      this.form.get('username')?.invalid
+      usernameControl?.touched &&
+      usernameControl?.dirty &&
+      usernameControl?.invalid
     );
   }
 
   get passwordIsInvalid() {
+    const passwordControl = this.form.get('passwords.password');
     return (
-      this.form.get('passwords.password')?.touched &&
-      this.form.get('passwords.password')?.dirty &&
-      this.form.get('passwords.password')?.invalid
+      passwordControl?.touched &&
+      passwordControl?.dirty &&
+      passwordControl?.invalid
     );
   }
 
   get confirmPasswordIsInvalid() {
+    const confirmPasswordControl = this.form.get('passwords.confirmPassword');
     return (
-      this.form.get('passwords.confirmPassword')?.touched &&
-      this.form.get('passwords.confirmPassword')?.dirty &&
-      this.form.get('passwords.confirmPassword')?.invalid
+      confirmPasswordControl?.touched &&
+      confirmPasswordControl?.dirty &&
+      confirmPasswordControl?.invalid
     );
   }
 
@@ -85,6 +95,7 @@ export class SignupComponent {
     );
   }
 
+  //Form Submit
   onSubmit() {
     if (this.form.valid) {
       const username = this.form.get('username')!.value!;
