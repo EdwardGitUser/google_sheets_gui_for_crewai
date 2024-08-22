@@ -4,12 +4,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MainPageComponent } from './main-page/main-page.component';
-import { AgentsComponent } from './main-page/agents/agents.component';
+
 import { CreateCrewComponent } from './main-page/crew/create-crew/create-crew.component';
 import { CreateAgentComponent } from './main-page/agents/create-agent/create-agent.component';
-import { TasksComponent } from './main-page/tasks/tasks.component';
+
 import { AddTaskComponent } from './main-page/tasks/add-task/add-task.component';
 import { KickoffComponent } from './kickoff/kickoff.component';
+import { TableAgentsComponent } from './main-page/agents/table-agents/table-agents.component';
+import { TaskTableComponent } from './main-page/tasks/task-table/task-table.component';
 
 export const routes: Routes = [
   {
@@ -18,7 +20,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'crew/:id/agents',
-        component: AgentsComponent,
+        component: TableAgentsComponent,
       },
       {
         path: 'crew/:id/agents/add',
@@ -26,7 +28,7 @@ export const routes: Routes = [
       },
       {
         path: 'crew/:id/tasks',
-        component: TasksComponent,
+        component: TaskTableComponent,
       },
       {
         path: 'crew/:id/tasks/add',
