@@ -1,3 +1,4 @@
+<div class="modal-overlay"></div>
 <div class="form-container">
   <h2>Create Crew <i class="fas fa-users"></i></h2>
 
@@ -23,12 +24,10 @@
     </div>
 
     <div class="button-group">
-    
       <button type="button" class="back-btn" (click)="goBack()">
         <i class="fas fa-arrow-left"></i> Back
       </button>
 
- 
       <button
         type="submit"
         [disabled]="form.invalid"

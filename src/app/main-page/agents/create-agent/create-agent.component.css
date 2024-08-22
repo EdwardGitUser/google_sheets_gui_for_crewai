@@ -9,16 +9,16 @@
 }
 
 .form-container {
-  background-color: #ffffff;
-  border: 2px solid #131a25;
-  border-radius: 8px;
-  padding: 2em;
   width: 40em;
   max-width: 100%;
   margin: 0 auto;
   position: fixed;
   top: 50%;
   left: 50%;
+  background-color: #ffffff;
+  border: 2px solid #131a25;
+  border-radius: 8px;
+  padding: 2em;
   transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;

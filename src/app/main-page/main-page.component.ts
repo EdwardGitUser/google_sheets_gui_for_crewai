@@ -1,19 +1,24 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { CrewService } from './crew/crew.service';
 import { Crew } from './crew/crew.model';
 import { AuthService } from '../auth/auth.service';
-import { NgClass } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [RouterOutlet, NgClass, RouterModule],
+  imports: [RouterOutlet, NgClass, RouterModule, NgIf, NgFor],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-  crews: Crew[] = [];
+  crews = computed(() =>
+    this.crewService
+      .getCrews()()
+      .filter((crew) => crew.userId === this.authService.currentUser?.id)
+  );
+
   hovered = false;
   crewId: number | null = null;
   selectedCrewName: string | null = null;
@@ -21,12 +26,11 @@ export class MainPageComponent implements OnInit {
   constructor(
     private router: Router,
     private crewService: CrewService,
-
     private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.loadCrews();
+    console.log(this.crews());
   }
 
   get username(): string | null {
@@ -35,14 +39,6 @@ export class MainPageComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return !!this.authService.currentUser;
-  }
-
-  loadCrews() {
-    if (this.isLoggedIn()) {
-      this.crews = this.crewService.getCrewsByUserId(
-        this.authService.currentUser!.id
-      );
-    }
   }
 
   onHover() {
@@ -56,11 +52,10 @@ export class MainPageComponent implements OnInit {
   }
 
   viewAgents(crewId: number) {
-    const selectedCrew = this.crews.find((crew) => crew.id === crewId);
+    const selectedCrew = this.crews().find((crew) => crew.id === crewId);
     this.selectedCrewName = selectedCrew ? selectedCrew.name : null;
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
       this.crewId = crewId;
-
       this.router.navigate([`/crew/${crewId}/agents`]);
     }
   }
@@ -80,7 +75,6 @@ export class MainPageComponent implements OnInit {
       this.crewId = null;
       this.selectedCrewName = null;
       this.router.navigate(['/']);
-      this.loadCrews();
     }
   }
 }

@@ -10,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-crew',
@@ -46,11 +46,11 @@ export class CreateCrewComponent {
         this.authService.currentUser.id,
         this.form.value.process
       );
-      this.router.navigate(['/']);
+      this.router.navigate(['/main']);
     }
   }
 
   goBack() {
-    this.location.back(); 
+    this.location.back();
   }
 }

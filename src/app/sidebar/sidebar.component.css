@@ -1,14 +1,10 @@
-:host {
-  margin-right: 5em;
-  z-index: 1;
-}
-
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: 3.8em;
   height: 100vh;
+  z-index: 2;
   background-color: #131a25;
   color: #fff;
   transition: width 0.3s ease;

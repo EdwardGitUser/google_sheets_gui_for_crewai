@@ -7,6 +7,7 @@
   padding-bottom: 32px;
   border-radius: 16px;
   font-family: "Roboto", sans-serif;
+  z-index: 0;
 }
 
 h1 {

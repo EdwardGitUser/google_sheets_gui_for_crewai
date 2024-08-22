@@ -1,13 +1,28 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 900;
+}
+
 .form-container {
+  width: 30em;
   max-width: 500px;
-  margin: 2em auto;
+  margin: 0 auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   padding: 2em;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
   background-color: #fff;
   border: 2px solid #131a25;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  position: relative;
 }
 
 h2 {

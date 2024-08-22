@@ -21,7 +21,7 @@ export const routes: Routes = [
         component: AgentsComponent,
       },
       {
-        path: 'crew/:id/agents/add', 
+        path: 'crew/:id/agents/add',
         component: CreateAgentComponent,
       },
       {
@@ -32,11 +32,11 @@ export const routes: Routes = [
         path: 'crew/:id/tasks/add',
         component: AddTaskComponent,
       },
+      {
+        path: 'create-crew',
+        component: CreateCrewComponent,
+      },
     ],
-  },
-  {
-    path: 'create-crew',
-    component: CreateCrewComponent,
   },
   {
     path: 'login',
@@ -49,7 +49,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'kickoff', 
+    path: 'kickoff',
     component: KickoffComponent,
   },
   {

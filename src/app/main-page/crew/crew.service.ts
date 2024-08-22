@@ -1,27 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Crew } from './crew.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrewService {
-  private crews: Crew[] = [];
+  private crewsSignal = signal<Crew[]>([]); // Initialize the signal with an empty array
 
   constructor() {
     const storedCrews = localStorage.getItem('crews');
     if (storedCrews) {
-      this.crews = JSON.parse(storedCrews);
+      this.crewsSignal.set(JSON.parse(storedCrews)); // Set the initial value from localStorage
     } else {
       this.saveCrewsToLocalStorage();
     }
   }
 
-  getCrews(): Crew[] {
-    return this.crews;
+  getCrews() {
+    return this.crewsSignal; // Return the signal
   }
 
-  getCrewsByUserId(userId: number): Crew[] {
-    return this.crews.filter((crew) => crew.userId === userId);
+  getCrewsByUserId(userId: number) {
+    return this.crewsSignal().filter((crew) => crew.userId === userId); // Filtered list based on userId
   }
 
   createCrew(
@@ -35,17 +35,19 @@ export class CrewService {
       userId,
       process,
     };
-    this.crews.push(newCrew);
+    this.crewsSignal.update((crews) => [...crews, newCrew]); // Update the signal
     this.saveCrewsToLocalStorage();
     return newCrew;
   }
 
   deleteCrew(crewId: number): void {
-    this.crews = this.crews.filter((crew) => crew.id !== crewId);
+    this.crewsSignal.update((crews) =>
+      crews.filter((crew) => crew.id !== crewId)
+    ); // Update the signal after deletion
     this.saveCrewsToLocalStorage();
   }
 
   private saveCrewsToLocalStorage(): void {
-    localStorage.setItem('crews', JSON.stringify(this.crews));
+    localStorage.setItem('crews', JSON.stringify(this.crewsSignal()));
   }
 }

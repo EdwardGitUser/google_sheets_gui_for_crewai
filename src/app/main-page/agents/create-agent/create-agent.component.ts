@@ -79,13 +79,6 @@ export class CreateAgentComponent implements OnInit {
 
   onSubmit(): void {
     if (this.agentForm.valid) {
-      console.log('Tool selected:', this.agentForm.value.tool);
-      console.log('this.crewId,', this.crewId);
-      console.log('this.crewId,', this.agentForm.value.name);
-      console.log('this.crewId,', this.agentForm.value.name);
-      console.log('this.crewId,', this.agentForm.value.backstory);
-      console.log('this.crewId,', this.agentForm.value.verbose);
-
       const newAgent = this.agentsService.addAgent({
         id: Math.floor(Math.random() * 1000000),
         crewId: this.crewId,
