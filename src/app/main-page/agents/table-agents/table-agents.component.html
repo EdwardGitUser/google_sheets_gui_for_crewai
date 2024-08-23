@@ -1,4 +1,5 @@
-@if(agents.length > 0){
+<router-outlet></router-outlet>
+@if(tempAgents.length > 0){
 <div class="agents-table-container">
   <table class="agents-table">
     <thead>
@@ -65,12 +66,10 @@
     Add Agent
   </button>
 
-  @if(agents.length > 0){
   <div>
     <button class="reload-btn" (click)="reloadAgents()">Reload Crew</button>
     <button class="save-btn" (click)="saveAgents()">Update Crew</button>
   </div>
-  }
 </div>
 
 @if(validationErrors.length > 0 && agents.length > 0){

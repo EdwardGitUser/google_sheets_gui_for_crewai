@@ -53,7 +53,10 @@ export class CreateCrewComponent implements OnInit {
         this.authService.currentUser.id,
         this.form.value.process
       );
-      this.router.navigate([`/crew/${newCrew.id}/agents`]);
+      console.log(newCrew.id);
+
+      this.router.navigate([`/crew/${newCrew.id}/google-sheet/`]);
+      localStorage.setItem('currentCrewId', newCrew.id.toString());
     }
   }
 

@@ -1,0 +1,16 @@
+<div class="main-page-table-container">
+  <div class="navigation-tabs">
+    <a routerLink="agents" routerLinkActive="active">Agents</a>
+    <a routerLink="tasks" routerLinkActive="active">Tasks</a>
+  </div>
+
+  <button class="kickoff-btn" (click)="navigateToKickoff()">
+    Crew Kickoff
+  </button>
+  <button class="delete-crew" (click)="deleteCrew()">
+    <i class="fas fa-trash-alt"></i> Delete Crew
+  </button>
+</div>
+<router-outlet></router-outlet>
+<!-- <app-table-agents></app-table-agents>
+<app-task-table></app-task-table> -->

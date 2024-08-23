@@ -13,6 +13,7 @@ import { AddTaskComponent } from './main-page/tasks/add-task/add-task.component'
 import { KickoffComponent } from './kickoff/kickoff.component';
 import { TableAgentsComponent } from './main-page/agents/table-agents/table-agents.component';
 import { TaskTableComponent } from './main-page/tasks/task-table/task-table.component';
+import { GoogleSheetComponent } from './main-page/google-sheet/google-sheet.component';
 
 export const routes: Routes = [
   {
@@ -20,24 +21,45 @@ export const routes: Routes = [
     component: MainPageComponent,
     children: [
       {
-        path: 'crew/:id/agents',
-        component: TableAgentsComponent,
+        path: 'crew/:id/google-sheet',
+        component: GoogleSheetComponent,
         canActivate: [isLoggedInGuard],
-      },
-      {
-        path: 'crew/:id/agents/add',
-        component: CreateAgentComponent,
-        canActivate: [isLoggedInGuard],
-      },
-      {
-        path: 'crew/:id/tasks',
-        component: TaskTableComponent,
-        canActivate: [isLoggedInGuard],
-      },
-      {
-        path: 'crew/:id/tasks/add',
-        component: AddTaskComponent,
-        canActivate: [isLoggedInGuard],
+        children: [
+          {
+            path: '',
+            redirectTo: 'agents',
+            pathMatch: 'full',
+          },
+          {
+            path: 'agents',
+            component: TableAgentsComponent,
+            canActivate: [isLoggedInGuard],
+            children: [
+              {
+                path: 'add',
+                component: CreateAgentComponent,
+                canActivate: [isLoggedInGuard],
+              },
+            ],
+          },
+          {
+            path: 'tasks',
+            component: TaskTableComponent,
+            canActivate: [isLoggedInGuard],
+            children: [
+              {
+                path: 'add',
+                component: AddTaskComponent,
+                canActivate: [isLoggedInGuard],
+              },
+            ],
+          },
+          {
+            path: 'kickoff',
+            component: KickoffComponent,
+            canActivate: [isLoggedInGuard],
+          },
+        ],
       },
       {
         path: 'create-crew',
@@ -56,10 +78,7 @@ export const routes: Routes = [
     component: SignupComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'kickoff',
-    component: KickoffComponent,
-  },
+
   {
     path: '**',
     redirectTo: '',

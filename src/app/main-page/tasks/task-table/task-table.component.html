@@ -26,8 +26,10 @@
         </td>
         <td>
           <select [(ngModel)]="task.agentId">
-            @for(agent of agents; track agent.id){
-            <option [value]="agent.id">
+            @if(!task.agentId){
+            <option value="null">Assign a task</option>
+            } @for(agent of agents; track agent.id){
+            <option [ngValue]="agent.id">
               {{ agent.name }}
             </option>
             }
@@ -47,8 +49,10 @@
   } @if(validationErrors.length > 0){
   <div class="validation-errors">
     <ul>
-      //нехай вже буде ngFor
-      <li *ngFor="let error of validationErrors">{{ error }}</li>
+      @for(error of validationErrors; track $index){
+
+      <li>{{ error }}</li>
+      }
     </ul>
   </div>
   }
@@ -56,8 +60,10 @@
 
 <div class="buttons-container">
   <button class="add-task-btn" (click)="navigateToAddTask()">Add Task</button>
-  @if(tempTasks.length > 0){
-  <button class="save-task-btn" (click)="saveTasks()">Update Tasks</button>
 
-  }
+  <div>
+    <button class="add-task-btn" (click)="reloadTasks()">Reload Tasks</button>
+    <button class="save-task-btn" (click)="saveTasks()">Update Tasks</button>
+  </div>
 </div>
+<router-outlet></router-outlet>

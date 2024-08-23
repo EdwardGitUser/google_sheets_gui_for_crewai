@@ -9,7 +9,7 @@ import {
   lettersRequiredValidator,
   minLengthValidator,
   requiredValidator,
-} from '../validators';
+} from '../agents-table-validators';
 
 @Component({
   selector: 'app-table-agents',
@@ -34,15 +34,6 @@ export class TableAgentsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.crewId = +params['id'];
       this.loadAgents();
-
-      if (this.agents.length > 0) {
-        this.validateAgents();
-        if (this.validationErrors.length > 0) {
-          console.log('Validation Errors on Load:', this.validationErrors);
-        }
-      } else {
-        this.validationErrors.length = 0;
-      }
     });
   }
 
@@ -133,27 +124,25 @@ export class TableAgentsComponent implements OnInit {
       console.log('Validation Errors:', this.validationErrors);
     }
   }
+
   deleteAgent(agentId: number) {
     if (
       window.confirm(
         'Are you sure you want to delete this agent? This action cannot be undone.'
       )
     ) {
-      this.tempAgents = this.tempAgents.filter((agent) => agent.id !== agentId);
-
-      if (this.validateAgents()) {
-        this.agents = JSON.parse(JSON.stringify(this.tempAgents));
-        this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
-        console.log('Agents updated after deletion:', this.agents);
-      } else {
-        console.log('Validation Errors:', this.validationErrors);
-      }
+      this.tempAgents = this.agentsService.deleteAgentById(
+        this.crewId!,
+        this.tempAgents,
+        agentId
+      );
+      console.log('Temp agents after deletion:', this.tempAgents);
     }
   }
 
   navigateToAddAgent() {
     if (this.crewId) {
-      this.router.navigate([`/crew/${this.crewId}/agents/add`]);
+      this.router.navigate(['add'], { relativeTo: this.route });
     }
   }
 }

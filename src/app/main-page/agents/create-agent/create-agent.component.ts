@@ -7,7 +7,10 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { NgClass, Location } from '@angular/common';
-import { lettersOnlyValidator, lettersRequiredValidator } from '../validators';
+import {
+  lettersOnlyValidator,
+  lettersRequiredValidator,
+} from '../agents-table-validators';
 import { AgentsService } from '../agents.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -96,7 +99,7 @@ export class CreateAgentComponent implements OnInit {
   }
 
   navigateToAgents(): void {
-    this.router.navigate([`/crew/${this.crewId}/agents`]);
+    this.router.navigate([`/crew/${this.crewId}/google-sheet/agents`]);
   }
 
   goBack(): void {

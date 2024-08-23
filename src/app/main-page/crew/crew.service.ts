@@ -7,14 +7,12 @@ import { TasksService } from '../tasks/tasks.service';
   providedIn: 'root',
 })
 export class CrewService {
-  private crewsSignal = signal<Crew[]>([]);
+  private crewsSignal = signal<Crew[]>(this.loadCrewsFromLocalStorage());
 
   constructor(
     private agentsService: AgentsService,
     private tasksService: TasksService
-  ) {
-    this.loadCrewsFromLocalStorage();
-  }
+  ) {}
 
   //GET
   getCrews() {
@@ -25,10 +23,13 @@ export class CrewService {
     return this.crewsSignal().filter((crew) => crew.userId === userId);
   }
 
-  private loadCrewsFromLocalStorage(): void {
-    const storedCrews = localStorage.getItem('crews');
-    if (storedCrews) {
-      this.crewsSignal.set(JSON.parse(storedCrews));
+  private loadCrewsFromLocalStorage(): Crew[] {
+    try {
+      const storedCrews = localStorage.getItem('crews');
+      return storedCrews ? JSON.parse(storedCrews) : [];
+    } catch (error) {
+      console.error('Error loading crews from localStorage', error);
+      return [];
     }
   }
 
@@ -56,11 +57,15 @@ export class CrewService {
 
   //DELETE
   deleteCrew(crewId: number): void {
-    // Delete agents and tasks
+    const crewExists = this.crewsSignal().some((crew) => crew.id === crewId);
+    if (!crewExists) {
+      console.error('Attempted to delete a crew that does not exist.');
+      return;
+    }
+
     this.tasksService.deleteTasksByCrewId(crewId);
     this.agentsService.deleteAgentsByCrewId(crewId);
 
-    //Delete crew
     this.crewsSignal.update((crews) =>
       crews.filter((crew) => crew.id !== crewId)
     );

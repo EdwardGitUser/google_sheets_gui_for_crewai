@@ -2,22 +2,22 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Task } from '../task.model';
 import { NgClass, NgFor } from '@angular/common';
 import { TasksService } from '../tasks.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AgentsService } from '../../agents/agents.service';
 import { Agent } from '../../agents/agents.model';
-
+import { isAgentValid } from '../task-table-validators'; // Import the validator
 @Component({
   selector: 'app-task-table',
   standalone: true,
-  imports: [NgClass, NgFor, FormsModule],
+  imports: [NgClass, NgFor, FormsModule, RouterModule],
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
 })
 export class TaskTableComponent implements OnInit {
   tasks: Task[] = [];
 
-  tempTasks: Task[] = []; //COPY FOR TABLE SO NGMODEL DOESNT EFFECT THE ORIGINAL
+  tempTasks: Task[] = []; //COPY FOR TABLE SO NGMODEL DOES NOT EFFECT THE ORIGINAL ARRAY
 
   agents: Agent[] = [];
   crewId: number | null = null;
@@ -51,12 +51,18 @@ export class TaskTableComponent implements OnInit {
     }
   }
 
+  reloadTasks() {
+    this.tempTasks = JSON.parse(JSON.stringify(this.tasks));
+    console.log('Tasks reloaded to original state:', this.tempTasks);
+  }
+
   //VALIDATORS
   validateTasks(): boolean {
     this.validationErrors = [];
     let isValid = true;
 
     this.tempTasks.forEach((task, rowIndex) => {
+      // Validate Title
       if (!task.title || task.title.length < 3) {
         this.validationErrors.push(
           `Error in row ${
@@ -65,10 +71,21 @@ export class TaskTableComponent implements OnInit {
         );
         isValid = false;
       }
+
+      // Validate Assigned Agent
+      if (!isAgentValid(task.agentId, this.agents)) {
+        this.validationErrors.push(
+          `Error in row ${
+            rowIndex + 1
+          }, column Assigned Agent: Task must be assigned to an existing agent.`
+        );
+        isValid = false;
+      }
     });
 
     return isValid;
   }
+  //check if agentId is valid
 
   //SAVE
   saveTasks() {
@@ -76,6 +93,7 @@ export class TaskTableComponent implements OnInit {
       const confirmSave = window.confirm('Do you want to save the changes?');
       if (confirmSave) {
         this.tasks = JSON.parse(JSON.stringify(this.tempTasks));
+
         this.tasksService.updateTasksByCrewId(this.crewId!, this.tasks);
         console.log('Tasks saved:', this.tasks);
       }
@@ -91,19 +109,15 @@ export class TaskTableComponent implements OnInit {
         'Are you sure you want to delete this task? This action cannot be undone.'
       )
     ) {
-      this.tempTasks = this.tempTasks.filter((task) => task.id !== taskId);
+      //returns filtered array
+      this.tempTasks = this.tasksService.deleteTaskById(this.tempTasks, taskId);
 
-      if (this.validateTasks()) {
-        this.tasks = JSON.parse(JSON.stringify(this.tempTasks));
-        this.tasksService.updateTasksByCrewId(this.crewId!, this.tasks);
-        console.log('Tasks updated after deletion:', this.tasks);
-      } else {
-        console.log('Validation Errors:', this.validationErrors);
-      }
+      console.log('Temp tasks after deletion:', this.tempTasks);
     }
   }
 
+  //NAVIGATION
   navigateToAddTask() {
-    this.router.navigate([`/crew/${this.crewId}/tasks/add`]);
+    this.router.navigate(['add'], { relativeTo: this.route });
   }
 }

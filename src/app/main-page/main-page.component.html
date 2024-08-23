@@ -5,10 +5,6 @@
   <p>{{ username }}</p>
   }@else{
   <p>You are not logged in.</p>
-  } @if(selectedCrewName()){
-  <div class="selected-crew-name">
-    <p>Selected Crew: {{ selectedCrewName() }}</p>
-  </div>
   }
 
   <div class="buttons-container">
@@ -55,34 +51,7 @@
     >
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>
-    <button
-      routerLink="/kickoff"
-      [ngClass]="{
-        'not-logged-in': !isLoggedIn(),
-        'kickoff-btn': isLoggedIn()
-      }"
-      [disabled]="!isLoggedIn()"
-    >
-      Kickoff
-    </button>
-    @if(checkId()){
-    <button class="delete-crew" (click)="deleteCrew()">
-      <i class="fas fa-trash-alt"></i> Delete Crew
-    </button>
-    }
   </div>
 
-  @if(checkId()){
-  <div class="main-page-table-container">
-    <div class="navigation-tabs">
-      <a [routerLink]="['/crew', crewId, 'agents']" routerLinkActive="active"
-        >Agents</a
-      >
-      <a [routerLink]="['/crew', crewId, 'tasks']" routerLinkActive="active"
-        >Tasks</a
-      >
-    </div>
-  </div>
-  }
   <router-outlet></router-outlet>
 </div>

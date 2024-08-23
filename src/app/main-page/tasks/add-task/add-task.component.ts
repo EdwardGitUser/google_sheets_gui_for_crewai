@@ -8,15 +8,15 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../tasks.service';
 import { Task } from '../task.model';
-import { lettersRequiredValidator } from '../../agents/validators';
+import { lettersRequiredValidator } from '../../agents/agents-table-validators';
 import { AgentsService } from '../../agents/agents.service';
 import { Agent } from '../../agents/agents.model';
-import { NgFor, NgIf } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
 })
@@ -30,7 +30,8 @@ export class AddTaskComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private tasksService: TasksService,
-    private agentsService: AgentsService
+    private agentsService: AgentsService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +40,6 @@ export class AddTaskComponent implements OnInit {
     this.initializeForm();
   }
 
-  
   loadAgents(): void {
     if (this.crewId) {
       this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
@@ -88,11 +88,17 @@ export class AddTaskComponent implements OnInit {
         this.taskForm.value.description,
         this.taskForm.value.expected_output
       );
-      this.router.navigate([`/crew/${this.crewId}/tasks`]);
+
+      this.navigateToTasks();
+    } else {
+      console.log('Form is invalid');
     }
   }
 
+  private navigateToTasks(): void {
+    this.router.navigate([`/crew/${this.crewId}/google-sheet/tasks`]);
+  }
   closeModal(): void {
-    this.router.navigate([`/crew/${this.crewId}/tasks`]);
+    this.location.back();
   }
 }

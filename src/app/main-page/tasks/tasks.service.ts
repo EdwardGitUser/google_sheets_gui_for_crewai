@@ -9,6 +9,7 @@ export class TasksService {
 
   constructor() {
     this.tasks = this.loadTasksFromLocalStorage();
+    console.log(this.tasks);
   }
 
   //GET
@@ -52,22 +53,34 @@ export class TasksService {
   }
 
   //UPDATE
+  private saveTasksToLocalStorage(): void {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
   updateTasksByCrewId(crewId: number, updatedTasks: Task[]): void {
-    this.tasks = this.tasks.map((task) =>
-      task.crewId === crewId
-        ? updatedTasks.find((t) => t.id === task.id) || task
-        : task
-    );
+    this.tasks = this.tasks.filter((task) => task.crewId !== crewId);
+
+    this.tasks.push(...updatedTasks);
+
     this.saveTasksToLocalStorage();
   }
 
-  private saveTasksToLocalStorage(): void {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  updateTasksForDeletedAgent(crewId: number, agentId: number): void {
+    this.tasks = this.tasks.map((task) =>
+      task.crewId === crewId && task.agentId === agentId
+        ? { ...task, agentId: null }
+        : task
+    );
+    this.saveTasksToLocalStorage();
   }
 
   //DELETE
   deleteTasksByCrewId(crewId: number): void {
     this.tasks = this.tasks.filter((task) => task.crewId !== crewId);
     this.saveTasksToLocalStorage();
+  }
+
+  deleteTaskById(tasks: Task[], taskId: number): Task[] {
+    return tasks.filter((task) => task.id !== taskId);
   }
 }

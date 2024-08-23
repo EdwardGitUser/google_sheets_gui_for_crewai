@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Agent } from './agents.model';
+import { TasksService } from '../tasks/tasks.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { Agent } from './agents.model';
 export class AgentsService {
   private agents: Agent[] = [];
 
-  constructor() {
+  constructor(private tasksService: TasksService) {
     this.agents = this.loadAgentsFromLocalStorage();
   }
 
@@ -18,10 +19,6 @@ export class AgentsService {
 
   getAgentsByCrewId(crewId: number): Agent[] {
     return this.agents.filter((agent) => agent.crewId === crewId);
-  }
-
-  private saveAgentsToLocalStorage(): void {
-    localStorage.setItem('agents', JSON.stringify(this.agents));
   }
 
   private loadAgentsFromLocalStorage(): Agent[] {
@@ -64,9 +61,19 @@ export class AgentsService {
     this.saveAgentsToLocalStorage();
   }
 
+  private saveAgentsToLocalStorage(): void {
+    localStorage.setItem('agents', JSON.stringify(this.agents));
+  }
+
   //DELETE
   deleteAgentsByCrewId(crewId: number): void {
     this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
     this.saveAgentsToLocalStorage();
+  }
+
+  deleteAgentById(crewId: number, agents: Agent[], agentId: number): Agent[] {
+    this.tasksService.updateTasksForDeletedAgent(crewId, agentId);
+
+    return agents.filter((agent) => agent.id !== agentId);
   }
 }

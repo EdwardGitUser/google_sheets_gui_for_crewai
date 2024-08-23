@@ -1,6 +1,7 @@
 // validators.ts
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
+//AGENTS TABLE VALIDATORS
 export function lettersOnlyValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valid = /^[a-zA-Z]+$/.test(control.value);
@@ -37,14 +38,5 @@ export function maxLengthValidator(maxLength: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valid = control.value.length <= maxLength;
     return valid ? null : { maxLength: { requiredLength: maxLength } };
-  };
-}
-export function patternValidator(
-  pattern: RegExp,
-  errorName: string
-): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const valid = pattern.test(control.value);
-    return valid ? null : { [errorName]: true };
   };
 }

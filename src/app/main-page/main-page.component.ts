@@ -13,7 +13,7 @@ import {
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [RouterOutlet, NgClass, RouterModule, NgIf, NgFor],
+  imports: [RouterOutlet, NgClass, NgIf, NgFor, RouterModule],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
@@ -25,8 +25,7 @@ export class MainPageComponent implements OnInit {
   );
 
   hovered = false;
-  crewId = signal<number | null>(null);
-  selectedCrewName = signal<string | null>(null);
+  crewId: number | null = null;
 
   constructor(
     private router: Router,
@@ -34,29 +33,10 @@ export class MainPageComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if (event.url === '/' || event.urlAfterRedirects === '/') {
-          this.clearCrewId();
-        }
-      }
-    });
-
-    const storedCrewId = localStorage.getItem('currentCrewId');
-    if (storedCrewId) {
-      const crewIdNumber = +storedCrewId;
-      this.crewId.set(crewIdNumber);
-      const crew = this.crews().find((crew) => crew.id === crewIdNumber);
-      this.selectedCrewName.set(crew ? crew.name : null);
-    }
-  }
+  ngOnInit() {}
 
   get username(): string | null {
     return this.authService.currentUser?.username || null;
-  }
-  checkId(): boolean {
-    return localStorage.getItem('currentCrewId') !== null;
   }
 
   isLoggedIn(): boolean {
@@ -74,12 +54,10 @@ export class MainPageComponent implements OnInit {
   }
 
   viewAgents(crewId: number) {
-    const selectedCrew = this.crews().find((crew) => crew.id === crewId);
-    this.selectedCrewName.set(selectedCrew ? selectedCrew.name : null);
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
-      this.crewId.set(crewId);
+      this.crewId = crewId;
       localStorage.setItem('currentCrewId', String(crewId));
-      this.router.navigate([`/crew/${crewId}/agents`]);
+      this.router.navigate([`/crew/${crewId}/google-sheet`]);
     }
   }
 
@@ -91,18 +69,14 @@ export class MainPageComponent implements OnInit {
 
   deleteCrew() {
     if (
-      this.crewId() !== null &&
+      this.crewId !== null &&
       window.confirm('Are you sure you want to delete this crew?')
     ) {
-      this.crewService.deleteCrew(this.crewId()!);
-      this.clearCrewId();
-      this.router.navigate(['/']);
-    }
-  }
+      this.crewService.deleteCrew(this.crewId);
+      this.crewId = null;
 
-  clearCrewId() {
-    this.crewId.set(null);
-    this.selectedCrewName.set(null);
-    localStorage.removeItem('currentCrewId');
+      this.router.navigate(['/']);
+      localStorage.removeItem('currentCrewId');
+    }
   }
 }

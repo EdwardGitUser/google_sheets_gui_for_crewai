@@ -1,4 +1,6 @@
+@if(canLoadTemplate){
 <div>
+  <!-- The content you want to display when all conditions are met -->
   <p>#################################</p>
   <P>RESULT CREWAI</P>
   <br />
@@ -8,32 +10,7 @@
     laborum repellat reiciendis velit quis cupiditate nam nemo ab! Soluta
     incidunt delectus suscipit temporibus aut sint, sequi eligendi vitae
     pariatur earum qui in nam vero magni voluptas cum consequatur repellendus
-    tempore? Quidem commodi sint consectetur sapiente, corporis impedit
-    obcaecati! Impedit eligendi placeat repellendus optio quae excepturi quam,
-    itaque nam aliquam sed. Sit repudiandae, laboriosam ipsa labore repellat
-    impedit, quos natus voluptatem illum id qui, et aliquid fugit voluptatibus
-    dolore. Eius et porro quam deleniti autem reprehenderit numquam officia
-    ducimus, aut iure distinctio laborum praesentium, dolore facilis, repellat
-    reiciendis unde! Architecto odit sed suscipit minima id veritatis! Quis,
-    alias saepe? Incidunt harum iusto quaerat illum aperiam consequatur, atque
-    aliquid quo rerum sed commodi cum tempore ipsam vitae totam similique eaque
-    ratione est beatae dolorem quas voluptatum. Quas voluptate perspiciatis
-    aliquid. Sunt, veritatis sed reiciendis, cumque expedita optio hic animi
-    aspernatur voluptas velit repudiandae suscipit porro harum nulla eligendi
-    numquam eveniet labore facilis odit omnis consectetur nostrum! Recusandae
-    quos dicta obcaecati. Cum, facilis officia quos exercitationem sit odio nisi
-    nobis, aliquid ullam porro error voluptatem? Voluptates, ullam minus.
-    Blanditiis deserunt nemo aperiam libero, quam hic atque voluptas nam illo
-    deleniti vel. Laboriosam est soluta dignissimos eligendi vel, illum velit
-    tenetur, quos perferendis ipsum, dicta nostrum ullam atque voluptatibus
-    maxime. Ipsum, error quibusdam. Id labore consequatur ad laborum maiores!
-    Odio, quae harum? Fuga recusandae est harum cupiditate libero a quibusdam
-    magni minus nihil voluptatem, ratione in, mollitia distinctio? Enim
-    molestiae aliquid dolor provident, autem repellat. Nihil nam, neque amet
-    praesentium accusantium nobis. Perferendis fugit fuga nihil corporis nisi
-    iste architecto quos exercitationem quam, unde nostrum, eaque ut est
-    voluptatem atque facere odio. Atque quia rem possimus voluptas asperiores,
-    totam ea corporis adipisci.
+    tempore? ...
   </p>
   <br />
   <p>#################################</p>
@@ -44,34 +21,16 @@
     laborum repellat reiciendis velit quis cupiditate nam nemo ab! Soluta
     incidunt delectus suscipit temporibus aut sint, sequi eligendi vitae
     pariatur earum qui in nam vero magni voluptas cum consequatur repellendus
-    tempore? Quidem commodi sint consectetur sapiente, corporis impedit
-    obcaecati! Impedit eligendi placeat repellendus optio quae excepturi quam,
-    itaque nam aliquam sed. Sit repudiandae, laboriosam ipsa labore repellat
-    impedit, quos natus voluptatem illum id qui, et aliquid fugit voluptatibus
-    dolore. Eius et porro quam deleniti autem reprehenderit numquam officia
-    ducimus, aut iure distinctio laborum praesentium, dolore facilis, repellat
-    reiciendis unde! Architecto odit sed suscipit minima id veritatis! Quis,
-    alias saepe? Incidunt harum iusto quaerat illum aperiam consequatur, atque
-    aliquid quo rerum sed commodi cum tempore ipsam vitae totam similique eaque
-    ratione est beatae dolorem quas voluptatum. Quas voluptate perspiciatis
-    aliquid. Sunt, veritatis sed reiciendis, cumque expedita optio hic animi
-    aspernatur voluptas velit repudiandae suscipit porro harum nulla eligendi
-    numquam eveniet labore facilis odit omnis consectetur nostrum! Recusandae
-    quos dicta obcaecati. Cum, facilis officia quos exercitationem sit odio nisi
-    nobis, aliquid ullam porro error voluptatem? Voluptates, ullam minus.
-    Blanditiis deserunt nemo aperiam libero, quam hic atque voluptas nam illo
-    deleniti vel. Laboriosam est soluta dignissimos eligendi vel, illum velit
-    tenetur, quos perferendis ipsum, dicta nostrum ullam atque voluptatibus
-    maxime. Ipsum, error quibusdam. Id labore consequatur ad laborum maiores!
-    Odio, quae harum? Fuga recusandae est harum cupiditate libero a quibusdam
-    magni minus nihil voluptatem, ratione in, mollitia distinctio? Enim
-    molestiae aliquid dolor provident, autem repellat. Nihil nam, neque amet
-    praesentium accusantium nobis. Perferendis fugit fuga nihil corporis nisi
-    iste architecto quos exercitationem quam, unde nostrum, eaque ut est
-    voluptatem atque facere odio. Atque quia rem possimus voluptas asperiores,
-    totam ea corporis adipisci.
+    tempore? ...
   </p>
   <br />
   <p>#################################</p>
   <br />
 </div>
+} @else {
+<p>
+  Either the crew does not exist, not all agents have been assigned tasks, or
+  there are no agents/tasks available.
+</p>
+
+}
