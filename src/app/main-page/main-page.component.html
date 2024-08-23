@@ -5,9 +5,9 @@
   <p>{{ username }}</p>
   }@else{
   <p>You are not logged in.</p>
-  } @if(selectedCrewName){
+  } @if(selectedCrewName()){
   <div class="selected-crew-name">
-    <p>Selected Crew: {{ selectedCrewName }}</p>
+    <p>Selected Crew: {{ selectedCrewName() }}</p>
   </div>
   }
 
@@ -65,14 +65,14 @@
     >
       Kickoff
     </button>
-    @if(crewId){
+    @if(checkId()){
     <button class="delete-crew" (click)="deleteCrew()">
       <i class="fas fa-trash-alt"></i> Delete Crew
     </button>
     }
   </div>
 
-  @if(crewId){
+  @if(checkId()){
   <div class="main-page-table-container">
     <div class="navigation-tabs">
       <a [routerLink]="['/crew', crewId, 'agents']" routerLinkActive="active"

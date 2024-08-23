@@ -25,8 +25,8 @@ export class MainPageComponent implements OnInit {
   );
 
   hovered = false;
-  crewId: number | null = null;
-  selectedCrewName: string | null = null;
+  crewId = signal<number | null>(null);
+  selectedCrewName = signal<string | null>(null);
 
   constructor(
     private router: Router,
@@ -35,25 +35,28 @@ export class MainPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // set crewId to null so buttons agents and tasks dont display
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     if (event.url === '/' || event.urlAfterRedirects === '/') {
-    //       this.crewId = null;
-    //       this.selectedCrewName = null;
-    //     }
-    //   }
-    // });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/' || event.urlAfterRedirects === '/') {
+          this.clearCrewId();
+        }
+      }
+    });
+
     const storedCrewId = localStorage.getItem('currentCrewId');
     if (storedCrewId) {
-      this.crewId = +storedCrewId; // Convert to number and set crewId
-      this.selectedCrewName =
-        this.crews().find((crew) => crew.id === this.crewId)?.name || null;
+      const crewIdNumber = +storedCrewId;
+      this.crewId.set(crewIdNumber);
+      const crew = this.crews().find((crew) => crew.id === crewIdNumber);
+      this.selectedCrewName.set(crew ? crew.name : null);
     }
   }
 
   get username(): string | null {
     return this.authService.currentUser?.username || null;
+  }
+  checkId(): boolean {
+    return localStorage.getItem('currentCrewId') !== null;
   }
 
   isLoggedIn(): boolean {
@@ -72,9 +75,9 @@ export class MainPageComponent implements OnInit {
 
   viewAgents(crewId: number) {
     const selectedCrew = this.crews().find((crew) => crew.id === crewId);
-    this.selectedCrewName = selectedCrew ? selectedCrew.name : null;
+    this.selectedCrewName.set(selectedCrew ? selectedCrew.name : null);
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
-      this.crewId = crewId;
+      this.crewId.set(crewId);
       localStorage.setItem('currentCrewId', String(crewId));
       this.router.navigate([`/crew/${crewId}/agents`]);
     }
@@ -88,13 +91,18 @@ export class MainPageComponent implements OnInit {
 
   deleteCrew() {
     if (
-      this.crewId !== null &&
+      this.crewId() !== null &&
       window.confirm('Are you sure you want to delete this crew?')
     ) {
-      this.crewService.deleteCrew(this.crewId);
-      this.crewId = null;
-      this.selectedCrewName = null;
+      this.crewService.deleteCrew(this.crewId()!);
+      this.clearCrewId();
       this.router.navigate(['/']);
     }
+  }
+
+  clearCrewId() {
+    this.crewId.set(null);
+    this.selectedCrewName.set(null);
+    localStorage.removeItem('currentCrewId');
   }
 }
