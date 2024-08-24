@@ -20,7 +20,7 @@ import {
 export class MainPageComponent implements OnInit {
   crews = computed(() =>
     this.crewService
-      .getCrews()()
+      .getCrews()
       .filter((crew) => crew.userId === this.authService.currentUser?.id)
   );
 

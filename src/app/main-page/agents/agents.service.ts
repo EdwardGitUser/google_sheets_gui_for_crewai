@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Agent } from './agents.model';
 import { TasksService } from '../tasks/tasks.service';
 
@@ -6,26 +6,37 @@ import { TasksService } from '../tasks/tasks.service';
   providedIn: 'root',
 })
 export class AgentsService {
-  private agents: Agent[] = [];
+  private agentsSignal = signal<Agent[]>(this.loadAgentsFromLocalStorage());
 
   constructor(private tasksService: TasksService) {
-    this.agents = this.loadAgentsFromLocalStorage();
+    // this.agents = this.loadAgentsFromLocalStorage();
   }
 
   //GET
   getAgents(): Agent[] {
-    return this.agents;
+    return this.agentsSignal();
   }
 
+  // getAgentsByCrewId(crewId: number): Agent[] {
+  //   return this.agents.filter((agent) => agent.crewId === crewId);
+  // }
   getAgentsByCrewId(crewId: number): Agent[] {
-    return this.agents.filter((agent) => agent.crewId === crewId);
+    return this.agentsSignal().filter((agent) => agent.crewId === crewId);
   }
 
+  // private loadAgentsFromLocalStorage(): Agent[] {
+  //   const agents = localStorage.getItem('agents');
+  //   return agents ? JSON.parse(agents) : [];
+  // }
   private loadAgentsFromLocalStorage(): Agent[] {
-    const agents = localStorage.getItem('agents');
-    return agents ? JSON.parse(agents) : [];
+    try {
+      const storedAgents = localStorage.getItem('agents');
+      return storedAgents ? JSON.parse(storedAgents) : [];
+    } catch (error) {
+      console.error('Error loading agents from localStorage', error);
+      return [];
+    }
   }
-
   //CREATE
   createAgent(
     name: string,
@@ -46,30 +57,32 @@ export class AgentsService {
       verbose,
       tool,
     };
-
-    this.agents.push(newAgent);
+    console.log('before', this.agentsSignal);
+    this.agentsSignal.update((agents) => [...agents, newAgent]);
     this.saveAgentsToLocalStorage();
+    console.log(this.agentsSignal);
+
     return newAgent;
   }
 
   //UPDATE
-  updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
-    this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
+  // updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
+  //   this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
 
-    this.agents.push(...updatedAgents);
+  //   this.agents.push(...updatedAgents);
 
-    this.saveAgentsToLocalStorage();
-  }
+  //   this.saveAgentsToLocalStorage();
+  // }
 
   private saveAgentsToLocalStorage(): void {
-    localStorage.setItem('agents', JSON.stringify(this.agents));
+    localStorage.setItem('agents', JSON.stringify(this.agentsSignal()));
   }
 
   //DELETE
-  deleteAgentsByCrewId(crewId: number): void {
-    this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
-    this.saveAgentsToLocalStorage();
-  }
+  // deleteAgentsByCrewId(crewId: number): void {
+  //   this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
+  //   this.saveAgentsToLocalStorage();
+  // }
 
   deleteAgentById(crewId: number, agents: Agent[], agentId: number): Agent[] {
     this.tasksService.updateTasksForDeletedAgent(crewId, agentId);

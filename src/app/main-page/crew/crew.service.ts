@@ -16,7 +16,7 @@ export class CrewService {
 
   //GET
   getCrews() {
-    return this.crewsSignal;
+    return this.crewsSignal();
   }
 
   getCrewsByUserId(userId: number) {
@@ -64,7 +64,7 @@ export class CrewService {
     }
 
     this.tasksService.deleteTasksByCrewId(crewId);
-    this.agentsService.deleteAgentsByCrewId(crewId);
+    // this.agentsService.deleteAgentsByCrewId(crewId);
 
     this.crewsSignal.update((crews) =>
       crews.filter((crew) => crew.id !== crewId)

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { Agent } from '../agents.model';
 
 import { AgentsService } from '../agents.service';
@@ -19,11 +19,19 @@ import {
   styleUrls: ['./table-agents.component.css'],
 })
 export class TableAgentsComponent implements OnInit {
-  agents: Agent[] = [];
-  tempAgents: Agent[] = [];
+  // agents: Agent[] = [];
+  // tempAgents: Agent[] = [];
   crewId: number | null = null;
   validationErrors: string[] = [];
 
+  agents = computed(() => {
+    return this.crewId !== null
+      ? this.agentsService.getAgentsByCrewId(this.crewId)
+      : [];
+  });
+  tempAgents = computed(() => {
+    return [...this.agents()];
+  });
   constructor(
     private agentsService: AgentsService,
     private route: ActivatedRoute,
@@ -33,112 +41,112 @@ export class TableAgentsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.crewId = +params['id'];
-      this.loadAgents();
+      // this.loadAgents();
     });
   }
 
-  loadAgents() {
-    if (this.crewId !== null) {
-      this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-      this.tempAgents = JSON.parse(JSON.stringify(this.agents));
-    }
-  }
+  // loadAgents() {
+  //   if (this.crewId !== null) {
+  //     this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
+  //     this.tempAgents = JSON.parse(JSON.stringify(this.agents));
+  //   }
+  // }
 
   reloadAgents() {
     this.tempAgents = JSON.parse(JSON.stringify(this.agents));
     console.log('Agents reloaded to original state:', this.tempAgents);
   }
 
-  validateAgents(): boolean {
-    this.validationErrors = [];
-    let isValid = true;
+  // validateAgents(): boolean {
+  //   this.validationErrors = [];
+  //   let isValid = true;
 
-    this.tempAgents.forEach((agent, rowIndex) => {
-      // Validate Name
-      if (
-        !this.runValidation(requiredValidator(), agent.name) ||
-        !this.runValidation(minLengthValidator(3), agent.name)
-      ) {
-        this.validationErrors.push(
-          `Error in row ${
-            rowIndex + 1
-          }, column Name: Name is required and must be at least 3 characters long.`
-        );
-        isValid = false;
-      }
+  //   this.tempAgents.forEach((agent, rowIndex) => {
+  //     // Validate Name
+  //     if (
+  //       !this.runValidation(requiredValidator(), agent.name) ||
+  //       !this.runValidation(minLengthValidator(3), agent.name)
+  //     ) {
+  //       this.validationErrors.push(
+  //         `Error in row ${
+  //           rowIndex + 1
+  //         }, column Name: Name is required and must be at least 3 characters long.`
+  //       );
+  //       isValid = false;
+  //     }
 
-      // Validate Role
-      if (!this.runValidation(lettersOnlyValidator(), agent.role)) {
-        this.validationErrors.push(
-          `Error in row ${
-            rowIndex + 1
-          }, column Role: Role must contain only letters.`
-        );
-        isValid = false;
-      }
+  //     // Validate Role
+  //     if (!this.runValidation(lettersOnlyValidator(), agent.role)) {
+  //       this.validationErrors.push(
+  //         `Error in row ${
+  //           rowIndex + 1
+  //         }, column Role: Role must contain only letters.`
+  //       );
+  //       isValid = false;
+  //     }
 
-      // Validate Goal
-      if (
-        !this.runValidation(lettersRequiredValidator(), agent.goal) ||
-        !this.runValidation(minLengthValidator(5), agent.goal)
-      ) {
-        this.validationErrors.push(
-          `Error in row ${
-            rowIndex + 1
-          }, column Goal: Goal is required, must contain letters, and must be at least 5 characters long.`
-        );
-        isValid = false;
-      }
+  //     // Validate Goal
+  //     if (
+  //       !this.runValidation(lettersRequiredValidator(), agent.goal) ||
+  //       !this.runValidation(minLengthValidator(5), agent.goal)
+  //     ) {
+  //       this.validationErrors.push(
+  //         `Error in row ${
+  //           rowIndex + 1
+  //         }, column Goal: Goal is required, must contain letters, and must be at least 5 characters long.`
+  //       );
+  //       isValid = false;
+  //     }
 
-      // Validate Backstory
-      if (
-        !this.runValidation(requiredValidator(), agent.backstory) ||
-        !this.runValidation(minLengthValidator(10), agent.backstory)
-      ) {
-        this.validationErrors.push(
-          `Error in row ${
-            rowIndex + 1
-          }, column Backstory: Backstory is required and must be at least 10 characters long.`
-        );
-        isValid = false;
-      }
-    });
+  //     // Validate Backstory
+  //     if (
+  //       !this.runValidation(requiredValidator(), agent.backstory) ||
+  //       !this.runValidation(minLengthValidator(10), agent.backstory)
+  //     ) {
+  //       this.validationErrors.push(
+  //         `Error in row ${
+  //           rowIndex + 1
+  //         }, column Backstory: Backstory is required and must be at least 10 characters long.`
+  //       );
+  //       isValid = false;
+  //     }
+  //   });
 
-    return isValid;
-  }
+  //   return isValid;
+  // }
 
   runValidation(validator: ValidatorFn, value: any): boolean {
     const control = new FormControl(value);
     return validator(control) === null;
   }
 
-  saveAgents() {
-    if (this.validateAgents()) {
-      const confirmSave = window.confirm('Do you want to save the changes?');
-      if (confirmSave) {
-        this.agents = JSON.parse(JSON.stringify(this.tempAgents));
-        this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
-        console.log('Agents saved:', this.agents);
-      }
-    } else {
-      console.log('Validation Errors:', this.validationErrors);
-    }
-  }
+  // saveAgents() {
+  //   if (this.validateAgents()) {
+  //     const confirmSave = window.confirm('Do you want to save the changes?');
+  //     if (confirmSave) {
+  //       this.agents = JSON.parse(JSON.stringify(this.tempAgents));
+  //       this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
+  //       console.log('Agents saved:', this.agents);
+  //     }
+  //   } else {
+  //     console.log('Validation Errors:', this.validationErrors);
+  //   }
+  // }
 
-  deleteAgent(agentId: number) {
-    if (
-      window.confirm(
-        'Are you sure you want to delete this agent? This action cannot be undone.'
-      )
-    ) {
-      this.tempAgents = this.agentsService.deleteAgentById(
-        this.crewId!,
-        this.tempAgents,
-        agentId
-      );
-      console.log('Temp agents after deletion:', this.tempAgents);
-    }
-  }
+  // deleteAgent(agentId: number) {
+  //   if (
+  //     window.confirm(
+  //       'Are you sure you want to delete this agent? This action cannot be undone.'
+  //     )
+  //   ) {
+  //     this.tempAgents = this.agentsService.deleteAgentById(
+  //       this.crewId!,
+  //       this.tempAgents,
+  //       agentId
+  //     );
+  //     console.log('Temp agents after deletion:', this.tempAgents);
+  //   }
+  // }
 
   navigateToAddAgent() {
     if (this.crewId) {

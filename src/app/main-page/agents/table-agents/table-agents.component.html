@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-@if(tempAgents.length > 0){
+@if(tempAgents().length > 0){
 <div class="agents-table-container">
   <table class="agents-table">
     <thead>
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(agent of tempAgents; track $index){
+      @for(agent of tempAgents(); track $index){
       <tr>
         <td class="id">{{ agent.id }}</td>
         <td>
@@ -50,7 +50,7 @@
           </select>
         </td>
         <td>
-          <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button>
+          <!-- <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button> -->
         </td>
       </tr>
       }
@@ -68,7 +68,7 @@
 
   <div>
     <button class="reload-btn" (click)="reloadAgents()">Reload Crew</button>
-    <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+    <!-- <button class="save-btn" (click)="saveAgents()">Update Crew</button> -->
   </div>
 </div>
 
