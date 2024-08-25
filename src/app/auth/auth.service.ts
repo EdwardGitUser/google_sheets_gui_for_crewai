@@ -29,9 +29,17 @@ export class AuthService {
   }
 
   private loadLoggedInUserFromLocalStorage(): void {
-    const storedUser = localStorage.getItem('loggedInUser');
-    if (storedUser) {
-      this.loggedInUser.set(JSON.parse(storedUser));
+    const storedData = localStorage.getItem('loggedInUser');
+    if (storedData) {
+      const { user, loginTime } = JSON.parse(storedData);
+      const currentTime = new Date().getTime();
+      const expirationTime = 24 * 60 * 60 * 1000; // 1 day
+
+      if (currentTime - loginTime < expirationTime) {
+        this.loggedInUser.set(user);
+      } else {
+        this.logout(); // if expired
+      }
     }
   }
 
@@ -46,7 +54,8 @@ export class AuthService {
       (user) => user.username === username && user.password === password
     );
     if (user) {
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      const loginTime = new Date().getTime(); //expiration
+      localStorage.setItem('loggedInUser', JSON.stringify({ user, loginTime }));
       this.loggedInUser.set(user);
       return true;
     }
@@ -65,7 +74,11 @@ export class AuthService {
       this.users.push(newUser);
       this.saveUsersToLocalStorage();
 
-      localStorage.setItem('loggedInUser', JSON.stringify(newUser));
+      const loginTime = new Date().getTime();
+      localStorage.setItem(
+        'loggedInUser',
+        JSON.stringify({ user: newUser, loginTime })
+      );
       this.loggedInUser.set(newUser);
 
       return true;
