@@ -15,12 +15,16 @@ export class CrewService {
   ) {}
 
   //GET
-  getCrews() {
+  getCrews(): readonly Crew[] {
     return this.crewsSignal();
   }
 
   getCrewsByUserId(userId: number) {
     return this.crewsSignal().filter((crew) => crew.userId === userId);
+  }
+
+  getCrewById(crewId: number): Crew | undefined {
+    return this.crewsSignal().find((crew) => crew.id === crewId);
   }
 
   private loadCrewsFromLocalStorage(): Crew[] {
@@ -64,7 +68,7 @@ export class CrewService {
     }
 
     this.tasksService.deleteTasksByCrewId(crewId);
-    // this.agentsService.deleteAgentsByCrewId(crewId);
+    this.agentsService.deleteAgentsByCrewId(crewId);
 
     this.crewsSignal.update((crews) =>
       crews.filter((crew) => crew.id !== crewId)

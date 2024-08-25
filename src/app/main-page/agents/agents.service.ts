@@ -8,26 +8,17 @@ import { TasksService } from '../tasks/tasks.service';
 export class AgentsService {
   private agentsSignal = signal<Agent[]>(this.loadAgentsFromLocalStorage());
 
-  constructor(private tasksService: TasksService) {
-    // this.agents = this.loadAgentsFromLocalStorage();
-  }
+  constructor(private tasksService: TasksService) {}
 
   //GET
-  getAgents(): Agent[] {
+  getAgents(): readonly Agent[] {
     return this.agentsSignal();
   }
 
-  // getAgentsByCrewId(crewId: number): Agent[] {
-  //   return this.agents.filter((agent) => agent.crewId === crewId);
-  // }
   getAgentsByCrewId(crewId: number): Agent[] {
     return this.agentsSignal().filter((agent) => agent.crewId === crewId);
   }
 
-  // private loadAgentsFromLocalStorage(): Agent[] {
-  //   const agents = localStorage.getItem('agents');
-  //   return agents ? JSON.parse(agents) : [];
-  // }
   private loadAgentsFromLocalStorage(): Agent[] {
     try {
       const storedAgents = localStorage.getItem('agents');
@@ -37,6 +28,7 @@ export class AgentsService {
       return [];
     }
   }
+
   //CREATE
   createAgent(
     name: string,
@@ -66,27 +58,35 @@ export class AgentsService {
   }
 
   //UPDATE
-  // updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
-  //   this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
+  updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
+    this.agentsSignal.update((agents) => [
+      ...agents.filter((agent) => agent.crewId !== crewId),
+      ...updatedAgents,
+    ]);
 
-  //   this.agents.push(...updatedAgents);
-
-  //   this.saveAgentsToLocalStorage();
-  // }
+    this.saveAgentsToLocalStorage();
+  }
 
   private saveAgentsToLocalStorage(): void {
     localStorage.setItem('agents', JSON.stringify(this.agentsSignal()));
   }
 
-  //DELETE
-  // deleteAgentsByCrewId(crewId: number): void {
-  //   this.agents = this.agents.filter((agent) => agent.crewId !== crewId);
-  //   this.saveAgentsToLocalStorage();
-  // }
+  // DELETE
+  deleteAgentsByCrewId(crewId: number): void {
+    this.agentsSignal.update((agents) =>
+      agents.filter((agent) => agent.crewId !== crewId)
+    );
 
-  deleteAgentById(crewId: number, agents: Agent[], agentId: number): Agent[] {
+    this.saveAgentsToLocalStorage();
+  }
+
+  deleteAgentById(crewId: number, agentId: number): void {
     this.tasksService.updateTasksForDeletedAgent(crewId, agentId);
 
-    return agents.filter((agent) => agent.id !== agentId);
+    this.agentsSignal.update((agents) =>
+      agents.filter((agent) => agent.id !== agentId)
+    );
+
+    this.saveAgentsToLocalStorage();
   }
 }

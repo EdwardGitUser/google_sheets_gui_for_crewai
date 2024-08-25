@@ -1,12 +1,12 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { Agent } from '../agents.model';
 
 import { AgentsService } from '../agents.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule, ValidatorFn, FormControl } from '@angular/forms';
+
+import { CreateAgentComponent } from '../create-agent/create-agent.component';
 import {
-  lettersOnlyValidator,
-  lettersRequiredValidator,
   minLengthValidator,
   requiredValidator,
 } from '../agents-table-validators';
@@ -14,24 +14,19 @@ import {
 @Component({
   selector: 'app-table-agents',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule, CreateAgentComponent],
   templateUrl: './table-agents.component.html',
   styleUrls: ['./table-agents.component.css'],
 })
 export class TableAgentsComponent implements OnInit {
-  // agents: Agent[] = [];
-  // tempAgents: Agent[] = [];
-  crewId: number | null = null;
+  crewId = signal<number | null>(null);
+  showModal = signal<boolean>(false);
+
+  private initialAgents: Agent[] = [];
+  tempAgents = signal<Agent[]>([]);
+
   validationErrors: string[] = [];
 
-  agents = computed(() => {
-    return this.crewId !== null
-      ? this.agentsService.getAgentsByCrewId(this.crewId)
-      : [];
-  });
-  tempAgents = computed(() => {
-    return [...this.agents()];
-  });
   constructor(
     private agentsService: AgentsService,
     private route: ActivatedRoute,
@@ -40,117 +35,99 @@ export class TableAgentsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.crewId = +params['id'];
-      // this.loadAgents();
+      this.crewId.set(+params['id']);
+      this.loadTempAgents();
+      this.loadInitialAgents();
     });
   }
 
-  // loadAgents() {
-  //   if (this.crewId !== null) {
-  //     this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-  //     this.tempAgents = JSON.parse(JSON.stringify(this.agents));
-  //   }
-  // }
+  //LOAD
+  loadTempAgents() {
+    const currentCrewId = this.crewId();
+    const agents = this.agentsService.getAgentsByCrewId(currentCrewId!);
+    this.tempAgents.set(agents);
+  }
+
+  loadInitialAgents() {
+    this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+  }
 
   reloadAgents() {
-    this.tempAgents = JSON.parse(JSON.stringify(this.agents));
-    console.log('Agents reloaded to original state:', this.tempAgents);
+    this.tempAgents.set(JSON.parse(JSON.stringify(this.initialAgents)));
+    console.log('Agents reloaded to initial state:', this.tempAgents());
   }
 
-  // validateAgents(): boolean {
-  //   this.validationErrors = [];
-  //   let isValid = true;
+  //VALIDATE
+  validateAgents(): boolean {
+    this.validationErrors = [];
+    let isValid = true;
 
-  //   this.tempAgents.forEach((agent, rowIndex) => {
-  //     // Validate Name
-  //     if (
-  //       !this.runValidation(requiredValidator(), agent.name) ||
-  //       !this.runValidation(minLengthValidator(3), agent.name)
-  //     ) {
-  //       this.validationErrors.push(
-  //         `Error in row ${
-  //           rowIndex + 1
-  //         }, column Name: Name is required and must be at least 3 characters long.`
-  //       );
-  //       isValid = false;
-  //     }
+    this.tempAgents().forEach((agent, rowIndex) => {
+      const columns = [
+        { name: 'Name', value: agent.name },
+        { name: 'Role', value: agent.role },
+        { name: 'Goal', value: agent.goal },
+        { name: 'Backstory', value: agent.backstory },
+      ];
 
-  //     // Validate Role
-  //     if (!this.runValidation(lettersOnlyValidator(), agent.role)) {
-  //       this.validationErrors.push(
-  //         `Error in row ${
-  //           rowIndex + 1
-  //         }, column Role: Role must contain only letters.`
-  //       );
-  //       isValid = false;
-  //     }
+      columns.forEach((field) => {
+        if (!field.value || field.value.length < 3) {
+          this.validationErrors.push(
+            `Error in row ${rowIndex + 1}, column ${field.name}: ${
+              field.name
+            } is required and must be at least 3 characters long.`
+          );
+          isValid = false;
+        }
+      });
+    });
 
-  //     // Validate Goal
-  //     if (
-  //       !this.runValidation(lettersRequiredValidator(), agent.goal) ||
-  //       !this.runValidation(minLengthValidator(5), agent.goal)
-  //     ) {
-  //       this.validationErrors.push(
-  //         `Error in row ${
-  //           rowIndex + 1
-  //         }, column Goal: Goal is required, must contain letters, and must be at least 5 characters long.`
-  //       );
-  //       isValid = false;
-  //     }
-
-  //     // Validate Backstory
-  //     if (
-  //       !this.runValidation(requiredValidator(), agent.backstory) ||
-  //       !this.runValidation(minLengthValidator(10), agent.backstory)
-  //     ) {
-  //       this.validationErrors.push(
-  //         `Error in row ${
-  //           rowIndex + 1
-  //         }, column Backstory: Backstory is required and must be at least 10 characters long.`
-  //       );
-  //       isValid = false;
-  //     }
-  //   });
-
-  //   return isValid;
-  // }
-
-  runValidation(validator: ValidatorFn, value: any): boolean {
-    const control = new FormControl(value);
-    return validator(control) === null;
+    return isValid;
   }
-
-  // saveAgents() {
-  //   if (this.validateAgents()) {
-  //     const confirmSave = window.confirm('Do you want to save the changes?');
-  //     if (confirmSave) {
-  //       this.agents = JSON.parse(JSON.stringify(this.tempAgents));
-  //       this.agentsService.updateAgentsByCrewId(this.crewId!, this.agents);
-  //       console.log('Agents saved:', this.agents);
-  //     }
-  //   } else {
-  //     console.log('Validation Errors:', this.validationErrors);
-  //   }
-  // }
-
-  // deleteAgent(agentId: number) {
-  //   if (
-  //     window.confirm(
-  //       'Are you sure you want to delete this agent? This action cannot be undone.'
-  //     )
-  //   ) {
-  //     this.tempAgents = this.agentsService.deleteAgentById(
-  //       this.crewId!,
-  //       this.tempAgents,
-  //       agentId
-  //     );
-  //     console.log('Temp agents after deletion:', this.tempAgents);
-  //   }
-  // }
-
-  navigateToAddAgent() {
-    if (this.crewId) {
-      this.router.navigate(['add'], { relativeTo: this.route });
+  //SAVE
+  saveAgents() {
+    if (this.validateAgents()) {
+      const confirmSave = window.confirm('Do you want to save the changes?');
+      const currentCrewId = this.crewId();
+      if (confirmSave) {
+        this.agentsService.updateAgentsByCrewId(
+          currentCrewId!,
+          this.tempAgents()
+        );
+        console.log('Agents saved:', this.tempAgents());
+        this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+      }
+    } else {
+      console.log('Validation Errors:', this.validationErrors);
     }
+  }
+
+  //DELETE
+  deleteAgent(agentId: number) {
+    const confirmSave = window.confirm('Do you want to save the changes?');
+    const currentCrewId = this.crewId();
+    if (confirmSave) {
+      this.agentsService.deleteAgentById(currentCrewId!, agentId);
+
+      this.loadTempAgents();
+      this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+
+      console.log('Temp agents after deletion:', this.tempAgents());
+    }
+  }
+
+  //MODAL
+  openCreateAgentModal() {
+    this.showModal.set(true);
+  }
+
+  closeCreateAgentModal() {
+    this.showModal.set(false);
+  }
+
+  onAgentCreated(newAgent: Agent) {
+    this.loadInitialAgents();
+    this.loadTempAgents();
+    this.closeCreateAgentModal();
   }
 }

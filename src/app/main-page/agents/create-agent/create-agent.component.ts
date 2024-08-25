@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { NgClass, Location } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   lettersOnlyValidator,
   lettersRequiredValidator,
 } from '../agents-table-validators';
 import { AgentsService } from '../agents.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Agent } from '../agents.model';
 
 @Component({
   selector: 'app-create-agent',
@@ -22,22 +22,23 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./create-agent.component.css'],
 })
 export class CreateAgentComponent implements OnInit {
+  crewId = input.required<number>();
+  onAgentCreate = output<Agent>();
+  onCloseModal = output();
+
   agentForm!: FormGroup;
-  crewId!: number;
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
-    private agentsService: AgentsService,
-    private route: ActivatedRoute,
-    private router: Router
+
+    private agentsService: AgentsService
   ) {}
 
   ngOnInit(): void {
-    this.crewId = +this.route.snapshot.paramMap.get('id')!;
     this.initializeForm();
   }
 
+  //FORM
   private initializeForm(): void {
     this.agentForm = this.fb.group({
       name: [
@@ -80,11 +81,12 @@ export class CreateAgentComponent implements OnInit {
     });
   }
 
+  //SUBMIT
   onSubmit(): void {
     if (this.agentForm.valid && this.crewId !== null) {
       const newAgent = this.agentsService.createAgent(
         this.agentForm.value.name,
-        this.crewId,
+        this.crewId(),
         this.agentForm.value.role,
         this.agentForm.value.goal,
         this.agentForm.value.backstory,
@@ -94,15 +96,12 @@ export class CreateAgentComponent implements OnInit {
 
       console.log('Agent created:', newAgent);
 
-      this.navigateToAgents();
+      this.onAgentCreate.emit(newAgent);
     }
   }
 
-  navigateToAgents(): void {
-    this.router.navigate([`/crew/${this.crewId}/google-sheet/agents`]);
-  }
-
-  goBack(): void {
-    this.location.back();
+  //CLOSE
+  onClose(): void {
+    this.onCloseModal.emit();
   }
 }

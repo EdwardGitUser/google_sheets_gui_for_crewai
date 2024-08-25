@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { TableAgentsComponent } from '../agents/table-agents/table-agents.component';
 import { TaskTableComponent } from '../tasks/task-table/task-table.component';
 import {
@@ -22,7 +22,16 @@ import { CrewService } from '../crew/crew.service';
   styleUrl: './google-sheet.component.css',
 })
 export class GoogleSheetComponent {
-  crewId: number | null = null;
+  crewId = signal<number | null>(null);
+
+  crewName = computed(() => {
+    const currentCrewId = this.crewId();
+    if (currentCrewId !== null) {
+      const crew = this.crewService.getCrewById(currentCrewId);
+      return crew ? crew.name : '';
+    }
+    return '';
+  });
 
   constructor(
     private router: Router,
@@ -31,17 +40,19 @@ export class GoogleSheetComponent {
   ) {}
 
   ngOnInit(): void {
-    this.crewId = +this.route.snapshot.paramMap.get('id')!;
-    console.log(this.crewId);
+    this.route.params.subscribe((params) => {
+      this.crewId.set(+params['id']);
+    });
   }
 
   deleteCrew(): void {
+    const currentCrewId = this.crewId();
     if (
       this.crewId !== null &&
       window.confirm('Are you sure you want to delete this crew?')
     ) {
-      this.crewService.deleteCrew(this.crewId);
-      this.crewId = null;
+      this.crewService.deleteCrew(currentCrewId!);
+      this.crewId.set(null);
 
       this.router.navigate(['/']);
       localStorage.removeItem('currentCrewId');

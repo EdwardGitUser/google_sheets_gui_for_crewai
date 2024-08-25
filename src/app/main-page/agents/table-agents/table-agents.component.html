@@ -50,7 +50,7 @@
           </select>
         </td>
         <td>
-          <!-- <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button> -->
+          <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button>
         </td>
       </tr>
       }
@@ -62,17 +62,19 @@
 }
 
 <div class="buttons-container">
-  <button class="add-agent-btn" (click)="navigateToAddAgent()">
+  <button class="add-agent-btn" (click)="openCreateAgentModal()">
     Add Agent
   </button>
-
   <div>
-    <button class="reload-btn" (click)="reloadAgents()">Reload Crew</button>
-    <!-- <button class="save-btn" (click)="saveAgents()">Update Crew</button> -->
+    @if(tempAgents().length > 0){
+
+    <button class="reload-btn" (click)="reloadAgents()">Reload Agents</button>
+    <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+    }
   </div>
 </div>
 
-@if(validationErrors.length > 0 && agents.length > 0){
+@if(validationErrors.length > 0 && tempAgents().length > 0){
 <div class="validation-errors">
   <h4>Validation Errors:</h4>
   <ul>
@@ -82,5 +84,10 @@
     }
   </ul>
 </div>
-
+} @if(showModal()){
+<app-create-agent
+  [crewId]="crewId()!"
+  (onAgentCreate)="onAgentCreated($event)"
+  (onCloseModal)="closeCreateAgentModal()"
+></app-create-agent>
 }

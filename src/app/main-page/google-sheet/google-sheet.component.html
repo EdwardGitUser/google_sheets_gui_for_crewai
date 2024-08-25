@@ -1,4 +1,7 @@
 <div class="main-page-table-container">
+  @if(crewName()){
+  <div class="crew-name">Current Crew: {{ crewName() }}</div>
+  }
   <div class="navigation-tabs">
     <a routerLink="agents" routerLinkActive="active">Agents</a>
     <a routerLink="tasks" routerLinkActive="active">Tasks</a>

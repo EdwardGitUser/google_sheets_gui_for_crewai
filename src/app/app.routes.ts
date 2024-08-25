@@ -34,13 +34,13 @@ export const routes: Routes = [
             path: 'agents',
             component: TableAgentsComponent,
             canActivate: [isLoggedInGuard],
-            children: [
-              {
-                path: 'add',
-                component: CreateAgentComponent,
-                canActivate: [isLoggedInGuard],
-              },
-            ],
+            // children: [
+            //   {
+            //     path: 'add',
+            //     component: CreateAgentComponent,
+            //     canActivate: [isLoggedInGuard],
+            //   },
+            // ],
           },
           {
             path: 'tasks',
