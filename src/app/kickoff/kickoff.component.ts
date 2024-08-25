@@ -15,8 +15,10 @@ import { Task } from '../main-page/tasks/task.model';
 })
 export class KickoffComponent implements OnInit {
   crewId: number | null = null;
+
   agents: Agent[] = [];
   tasks: Task[] = [];
+
   canLoadTemplate: boolean = false;
 
   constructor(
@@ -28,14 +30,12 @@ export class KickoffComponent implements OnInit {
 
   ngOnInit(): void {
     this.crewId = +this.route.snapshot.paramMap.get('id')!;
-
     this.loadAgentsAndTasks();
   }
 
   private loadAgentsAndTasks(): void {
     if (this.crewId !== null) {
       this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-
       this.tasks = this.tasksService.getTasksByCrewId(this.crewId);
 
       this.canLoadTemplate =
@@ -46,7 +46,8 @@ export class KickoffComponent implements OnInit {
         );
     }
   }
+
   goBack(): void {
-    this.location.back(); // Navigate back to the previous page
+    this.location.back();
   }
 }

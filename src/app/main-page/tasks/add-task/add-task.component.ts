@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,10 +20,10 @@ import { Agent } from '../../agents/agents.model';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() crewId!: number;
-  @Input() agents: Agent[] = [];
-  @Output() onTaskCreate = new EventEmitter<Task>();
-  @Output() onCloseModal = new EventEmitter<void>();
+  crewId = input.required<number>();
+  agents = input.required<Agent[]>();
+  onTaskCreate = output<Task>();
+  onCloseModal = output();
 
   taskForm!: FormGroup;
 
@@ -73,7 +73,7 @@ export class AddTaskComponent implements OnInit {
   onSubmit(): void {
     if (this.taskForm.valid) {
       const newTask: Task = this.tasksService.onCreateTask(
-        this.crewId,
+        +this.crewId,
         +this.taskForm.value.agentId,
         this.taskForm.value.title,
         this.taskForm.value.description,

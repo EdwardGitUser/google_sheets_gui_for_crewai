@@ -1,7 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',

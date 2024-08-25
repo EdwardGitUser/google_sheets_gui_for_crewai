@@ -1,7 +1,7 @@
 <div class="main-container">
   <h1>Simple Google Sheet Gui for crewAI</h1>
 
-  @if(isLoggedIn()){
+  @if(isLoggedIn){
   <p>{{ username }}</p>
   }@else{
   <p>You are not logged in.</p>
@@ -15,15 +15,15 @@
     >
       <button
         [ngClass]="{
-          'not-logged-in': !isLoggedIn(),
-          'load-crew': isLoggedIn()
+          'not-logged-in': !isLoggedIn,
+          'load-crew': isLoggedIn
         }"
-        [disabled]="!isLoggedIn()"
+        [disabled]="!isLoggedIn"
       >
         <i class="fas fa-folder-open"></i> Load Crew
       </button>
 
-      @if(hovered && isLoggedIn()){
+      @if(hovered && isLoggedIn){
       <div class="crew-list">
         @if(crews().length > 0){
         <ul>
@@ -43,10 +43,10 @@
 
     <button
       [ngClass]="{
-        'not-logged-in': !isLoggedIn(),
-        'create-crew': isLoggedIn()
+        'not-logged-in': !isLoggedIn,
+        'create-crew': isLoggedIn
       }"
-      [disabled]="!isLoggedIn()"
+      [disabled]="!isLoggedIn"
       (click)="createCrew()"
     >
       <i class="fas fa-plus-circle"></i> Create Crew

@@ -1,14 +1,9 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { CrewService } from './crew/crew.service';
-import { Crew } from './crew/crew.model';
+
 import { AuthService } from '../auth/auth.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import {
-  NavigationEnd,
-  Router,
-  RouterModule,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -39,12 +34,12 @@ export class MainPageComponent implements OnInit {
     return this.authService.currentUser?.username || null;
   }
 
-  isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     return !!this.authService.currentUser;
   }
 
   onHover() {
-    if (this.isLoggedIn()) {
+    if (this.isLoggedIn) {
       this.hovered = true;
     }
   }

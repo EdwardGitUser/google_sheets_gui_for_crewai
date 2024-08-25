@@ -1,15 +1,11 @@
-import { Component, computed, effect, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Agent } from '../agents.model';
 
 import { AgentsService } from '../agents.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { FormsModule, ValidatorFn, FormControl } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { CreateAgentComponent } from '../create-agent/create-agent.component';
-import {
-  minLengthValidator,
-  requiredValidator,
-} from '../agents-table-validators';
 
 @Component({
   selector: 'app-table-agents',
@@ -20,12 +16,13 @@ import {
 })
 export class TableAgentsComponent implements OnInit {
   crewId = signal<number | null>(null);
-  showModal = signal<boolean>(false);
 
   private initialAgents: Agent[] = [];
   tempAgents = signal<Agent[]>([]);
 
   validationErrors: string[] = [];
+
+  showModal = signal<boolean>(false);
 
   constructor(
     private agentsService: AgentsService,
@@ -35,18 +32,18 @@ export class TableAgentsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.crewId.set(+params['id']);
-      // this.loadTempAgents();
-      // this.loadInitialAgents();
       this.loadAgents();
     });
   }
+
+   //LOAD
   loadAgents() {
     const currentCrewId = this.crewId();
     const agents = this.agentsService.getAgentsByCrewId(currentCrewId!);
     this.tempAgents.set(agents);
     this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
   }
-  //LOAD
+
   loadTempAgents() {
     const currentCrewId = this.crewId();
     const agents = this.agentsService.getAgentsByCrewId(currentCrewId!);
@@ -89,6 +86,7 @@ export class TableAgentsComponent implements OnInit {
 
     return isValid;
   }
+
   //SAVE
   saveAgents() {
     if (this.validateAgents()) {
@@ -114,8 +112,6 @@ export class TableAgentsComponent implements OnInit {
     if (confirmSave) {
       this.agentsService.deleteAgentById(currentCrewId!, agentId);
 
-      // this.loadTempAgents();
-      // this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
       this.loadAgents();
       console.log('Temp agents after deletion:', this.tempAgents());
     }
@@ -131,8 +127,6 @@ export class TableAgentsComponent implements OnInit {
   }
 
   onAgentCreated(newAgent: Agent) {
-    // this.loadTempAgents();
-    // this.loadInitialAgents();
     this.loadAgents();
     this.closeCreateAgentModal();
   }

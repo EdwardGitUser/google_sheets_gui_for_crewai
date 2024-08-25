@@ -23,6 +23,7 @@ import { Agent } from '../agents.model';
 })
 export class CreateAgentComponent implements OnInit {
   crewId = input.required<number>();
+
   onAgentCreate = output<Agent>();
   onCloseModal = output();
 
