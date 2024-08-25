@@ -10,9 +10,9 @@ import { NgClass } from '@angular/common';
 import {
   lettersOnlyValidator,
   lettersRequiredValidator,
-} from '../agents-table-validators';
-import { AgentsService } from '../agents.service';
-import { Agent } from '../agents.model';
+} from '../../../shared/validators/agents-table-validators';
+import { AgentsService } from '../../../services/agents.service';
+import { Agent } from '../../../shared/models/agents.model';
 
 @Component({
   selector: 'app-create-agent',

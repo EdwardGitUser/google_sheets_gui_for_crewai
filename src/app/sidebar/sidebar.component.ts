@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { NgClass } from '@angular/common';
-import { User } from '../auth/user.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-sidebar',

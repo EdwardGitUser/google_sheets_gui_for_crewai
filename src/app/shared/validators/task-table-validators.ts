@@ -1,6 +1,6 @@
 //task-table-validators
 
-import { Agent } from '../agents/agents.model';
+import { Agent } from '../models/agents.model';
 
 export function isAgentValid(agentId: string | null, agents: Agent[]): boolean {
   if (agentId === null) {

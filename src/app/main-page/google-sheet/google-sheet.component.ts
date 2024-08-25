@@ -1,13 +1,13 @@
 import { Component, computed, signal } from '@angular/core';
-import { TableAgentsComponent } from '../agents/table-agents/table-agents.component';
-import { TaskTableComponent } from '../tasks/task-table/task-table.component';
+import { TableAgentsComponent } from '../tables/table-agents/table-agents.component';
+import { TaskTableComponent } from '../tables/task-table/task-table.component';
 import {
   ActivatedRoute,
   Router,
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { CrewService } from '../crew/crew.service';
+import { CrewService } from '../../services/crew.service';
 
 @Component({
   selector: 'app-google-sheet',

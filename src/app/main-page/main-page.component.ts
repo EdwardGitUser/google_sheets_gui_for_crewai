@@ -1,5 +1,5 @@
 import { Component, computed, OnInit } from '@angular/core';
-import { CrewService } from './crew/crew.service';
+import { CrewService } from '../services/crew.service';
 
 import { AuthService } from '../auth/auth.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';

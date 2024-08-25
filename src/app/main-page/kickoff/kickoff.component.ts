@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { AgentsService } from '../main-page/agents/agents.service';
-import { TasksService } from '../main-page/tasks/tasks.service';
-import { Agent } from '../main-page/agents/agents.model';
-import { Task } from '../main-page/tasks/task.model';
+import { AgentsService } from '../../services/agents.service';
+import { TasksService } from '../../services/tasks.service';
+import { Agent } from '../../shared/models/agents.model';
+import { Task } from '../../shared/models/task.model';
 
 @Component({
   selector: 'app-kickoff',

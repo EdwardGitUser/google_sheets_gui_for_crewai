@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, signal } from '@angular/core';
-import { Task } from '../task.model';
+import { Task } from '../../../shared/models/task.model';
 import { NgClass, NgFor } from '@angular/common';
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../../../services/tasks.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AgentsService } from '../../agents/agents.service';
-import { Agent } from '../../agents/agents.model';
-import { isAgentValid } from '../task-table-validators'; // Import the validator
-import { AddTaskComponent } from '../add-task/add-task.component';
+import { AgentsService } from '../../../services/agents.service';
+import { Agent } from '../../../shared/models/agents.model';
+import { isAgentValid } from '../../../shared/validators/task-table-validators'; // Import the validator
+import { AddTaskComponent } from '../../create-forms/add-task/add-task.component';
 @Component({
   selector: 'app-task-table',
   standalone: true,

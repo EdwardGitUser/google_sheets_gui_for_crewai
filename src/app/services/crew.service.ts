@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
-import { Crew } from './crew.model';
-import { AgentsService } from '../agents/agents.service';
-import { TasksService } from '../tasks/tasks.service';
+import { Crew } from '../shared/models/crew.model';
+import { AgentsService } from './agents.service';
+import { TasksService } from './tasks.service';
 
 @Injectable({
   providedIn: 'root',

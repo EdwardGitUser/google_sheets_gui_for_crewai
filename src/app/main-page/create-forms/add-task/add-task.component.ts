@@ -6,11 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { TasksService } from '../tasks.service';
-import { Task } from '../task.model';
-import { lettersRequiredValidator } from '../../agents/agents-table-validators';
+import { TasksService } from '../../../services/tasks.service';
+import { Task } from '../../../shared/models/task.model';
+import { lettersRequiredValidator } from '../../../shared/validators/agents-table-validators';
 
-import { Agent } from '../../agents/agents.model';
+import { Agent } from '../../../shared/models/agents.model';
 
 @Component({
   selector: 'app-add-task',

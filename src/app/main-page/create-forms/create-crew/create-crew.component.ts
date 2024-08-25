@@ -1,5 +1,5 @@
 import { Component, input, OnInit } from '@angular/core';
-import { CrewService } from '../crew.service';
+import { CrewService } from '../../../services/crew.service';
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import {

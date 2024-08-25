@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { Agent } from './agents.model';
-import { TasksService } from '../tasks/tasks.service';
+import { Agent } from '../shared/models/agents.model';
+import { TasksService } from './tasks.service';
 
 @Injectable({
   providedIn: 'root',

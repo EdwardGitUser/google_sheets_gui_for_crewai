@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { Agent } from '../agents.model';
+import { Agent } from '../../../shared/models/agents.model';
 
-import { AgentsService } from '../agents.service';
+import { AgentsService } from '../../../services/agents.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { CreateAgentComponent } from '../create-agent/create-agent.component';
+import { CreateAgentComponent } from '../../create-forms/create-agent/create-agent.component';
 
 @Component({
   selector: 'app-table-agents',
