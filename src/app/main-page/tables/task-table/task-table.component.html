@@ -62,8 +62,11 @@
   <button class="add-task-btn" (click)="openAddTaskModal()">Add Task</button>
 
   <div>
+    @if(tableTasks.length > 0){
+
     <button class="add-task-btn" (click)="reloadTasks()">Reload Tasks</button>
     <button class="save-task-btn" (click)="saveTasks()">Update Tasks</button>
+    }
   </div>
 </div>
 @if(showModal()){
