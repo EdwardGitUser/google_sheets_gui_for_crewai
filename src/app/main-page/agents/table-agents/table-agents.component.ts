@@ -29,18 +29,23 @@ export class TableAgentsComponent implements OnInit {
 
   constructor(
     private agentsService: AgentsService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.crewId.set(+params['id']);
-      this.loadTempAgents();
-      this.loadInitialAgents();
+      // this.loadTempAgents();
+      // this.loadInitialAgents();
+      this.loadAgents();
     });
   }
-
+  loadAgents() {
+    const currentCrewId = this.crewId();
+    const agents = this.agentsService.getAgentsByCrewId(currentCrewId!);
+    this.tempAgents.set(agents);
+    this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+  }
   //LOAD
   loadTempAgents() {
     const currentCrewId = this.crewId();
@@ -109,9 +114,9 @@ export class TableAgentsComponent implements OnInit {
     if (confirmSave) {
       this.agentsService.deleteAgentById(currentCrewId!, agentId);
 
-      this.loadTempAgents();
-      this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
-
+      // this.loadTempAgents();
+      // this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+      this.loadAgents();
       console.log('Temp agents after deletion:', this.tempAgents());
     }
   }
@@ -126,8 +131,9 @@ export class TableAgentsComponent implements OnInit {
   }
 
   onAgentCreated(newAgent: Agent) {
-    this.loadInitialAgents();
-    this.loadTempAgents();
+    // this.loadTempAgents();
+    // this.loadInitialAgents();
+    this.loadAgents();
     this.closeCreateAgentModal();
   }
 }

@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { TasksService } from '../tasks.service';
 import { Task } from '../task.model';
 import { lettersRequiredValidator } from '../../agents/agents-table-validators';
-import { AgentsService } from '../../agents/agents.service';
+
 import { Agent } from '../../agents/agents.model';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-task',
@@ -21,29 +20,21 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit {
+  @Input() crewId!: number;
+  @Input() agents: Agent[] = [];
+  @Output() onTaskCreate = new EventEmitter<Task>();
+  @Output() onCloseModal = new EventEmitter<void>();
+
   taskForm!: FormGroup;
-  crewId!: number;
-  agents: Agent[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private tasksService: TasksService,
-    private agentsService: AgentsService,
-    private location: Location
+
+    private tasksService: TasksService
   ) {}
 
   ngOnInit(): void {
-    this.crewId = +this.route.snapshot.paramMap.get('id')!;
-    this.loadAgents();
     this.initializeForm();
-  }
-
-  loadAgents(): void {
-    if (this.crewId) {
-      this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
-    }
   }
 
   private initializeForm(): void {
@@ -81,24 +72,20 @@ export class AddTaskComponent implements OnInit {
   //SUBMIT FORM
   onSubmit(): void {
     if (this.taskForm.valid) {
-      this.tasksService.addTask(
+      const newTask: Task = this.tasksService.onCreateTask(
         this.crewId,
         +this.taskForm.value.agentId,
         this.taskForm.value.title,
         this.taskForm.value.description,
         this.taskForm.value.expected_output
       );
-
-      this.navigateToTasks();
+      this.onTaskCreate.emit(newTask);
     } else {
       console.log('Form is invalid');
     }
   }
 
-  private navigateToTasks(): void {
-    this.router.navigate([`/crew/${this.crewId}/google-sheet/tasks`]);
-  }
-  closeModal(): void {
-    this.location.back();
+  closeModal() {
+    this.onCloseModal.emit();
   }
 }

@@ -1,37 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Task } from './task.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
-  private tasks: Task[] = [];
+  private tasksSignal = signal<Task[]>(this.loadTasksFromLocalStorage());
 
   constructor() {
-    this.tasks = this.loadTasksFromLocalStorage();
-    console.log(this.tasks);
+    console.log(this.tasksSignal());
   }
 
   //GET
-  getTasks(): Task[] {
-    return this.tasks;
+  getTasks(): readonly Task[] {
+    return this.tasksSignal();
   }
 
   getTasksByCrewId(crewId: number): Task[] {
-    return this.tasks.filter((task) => task.crewId === crewId);
+    return this.tasksSignal().filter((task) => task.crewId === crewId);
   }
 
   getTasksByAgentId(agentId: number): Task[] {
-    return this.tasks.filter((task) => task.agentId === agentId);
+    return this.tasksSignal().filter((task) => task.agentId === agentId);
   }
 
   private loadTasksFromLocalStorage(): Task[] {
-    const tasks = localStorage.getItem('tasks');
-    return tasks ? JSON.parse(tasks) : [];
+    try {
+      const storedTasks = localStorage.getItem('tasks');
+      return storedTasks ? JSON.parse(storedTasks) : [];
+    } catch (error) {
+      console.error('Error loading tasks from localStorage', error);
+      return [];
+    }
   }
 
   //CREATE
-  addTask(
+  onCreateTask(
     crewId: number,
     agentId: number,
     title: string,
@@ -47,40 +51,52 @@ export class TasksService {
       expected_output,
     };
 
-    this.tasks.push(newTask);
+    console.log('Before adding task:', this.tasksSignal());
+    this.tasksSignal.update((tasks) => [...tasks, newTask]);
     this.saveTasksToLocalStorage();
+    console.log('After adding task:', this.tasksSignal());
+
     return newTask;
   }
 
   //UPDATE
-  private saveTasksToLocalStorage(): void {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-  }
 
   updateTasksByCrewId(crewId: number, updatedTasks: Task[]): void {
-    this.tasks = this.tasks.filter((task) => task.crewId !== crewId);
-
-    this.tasks.push(...updatedTasks);
+    this.tasksSignal.update((tasks) => [
+      ...tasks.filter((task) => task.crewId !== crewId),
+      ...updatedTasks,
+    ]);
 
     this.saveTasksToLocalStorage();
   }
 
+  private saveTasksToLocalStorage(): void {
+    localStorage.setItem('tasks', JSON.stringify(this.tasksSignal()));
+  }
+
   updateTasksForDeletedAgent(crewId: number, agentId: number): void {
-    this.tasks = this.tasks.map((task) =>
-      task.crewId === crewId && task.agentId === agentId
-        ? { ...task, agentId: null }
-        : task
+    this.tasksSignal.update((tasks) =>
+      tasks.map((task) =>
+        task.crewId === crewId && task.agentId === agentId
+          ? { ...task, agentId: null }
+          : task
+      )
     );
     this.saveTasksToLocalStorage();
   }
 
   //DELETE
   deleteTasksByCrewId(crewId: number): void {
-    this.tasks = this.tasks.filter((task) => task.crewId !== crewId);
+    this.tasksSignal.update((tasks) =>
+      tasks.filter((task) => task.crewId !== crewId)
+    );
     this.saveTasksToLocalStorage();
   }
 
-  deleteTaskById(tasks: Task[], taskId: number): Task[] {
-    return tasks.filter((task) => task.id !== taskId);
+  deleteTaskById(taskId: number): void {
+    this.tasksSignal.update((tasks) =>
+      tasks.filter((task) => task.id !== taskId)
+    );
+    this.saveTasksToLocalStorage();
   }
 }

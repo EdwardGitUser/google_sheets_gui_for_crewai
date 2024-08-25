@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { Task } from '../task.model';
 import { NgClass, NgFor } from '@angular/common';
 import { TasksService } from '../tasks.service';
@@ -7,53 +7,55 @@ import { FormsModule } from '@angular/forms';
 import { AgentsService } from '../../agents/agents.service';
 import { Agent } from '../../agents/agents.model';
 import { isAgentValid } from '../task-table-validators'; // Import the validator
+import { AddTaskComponent } from '../add-task/add-task.component';
 @Component({
   selector: 'app-task-table',
   standalone: true,
-  imports: [NgClass, NgFor, FormsModule, RouterModule],
+  imports: [NgClass, NgFor, FormsModule, RouterModule, AddTaskComponent],
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
 })
 export class TaskTableComponent implements OnInit {
-  tasks: Task[] = [];
+  crewId = signal<number | null>(null);
+  showModal = signal<boolean>(false);
+  initialTasks: Task[] = [];
 
-  tempTasks: Task[] = []; //COPY FOR TABLE SO NGMODEL DOES NOT EFFECT THE ORIGINAL ARRAY
-
+  tableTasks: Task[] = [];
   agents: Agent[] = [];
-  crewId: number | null = null;
 
   validationErrors: string[] = [];
 
   constructor(
     private tasksService: TasksService,
     private agentsService: AgentsService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.crewId = +this.route.snapshot.paramMap.get('id')!;
-    this.loadTasks();
-    this.loadAgents();
+    this.route.params.subscribe((params) => {
+      this.crewId.set(+params['id']);
+      this.loadTasks();
+      this.loadAgents();
+    });
   }
 
   //GET
   loadTasks() {
-    if (this.crewId !== null) {
-      this.tasks = this.tasksService.getTasksByCrewId(this.crewId);
-      this.tempTasks = JSON.parse(JSON.stringify(this.tasks));
+    if (this.crewId() !== null) {
+      this.initialTasks = this.tasksService.getTasksByCrewId(this.crewId()!);
+      this.tableTasks = JSON.parse(JSON.stringify(this.initialTasks));
     }
   }
 
   loadAgents() {
     if (this.crewId !== null) {
-      this.agents = this.agentsService.getAgentsByCrewId(this.crewId);
+      this.agents = this.agentsService.getAgentsByCrewId(this.crewId()!);
     }
   }
 
   reloadTasks() {
-    this.tempTasks = JSON.parse(JSON.stringify(this.tasks));
-    console.log('Tasks reloaded to original state:', this.tempTasks);
+    this.tableTasks = JSON.parse(JSON.stringify(this.initialTasks));
+    console.log('Tasks reloaded to original state:', this.tableTasks);
   }
 
   //VALIDATORS
@@ -61,7 +63,7 @@ export class TaskTableComponent implements OnInit {
     this.validationErrors = [];
     let isValid = true;
 
-    this.tempTasks.forEach((task, rowIndex) => {
+    this.tableTasks.forEach((task, rowIndex) => {
       // Validate Title
       if (!task.title || task.title.length < 3) {
         this.validationErrors.push(
@@ -85,17 +87,16 @@ export class TaskTableComponent implements OnInit {
 
     return isValid;
   }
-  //check if agentId is valid
 
   //SAVE
   saveTasks() {
     if (this.validateTasks()) {
       const confirmSave = window.confirm('Do you want to save the changes?');
       if (confirmSave) {
-        this.tasks = JSON.parse(JSON.stringify(this.tempTasks));
+        this.initialTasks = JSON.parse(JSON.stringify(this.tableTasks));
 
-        this.tasksService.updateTasksByCrewId(this.crewId!, this.tasks);
-        console.log('Tasks saved:', this.tasks);
+        this.tasksService.updateTasksByCrewId(this.crewId()!, this.tableTasks);
+        console.log('Tasks saved:', this.initialTasks);
       }
     } else {
       console.log('Validation Errors:', this.validationErrors);
@@ -109,15 +110,23 @@ export class TaskTableComponent implements OnInit {
         'Are you sure you want to delete this task? This action cannot be undone.'
       )
     ) {
-      //returns filtered array
-      this.tempTasks = this.tasksService.deleteTaskById(this.tempTasks, taskId);
+      this.tasksService.deleteTaskById(taskId);
 
-      console.log('Temp tasks after deletion:', this.tempTasks);
+      this.loadTasks();
+
+      console.log('Temp tasks after deletion:', this.tableTasks);
     }
   }
 
-  //NAVIGATION
-  navigateToAddTask() {
-    this.router.navigate(['add'], { relativeTo: this.route });
+  openAddTaskModal(): void {
+    this.showModal.set(true);
+  }
+
+  closeAddTaskModal(): void {
+    this.showModal.set(false);
+  }
+  onTaskCreated(newTask: Task): void {
+    this.tableTasks.push(newTask);
+    this.closeAddTaskModal();
   }
 }
