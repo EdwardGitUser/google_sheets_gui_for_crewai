@@ -1,7 +1,7 @@
 export interface Task {
-  id: number;
-  crewId: number;
-  agentId: number | null;
+  id: string;
+  crewId: string;
+  agentId: string | null;
   title: string;
   description: string;
   expected_output: string;

@@ -16,7 +16,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
   styleUrls: ['./task-table.component.css'],
 })
 export class TaskTableComponent implements OnInit {
-  crewId = signal<number | null>(null);
+  crewId = signal<string | null>(null);
   showModal = signal<boolean>(false);
   initialTasks: Task[] = [];
 
@@ -33,7 +33,7 @@ export class TaskTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.crewId.set(+params['id']);
+      this.crewId.set(params['id']);
       this.loadTasks();
       this.loadAgents();
     });
@@ -104,7 +104,7 @@ export class TaskTableComponent implements OnInit {
   }
 
   //DELETE
-  deleteTask(taskId: number) {
+  deleteTask(taskId: string) {
     if (
       window.confirm(
         'Are you sure you want to delete this task? This action cannot be undone.'

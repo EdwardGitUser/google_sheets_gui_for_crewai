@@ -22,7 +22,7 @@ import { Agent } from '../agents.model';
   styleUrls: ['./create-agent.component.css'],
 })
 export class CreateAgentComponent implements OnInit {
-  crewId = input.required<number>();
+  crewId = input.required<string>();
 
   onAgentCreate = output<Agent>();
   onCloseModal = output();

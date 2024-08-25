@@ -16,11 +16,11 @@ export class TasksService {
     return this.tasksSignal();
   }
 
-  getTasksByCrewId(crewId: number): Task[] {
+  getTasksByCrewId(crewId: string): Task[] {
     return this.tasksSignal().filter((task) => task.crewId === crewId);
   }
 
-  getTasksByAgentId(agentId: number): Task[] {
+  getTasksByAgentId(agentId: string): Task[] {
     return this.tasksSignal().filter((task) => task.agentId === agentId);
   }
 
@@ -36,14 +36,14 @@ export class TasksService {
 
   //CREATE
   onCreateTask(
-    crewId: number,
-    agentId: number,
+    crewId: string,
+    agentId: string,
     title: string,
     description: string,
     expected_output: string
   ): Task {
     const newTask: Task = {
-      id: Math.floor(Math.random() * 10000),
+      id: Math.floor(Math.random() * 10000).toString(),
       crewId,
       agentId,
       title,
@@ -61,7 +61,7 @@ export class TasksService {
 
   //UPDATE
 
-  updateTasksByCrewId(crewId: number, updatedTasks: Task[]): void {
+  updateTasksByCrewId(crewId: string, updatedTasks: Task[]): void {
     this.tasksSignal.update((tasks) => [
       ...tasks.filter((task) => task.crewId !== crewId),
       ...updatedTasks,
@@ -74,7 +74,7 @@ export class TasksService {
     localStorage.setItem('tasks', JSON.stringify(this.tasksSignal()));
   }
 
-  updateTasksForDeletedAgent(crewId: number, agentId: number): void {
+  updateTasksForDeletedAgent(crewId: string, agentId: string): void {
     this.tasksSignal.update((tasks) =>
       tasks.map((task) =>
         task.crewId === crewId && task.agentId === agentId
@@ -86,14 +86,14 @@ export class TasksService {
   }
 
   //DELETE
-  deleteTasksByCrewId(crewId: number): void {
+  deleteTasksByCrewId(crewId: string): void {
     this.tasksSignal.update((tasks) =>
       tasks.filter((task) => task.crewId !== crewId)
     );
     this.saveTasksToLocalStorage();
   }
 
-  deleteTaskById(taskId: number): void {
+  deleteTaskById(taskId: string): void {
     this.tasksSignal.update((tasks) =>
       tasks.filter((task) => task.id !== taskId)
     );

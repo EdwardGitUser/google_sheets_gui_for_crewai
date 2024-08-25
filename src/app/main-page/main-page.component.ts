@@ -20,7 +20,7 @@ export class MainPageComponent implements OnInit {
   );
 
   hovered = false;
-  crewId: number | null = null;
+  crewId: string | null = null;
 
   constructor(
     private router: Router,
@@ -48,7 +48,7 @@ export class MainPageComponent implements OnInit {
     this.hovered = false;
   }
 
-  viewAgents(crewId: number) {
+  viewAgents(crewId: string) {
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
       this.crewId = crewId;
       localStorage.setItem('currentCrewId', String(crewId));

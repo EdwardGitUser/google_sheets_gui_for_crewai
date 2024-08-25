@@ -1,6 +1,6 @@
 export interface Agent {
-  id: number;
-  crewId: number;
+  id: string;
+  crewId: string;
   name: string;
   role: string;
   goal: string;

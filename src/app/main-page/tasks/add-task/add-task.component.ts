@@ -20,7 +20,7 @@ import { Agent } from '../../agents/agents.model';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  crewId = input.required<number>();
+  crewId = input.required<string>();
   agents = input.required<Agent[]>();
   onTaskCreate = output<Task>();
   onCloseModal = output();
@@ -73,8 +73,8 @@ export class AddTaskComponent implements OnInit {
   onSubmit(): void {
     if (this.taskForm.valid) {
       const newTask: Task = this.tasksService.onCreateTask(
-        +this.crewId,
-        +this.taskForm.value.agentId,
+        this.crewId(),
+        this.taskForm.value.agentId,
         this.taskForm.value.title,
         this.taskForm.value.description,
         this.taskForm.value.expected_output

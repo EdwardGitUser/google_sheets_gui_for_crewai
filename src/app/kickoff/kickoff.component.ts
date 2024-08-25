@@ -14,7 +14,7 @@ import { Task } from '../main-page/tasks/task.model';
   styleUrls: ['./kickoff.component.css'],
 })
 export class KickoffComponent implements OnInit {
-  crewId: number | null = null;
+  crewId: string | null = null;
 
   agents: Agent[] = [];
   tasks: Task[] = [];
@@ -29,7 +29,7 @@ export class KickoffComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.crewId = +this.route.snapshot.paramMap.get('id')!;
+    this.crewId = this.route.snapshot.paramMap.get('id')!;
     this.loadAgentsAndTasks();
   }
 

@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-@if(tempAgents().length > 0){
+@if(tableAgents.length > 0){
 <div class="agents-table-container">
   <table class="agents-table">
     <thead>
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(agent of tempAgents(); track $index){
+      @for(agent of tableAgents; track $index){
       <tr>
         <td class="id">{{ agent.id }}</td>
         <td>
@@ -66,7 +66,7 @@
     Add Agent
   </button>
   <div>
-    @if(tempAgents().length > 0){
+    @if(tableAgents.length > 0){
 
     <button class="reload-btn" (click)="reloadAgents()">Reload Agents</button>
     <button class="save-btn" (click)="saveAgents()">Update Crew</button>
@@ -74,7 +74,7 @@
   </div>
 </div>
 
-@if(validationErrors.length > 0 && tempAgents().length > 0){
+@if(validationErrors.length > 0 && tableAgents.length > 0){
 <div class="validation-errors">
   <h4>Validation Errors:</h4>
   <ul>

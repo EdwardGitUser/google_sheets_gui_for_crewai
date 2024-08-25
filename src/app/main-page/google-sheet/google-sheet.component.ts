@@ -22,7 +22,7 @@ import { CrewService } from '../crew/crew.service';
   styleUrl: './google-sheet.component.css',
 })
 export class GoogleSheetComponent {
-  crewId = signal<number | null>(null);
+  crewId = signal<string | null>(null);
 
   crewName = computed(() => {
     const currentCrewId = this.crewId();
@@ -41,7 +41,7 @@ export class GoogleSheetComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.crewId.set(+params['id']);
+      this.crewId.set(params['id']);
     });
   }
 

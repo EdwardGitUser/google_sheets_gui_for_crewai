@@ -19,11 +19,11 @@ export class CrewService {
     return this.crewsSignal();
   }
 
-  getCrewsByUserId(userId: number) {
+  getCrewsByUserId(userId: string) {
     return this.crewsSignal().filter((crew) => crew.userId === userId);
   }
 
-  getCrewById(crewId: number): Crew | undefined {
+  getCrewById(crewId: string): Crew | undefined {
     return this.crewsSignal().find((crew) => crew.id === crewId);
   }
 
@@ -40,11 +40,11 @@ export class CrewService {
   //CREATE
   createCrew(
     name: string,
-    userId: number,
+    userId: string,
     process: 'sequential' | 'hierarchical' = 'sequential'
   ): Crew {
     const newCrew: Crew = {
-      id: Math.floor(Math.random() * 1000000),
+      id: Math.floor(Math.random() * 10000).toString(),
       name,
       userId,
       process,
@@ -60,7 +60,7 @@ export class CrewService {
   }
 
   //DELETE
-  deleteCrew(crewId: number): void {
+  deleteCrew(crewId: string): void {
     const crewExists = this.crewsSignal().some((crew) => crew.id === crewId);
     if (!crewExists) {
       console.error('Attempted to delete a crew that does not exist.');

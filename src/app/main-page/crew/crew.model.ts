@@ -1,6 +1,6 @@
 export interface Crew {
-  id: number;
+  id: string;
   name: string;
-  userId: number;
+  userId: string;
   process: 'sequential' | 'hierarchical';
 }

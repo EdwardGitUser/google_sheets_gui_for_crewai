@@ -15,10 +15,10 @@ import { CreateAgentComponent } from '../create-agent/create-agent.component';
   styleUrls: ['./table-agents.component.css'],
 })
 export class TableAgentsComponent implements OnInit {
-  crewId = signal<number | null>(null);
+  crewId = signal<string | null>(null);
 
   private initialAgents: Agent[] = [];
-  tempAgents = signal<Agent[]>([]);
+  tableAgents: Agent[] = [];
 
   validationErrors: string[] = [];
 
@@ -31,32 +31,21 @@ export class TableAgentsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.crewId.set(+params['id']);
+      this.crewId.set(params['id']);
       this.loadAgents();
     });
   }
 
-   //LOAD
+  //LOAD
   loadAgents() {
     const currentCrewId = this.crewId();
-    const agents = this.agentsService.getAgentsByCrewId(currentCrewId!);
-    this.tempAgents.set(agents);
-    this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
-  }
-
-  loadTempAgents() {
-    const currentCrewId = this.crewId();
-    const agents = this.agentsService.getAgentsByCrewId(currentCrewId!);
-    this.tempAgents.set(agents);
-  }
-
-  loadInitialAgents() {
-    this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+    this.tableAgents = this.agentsService.getAgentsByCrewId(currentCrewId!);
+    this.initialAgents = JSON.parse(JSON.stringify(this.tableAgents));
   }
 
   reloadAgents() {
-    this.tempAgents.set(JSON.parse(JSON.stringify(this.initialAgents)));
-    console.log('Agents reloaded to initial state:', this.tempAgents());
+    this.tableAgents = JSON.parse(JSON.stringify(this.initialAgents));
+    console.log('Agents reloaded to initial state:', this.tableAgents);
   }
 
   //VALIDATE
@@ -64,7 +53,7 @@ export class TableAgentsComponent implements OnInit {
     this.validationErrors = [];
     let isValid = true;
 
-    this.tempAgents().forEach((agent, rowIndex) => {
+    this.tableAgents.forEach((agent, rowIndex) => {
       const columns = [
         { name: 'Name', value: agent.name },
         { name: 'Role', value: agent.role },
@@ -95,10 +84,10 @@ export class TableAgentsComponent implements OnInit {
       if (confirmSave) {
         this.agentsService.updateAgentsByCrewId(
           currentCrewId!,
-          this.tempAgents()
+          this.tableAgents
         );
-        console.log('Agents saved:', this.tempAgents());
-        this.initialAgents = JSON.parse(JSON.stringify(this.tempAgents()));
+        console.log('Agents saved:', this.tableAgents);
+        this.initialAgents = JSON.parse(JSON.stringify(this.tableAgents));
       }
     } else {
       console.log('Validation Errors:', this.validationErrors);
@@ -106,14 +95,14 @@ export class TableAgentsComponent implements OnInit {
   }
 
   //DELETE
-  deleteAgent(agentId: number) {
+  deleteAgent(agentId: string) {
     const confirmSave = window.confirm('Do you want to save the changes?');
     const currentCrewId = this.crewId();
     if (confirmSave) {
       this.agentsService.deleteAgentById(currentCrewId!, agentId);
 
       this.loadAgents();
-      console.log('Temp agents after deletion:', this.tempAgents());
+      console.log('Temp agents after deletion:', this.tableAgents);
     }
   }
 

@@ -2,7 +2,7 @@
 
 import { Agent } from '../agents/agents.model';
 
-export function isAgentValid(agentId: number | null, agents: Agent[]): boolean {
+export function isAgentValid(agentId: string | null, agents: Agent[]): boolean {
   if (agentId === null) {
     return false;
   }

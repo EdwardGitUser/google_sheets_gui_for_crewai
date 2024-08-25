@@ -15,7 +15,7 @@ export class AgentsService {
     return this.agentsSignal();
   }
 
-  getAgentsByCrewId(crewId: number): Agent[] {
+  getAgentsByCrewId(crewId: string): Agent[] {
     return this.agentsSignal().filter((agent) => agent.crewId === crewId);
   }
 
@@ -32,7 +32,7 @@ export class AgentsService {
   //CREATE
   createAgent(
     name: string,
-    crewId: number,
+    crewId: string,
     role: string,
     goal: string,
     backstory: string,
@@ -40,7 +40,7 @@ export class AgentsService {
     tool: string
   ): Agent {
     const newAgent: Agent = {
-      id: Math.floor(Math.random() * 1000000),
+      id: Math.floor(Math.random() * 10000).toString(),
       crewId,
       name,
       role,
@@ -58,7 +58,7 @@ export class AgentsService {
   }
 
   //UPDATE
-  updateAgentsByCrewId(crewId: number, updatedAgents: Agent[]): void {
+  updateAgentsByCrewId(crewId: string, updatedAgents: Agent[]): void {
     this.agentsSignal.update((agents) => [
       ...agents.filter((agent) => agent.crewId !== crewId),
       ...updatedAgents,
@@ -72,7 +72,7 @@ export class AgentsService {
   }
 
   // DELETE
-  deleteAgentsByCrewId(crewId: number): void {
+  deleteAgentsByCrewId(crewId: string): void {
     this.agentsSignal.update((agents) =>
       agents.filter((agent) => agent.crewId !== crewId)
     );
@@ -80,7 +80,7 @@ export class AgentsService {
     this.saveAgentsToLocalStorage();
   }
 
-  deleteAgentById(crewId: number, agentId: number): void {
+  deleteAgentById(crewId: string, agentId: string): void {
     this.tasksService.updateTasksForDeletedAgent(crewId, agentId);
 
     this.agentsSignal.update((agents) =>

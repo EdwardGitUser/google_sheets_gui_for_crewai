@@ -58,7 +58,7 @@ export class AuthService {
     const userExists = this.users.some((user) => user.username === username);
     if (!userExists) {
       const newUser: User = {
-        id: Math.floor(Math.random() * 1000000),
+        id: Math.floor(Math.random() * 10000).toString(),
         username,
         password,
       };
