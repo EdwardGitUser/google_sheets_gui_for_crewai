@@ -87,7 +87,7 @@
 } @if(showModal()){
 <app-create-agent
   [crewId]="crewId()!"
-  (onAgentCreate)="onAgentCreated($event)"
+  (onAgentCreate)="onAgentCreated()"
   (onCloseModal)="closeCreateAgentModal()"
 ></app-create-agent>
 }

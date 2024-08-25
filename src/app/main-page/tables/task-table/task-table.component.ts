@@ -125,7 +125,7 @@ export class TaskTableComponent implements OnInit {
   closeAddTaskModal(): void {
     this.showModal.set(false);
   }
-  onTaskCreated(newTask: Task): void {
+  onTaskCreated(): void {
     this.loadTasks();
     this.closeAddTaskModal();
   }

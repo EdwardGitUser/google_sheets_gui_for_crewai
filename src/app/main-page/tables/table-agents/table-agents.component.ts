@@ -115,7 +115,7 @@ export class TableAgentsComponent implements OnInit {
     this.showModal.set(false);
   }
 
-  onAgentCreated(newAgent: Agent) {
+  onAgentCreated() {
     this.loadAgents();
     this.closeCreateAgentModal();
   }
