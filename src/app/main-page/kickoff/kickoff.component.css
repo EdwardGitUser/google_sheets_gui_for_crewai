@@ -1,9 +1,52 @@
 :host {
+  display: block;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  color: #f5f5f5;
+  font-family: "Roboto", sans-serif;
 }
-div {
+
+.result-container {
   width: 80%;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  border: 1px solid #444;
+  text-align: left;
+}
+
+.separator {
+  color: #007bff;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.result-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 20px;
+}
+
+.result-content {
+  font-size: 1em;
+  line-height: 1.5em;
+  color: #e6e6e6;
+  margin-bottom: 20px;
+  background: #1e1e1e;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.no-result {
+  font-size: 1.2em;
+  color: #ff5555;
+  text-align: center;
 }
 
 .go-back-btn {
@@ -15,6 +58,7 @@ div {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .go-back-btn:hover {

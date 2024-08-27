@@ -1,10 +1,9 @@
 <button class="go-back-btn" (click)="goBack()">Go Back</button>
-@if(canLoadTemplate){
-<div>
-  <p>#################################</p>
-  <P>RESULT CREWAI</P>
-  <br />
-  <p>
+@if(canLoadTemplate) {
+<div class="result-container">
+  <p class="separator">#################################</p>
+  <p class="result-title">RESULT CREWAI</p>
+  <p class="result-content">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque aut inventore
     deleniti! Architecto vero, ratione beatae deleniti facere illo at inventore
     laborum repellat reiciendis velit quis cupiditate nam nemo ab! Soluta
@@ -12,10 +11,8 @@
     pariatur earum qui in nam vero magni voluptas cum consequatur repellendus
     tempore? ...
   </p>
-  <br />
-  <p>#################################</p>
-  <br />
-  <p>
+  <p class="separator">#################################</p>
+  <p class="result-content">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque aut inventore
     deleniti! Architecto vero, ratione beatae deleniti facere illo at inventore
     laborum repellat reiciendis velit quis cupiditate nam nemo ab! Soluta
@@ -23,14 +20,11 @@
     pariatur earum qui in nam vero magni voluptas cum consequatur repellendus
     tempore? ...
   </p>
-  <br />
-  <p>#################################</p>
-  <br />
+  <p class="separator">#################################</p>
 </div>
 } @else {
-<p>
+<p class="no-result">
   Either the crew does not exist, not all agents have been assigned tasks, or
   there are no agents/tasks available.
 </p>
-
 }
