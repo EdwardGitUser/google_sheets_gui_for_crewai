@@ -63,6 +63,17 @@ textarea {
   overflow-y: auto;
   resize: none;
 }
+
+.no-tasks {
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #5f6368;
+  background-color: #f8f9fa;
+  border: 1px solid #dadce0;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+}
 .bottom-container {
   display: flex;
   justify-content: space-between;

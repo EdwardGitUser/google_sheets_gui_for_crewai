@@ -62,7 +62,7 @@
       </table>
     </div>
     } @if(tableAgents.length === 0){
-    <p>No agents available.</p>
+    <p class="no-agents">No agents available.</p>
     }
   </div>
 
@@ -71,8 +71,10 @@
       <button class="add-agent-btn" (click)="openCreateAgentModal()">
         Add Agent
       </button>
+      @if(tableAgents.length > 0){
       <button class="reload-btn" (click)="reloadAgents()">Reload Agents</button>
       <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+      }
     </div>
     @if(validationErrors.length > 0){
     <div class="validation-errors">

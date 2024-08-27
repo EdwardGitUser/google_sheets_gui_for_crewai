@@ -4,14 +4,14 @@
   align-items: flex-start;
   padding: 1rem 7.4rem;
   border-radius: 1rem;
-  font-family: "Roboto", sans-serif;
+
   z-index: 0;
 }
 
 h1 {
   font-size: 2.3rem;
   color: #333;
-  margin-bottom: 0.2rem;
+  padding-top: 1rem;
 }
 
 p {
@@ -19,6 +19,7 @@ p {
   color: #555;
   margin-bottom: 1.3rem;
 }
+
 
 .buttons-container {
   display: flex;
