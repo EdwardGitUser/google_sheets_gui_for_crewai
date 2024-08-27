@@ -4,9 +4,13 @@
     <a routerLink="tasks" routerLinkActive="active">Tasks</a>
   </div>
 
+  <hr class="separator" />
+
   @if(crewName()){
   <div class="crew-name">Current Crew: {{ crewName() }}</div>
   }
+
+  <hr class="separator" />
 
   <button class="kickoff-btn" (click)="navigateToKickoff()">
     Crew Kickoff

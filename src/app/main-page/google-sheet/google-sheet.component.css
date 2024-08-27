@@ -56,7 +56,7 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 1rem;
   box-shadow: 0 2px 4px rgba(60, 64, 67, 0.2);
-  margin: 0 auto; /* Center the button */
+  margin: 0 auto;
 }
 
 .kickoff-btn:hover {
@@ -65,9 +65,9 @@
 }
 
 .delete-crew {
-  background-color: #d93025;
+  background-color: #6b140e;
   color: #fff;
-  border: 1px solid #d93025;
+
   padding: 0.625rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -76,15 +76,21 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 1rem;
   box-shadow: 0 2px 4px rgba(60, 64, 67, 0.2);
-  margin-left: auto; /* Align to the right */
+  margin-left: auto;
 }
-
+.separator {
+  width: 1px;
+  height: 2em;
+  background-color: #dadce0;
+  margin: 0 1rem;
+  visibility: hidden;
+}
 .delete-crew:hover {
-  background-color: #c5221f; /* Darker red on hover */
+  background-color: #821513;
 }
 
 .delete-crew:active {
-  background-color: #b31412; /* Even darker on active */
+  background-color: #4d0b0a;
   transform: translateY(1px);
 }
 
