@@ -1,7 +1,7 @@
 form {
   max-width: 500px;
-  margin: 3em auto;
-  padding: 2.5em;
+  margin: 2rem auto;
+  padding: 2rem;
   background-color: #f9f9f9;
   border: 1px solid black;
   border-radius: 15px;
@@ -12,36 +12,36 @@ form {
 h2 {
   text-align: center;
   color: #131a25;
-  margin-bottom: 1.5em;
-  font-size: 2em;
+  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
 }
 
 p {
   text-align: center;
   color: #555;
-  margin-bottom: 2.5em;
-  font-size: 1.2em;
+  margin-bottom: 2rem;
+  font-size: 1rem;
 }
 
 .control {
-  margin-bottom: 2em;
+  margin-bottom: 1.5rem;
 }
 
 label {
   display: block;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.63rem;
   font-weight: bold;
   color: #131a25;
-  font-size: 1.2em;
+  font-size: 1rem;
 }
 
 input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 1em 0 1em 1em;
+  padding: 0.75rem 0 0.75rem 0.75rem;
   border: 1px solid #ddd;
   border-radius: 10px;
-  font-size: 1.2em;
+  font-size: 1rem;
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -55,8 +55,8 @@ input[type="password"]:focus {
 
 .control-error {
   color: #d9534f;
-  font-size: 0.875em;
-  margin-top: 0.5em;
+  font-size: 0.88rem;
+  margin-top: 0.5rem;
 }
 
 .control-error small {
@@ -65,16 +65,16 @@ input[type="password"]:focus {
 
 .form-actions {
   text-align: center;
-  margin-top: 2.5em;
+  margin-top: 2rem;
 }
 
 .button {
-  padding: 1em 2em;
+  padding: 0.75rem 1.5rem;
   background-color: #131a25;
   border: none;
   border-radius: 10px;
   color: #fff;
-  font-size: 1.2em;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -92,26 +92,26 @@ input[type="password"]:focus {
 @media (max-width: 768px) {
   form {
     max-width: 100%;
-    padding: 1.5em;
+    padding: 1.25rem;
   }
 
   h2 {
-    font-size: 1.5em;
+    font-size: 1.25rem;
   }
 
   p {
-    font-size: 1em;
-    margin-bottom: 1.5em;
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
   }
 
   input[type="text"],
   input[type="password"] {
-    font-size: 1em;
-    padding: 0.75em;
+    font-size: 0.88rem;
+    padding: 0.63rem;
   }
 
   .button {
-    font-size: 1em;
-    padding: 0.75em 1.5em;
+    font-size: 0.88rem;
+    padding: 0.63rem 1.25rem;
   }
 }

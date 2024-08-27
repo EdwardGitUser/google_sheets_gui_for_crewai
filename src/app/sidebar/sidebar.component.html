@@ -1,48 +1,50 @@
-<div class="sidebar">
-  <div routerLink="" class="logo">
+<aside class="sidebar">
+  <header routerLink="" class="logo">
     <span>UI</span>
-  </div>
+  </header>
   <hr class="divider" />
 
-  <div class="menu">
+  <nav class="menu">
     @if(!getUser()){
-    <div>
-      <div routerLink="/" class="menu-item">
-        <div class="menu-icon home">
+    <section>
+      <a routerLink="/" class="menu-item">
+        <div class="menu-icon">
           <i class="fa fa-home"></i>
         </div>
-        <div class="menu-text">Main Page</div>
-      </div>
-      <div routerLink="login" class="menu-item">
+        <span class="menu-text">Main Page</span>
+      </a>
+      <a routerLink="login" class="menu-item">
         <div class="menu-icon">
           <i class="fa fa-sign-in-alt"></i>
         </div>
-        <div class="menu-text">Login</div>
-      </div>
-      <div routerLink="signup" class="menu-item">
+        <span class="menu-text">Login</span>
+      </a>
+      <a routerLink="signup" class="menu-item">
         <div class="menu-icon">
           <i class="fa fa-plus"></i>
         </div>
-        <div class="menu-text">Sign Up</div>
-      </div>
-    </div>
+        <span class="menu-text">Sign Up</span>
+      </a>
+    </section>
     }
-  </div>
+  </nav>
 
   @if(getUser()){
-  <div routerLink="" class="menu-item">
-    <div class="menu-icon home">
-      <i class="fa fa-home"></i>
-    </div>
-    <div class="menu-text">Main Page</div>
-  </div>
-  <div class="menu logout" [ngClass]="{ 'logout-item': true }">
-    <div class="menu-item" (click)="logout()">
-      <div class="menu-icon">
-        <i class="fa fa-sign-out-alt"></i>
+  <nav class="authenticated-menu">
+    <a routerLink="" class="menu-item">
+      <div class="menu-icon home">
+        <i class="fa fa-home"></i>
       </div>
-      <div class="menu-text">Logout</div>
-    </div>
-  </div>
+      <span class="menu-text">Main Page</span>
+    </a>
+    <section class="menu logout" [ngClass]="{ 'logout-item': true }">
+      <div class="menu-item" (click)="logout()">
+        <div class="menu-icon">
+          <i class="fa fa-sign-out-alt"></i>
+        </div>
+        <span class="menu-text">Logout</span>
+      </div>
+    </section>
+  </nav>
   }
-</div>
+</aside>

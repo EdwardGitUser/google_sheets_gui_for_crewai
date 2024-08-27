@@ -1,259 +1,190 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.agents-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.agents-table-container {
+  width: 100%;
+}
+
 .agents-table {
-  max-width: 112.5em;
-  margin: 0 auto;
+  width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
-  border-radius: 0.75em;
-  overflow: hidden;
-  font-size: 1em;
+  table-layout: fixed;
 }
 
 .agents-table th,
 .agents-table td {
-  padding: 1em 0.625em;
-  border: 1px solid #ddd;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
   text-align: left;
-  vertical-align: middle;
-  height: 3.2em;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .agents-table th {
-  background-color: #161d2a;
+  background-color: #131a25;
   color: #fff;
-  text-transform: uppercase;
-  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .agents-table td {
-  font-weight: bold;
-  font-size: 1.2em;
   background-color: #fff;
-  color: #333;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.agents-table td input,
-.agents-table td select,
-.agents-table td textarea {
-  border: none;
-  padding: 6px;
-  font-size: 1em;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.agents-table td textarea {
-  resize: vertical;
-  max-height: 150px;
-  min-height: 80px;
-  font-family: "Roboto", sans-serif;
-}
-
-.id {
-  text-align: center;
-  width: 1em;
-}
-
-.name {
-  width: 10em;
-}
-.backstory {
-  width: 25em;
-}
-
-.role {
-  width: 8em;
-}
-
-.agents-table td select {
-  width: 100%;
-  padding: 0.5em;
-  margin: 0;
-}
-
-.agents-table td input:focus,
-.agents-table td select:focus,
-.agents-table td textarea:focus {
-  outline: none;
 }
 
 .agents-table td:hover {
-  background-color: rgba(22, 29, 42, 0.1);
-  color: #161d2a;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.agents-table input,
+.agents-table textarea,
+.agents-table select {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0.25rem;
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.agents-table textarea {
+  max-height: 4rem;
+  overflow-y: auto;
+  resize: none;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .buttons-container {
-  margin-top: 10px;
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 1rem;
+  height: 2.5rem;
 }
 
-button {
-  padding: 10px 15px;
-  font-size: 1em;
+.add-agent-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
+  background-color: #131a25;
   color: #fff;
-  background-color: #161d2a;
-  border: none;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-button:hover {
-  transform: translateY(-2px);
+.add-agent-btn:hover {
+  background-color: rgba(19, 26, 37, 0.8);
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.reload-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.create-agent-btn {
-  background-color: #28a745;
-}
-
-.create-agent-btn:hover {
-  background-color: #218838;
+.reload-btn:hover {
+  background-color: rgba(0, 123, 255, 0.8);
 }
 
 .save-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
   background-color: #28a745;
-  font-size: 1.125em;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: rgba(40, 167, 69, 0.8);
 }
 
 .delete-btn {
+  color: red;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.125em;
-  color: red;
-  transition: color 0.3s ease;
-}
-
-.delete-btn:hover {
-  color: darkred;
-}
-
-.noAgents {
-  font-size: 1.125em;
-  color: #555;
-  margin-top: 10px;
-  text-align: center;
+  font-size: 1rem;
 }
 
 .validation-errors {
-  color: red;
-  margin-top: 10px;
+  font-size: 0.9rem;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
-.validation-errors h4 {
-  margin-bottom: 5px;
+.validation-errors p {
+  font-weight: bold;
 }
 
 .validation-errors ul {
-  list-style-type: none;
-  padding-left: 0;
+  padding-left: 1rem;
+  list-style-type: disc;
 }
 
 .validation-errors li {
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
 }
 
-.agents-table td {
-  overflow: visible;
+.agents-table th:nth-child(1),
+.agents-table td:nth-child(1) {
+  width: 10%;
 }
 
-@media (max-width: 768px) {
-  .agents-table {
-    font-size: 0.875em;
-  }
-
-  .agents-table td,
-  .agents-table th {
-    padding: 0.75em 0.5em;
-  }
-
-  .buttons-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  button {
-    padding: 8px 12px;
-    font-size: 0.9em;
-  }
-
-  .save-btn,
-  .create-agent-btn {
-    font-size: 1em;
-  }
-
-  .delete-btn {
-    font-size: 1em;
-  }
-
-  .noAgents {
-    font-size: 1em;
-    margin-top: 8px;
-  }
-
-  .validation-errors {
-    margin-top: 8px;
-  }
-
-  .validation-errors h4 {
-    margin-bottom: 4px;
-  }
-
-  .validation-errors li {
-    margin-bottom: 4px;
-  }
+.agents-table th:nth-child(2),
+.agents-table td:nth-child(2) {
+  width: 15%;
 }
 
-@media (max-width: 480px) {
-  .agents-table {
-    font-size: 0.75em;
-  }
+.agents-table th:nth-child(3),
+.agents-table td:nth-child(3) {
+  width: 24%;
+}
 
-  .agents-table td,
-  .agents-table th {
-    padding: 0.5em 0.25em;
-  }
+.agents-table th:nth-child(4),
+.agents-table td:nth-child(4) {
+  width: 10%;
+}
 
-  .buttons-container {
-    flex-direction: column;
-    gap: 8px;
-  }
+.agents-table th:nth-child(5),
+.agents-table td:nth-child(5) {
+  width: 15%;
+}
 
-  button {
-    padding: 6px 10px;
-    font-size: 0.8em;
-  }
+.agents-table th:nth-child(6),
+.agents-table td:nth-child(6) {
+  width: 13%;
+}
 
-  .save-btn,
-  .create-agent-btn {
-    font-size: 0.9em;
-  }
+.agents-table th:nth-child(7),
+.agents-table td:nth-child(7) {
+  width: 8%;
+}
 
-  .delete-btn {
-    font-size: 0.9em;
-  }
-
-  .noAgents {
-    font-size: 0.9em;
-    margin-top: 6px;
-  }
-
-  .validation-errors {
-    margin-top: 6px;
-  }
-
-  .validation-errors h4 {
-    margin-bottom: 3px;
-  }
-
-  .validation-errors li {
-    margin-bottom: 3px;
-  }
+.agents-table th:nth-child(8),
+.agents-table td:nth-child(8) {
+  width: 5%;
 }

@@ -1,90 +1,92 @@
-<router-outlet></router-outlet>
-@if(tableAgents.length > 0){
-<div class="agents-table-container">
-  <table class="agents-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Backstory</th>
-        <th>Role</th>
-        <th>Goal</th>
-        <th>Tool</th>
-        <th>Verbose</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(agent of tableAgents; track $index){
-      <tr>
-        <td class="id">{{ agent.id }}</td>
-        <td>
-          <input class="name" type="text" [(ngModel)]="agent.name" />
-        </td>
-        <td>
-          <textarea
-            class="backstory"
-            [(ngModel)]="agent.backstory"
-            rows="3"
-          ></textarea>
-        </td>
-        <td>
-          <input class="role" type="text" [(ngModel)]="agent.role" />
-        </td>
-        <td>
-          <textarea [(ngModel)]="agent.goal" rows="1"></textarea>
-        </td>
-        <td>
-          <select [(ngModel)]="agent.tool">
-            <option value="crewAI Tool 1">crewAI Tool 1</option>
-            <option value="crewAI Tool 2">crewAI Tool 2</option>
-            <option value="crewAI Tool 3">crewAI Tool 3</option>
-            <option value="crewAI Tool 4">crewAI Tool 4</option>
-            <option value="crewAI Tool 5">crewAI Tool 5</option>
-          </select>
-        </td>
-        <td>
-          <select [(ngModel)]="agent.verbose">
-            <option [value]="true">True</option>
-            <option [value]="false">False</option>
-          </select>
-        </td>
-        <td>
-          <button (click)="deleteAgent(agent.id)" class="delete-btn">❌</button>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
-}@else{
-<p>No agents available.</p>
-}
-
-<div class="buttons-container">
-  <button class="add-agent-btn" (click)="openCreateAgentModal()">
-    Add Agent
-  </button>
-  <div>
+<div class="main-container">
+  <!-- Agents Table -->
+  <div class="agents-table-wrapper">
     @if(tableAgents.length > 0){
+    <div class="agents-table-container">
+      <table class="agents-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Backstory</th>
+            <th>Role</th>
+            <th>Goal</th>
+            <th>Tool</th>
+            <th>Verbose</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(agent of tableAgents; track agent.id){
+          <tr>
+            <td class="id">{{ agent.id }}</td>
+            <td>
+              <input class="name" type="text" [(ngModel)]="agent.name" />
+            </td>
+            <td>
+              <textarea
+                class="backstory"
+                [(ngModel)]="agent.backstory"
+                rows="3"
+              ></textarea>
+            </td>
+            <td>
+              <input class="role" type="text" [(ngModel)]="agent.role" />
+            </td>
+            <td>
+              <textarea [(ngModel)]="agent.goal" rows="1"></textarea>
+            </td>
+            <td>
+              <select [(ngModel)]="agent.tool">
+                <option value="crewAI Tool 1">crewAI Tool 1</option>
+                <option value="crewAI Tool 2">crewAI Tool 2</option>
+                <option value="crewAI Tool 3">crewAI Tool 3</option>
+                <option value="crewAI Tool 4">crewAI Tool 4</option>
+                <option value="crewAI Tool 5">crewAI Tool 5</option>
+              </select>
+            </td>
+            <td>
+              <select [(ngModel)]="agent.verbose">
+                <option [value]="true">True</option>
+                <option [value]="false">False</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="deleteAgent(agent.id)" class="delete-btn">
+                ❌
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    } @if(tableAgents.length === 0){
+    <p>No agents available.</p>
+    }
+  </div>
 
-    <button class="reload-btn" (click)="reloadAgents()">Reload Agents</button>
-    <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+  <div class="bottom-container">
+    <div class="buttons-container">
+      <button class="add-agent-btn" (click)="openCreateAgentModal()">
+        Add Agent
+      </button>
+      <button class="reload-btn" (click)="reloadAgents()">Reload Agents</button>
+      <button class="save-btn" (click)="saveAgents()">Update Crew</button>
+    </div>
+    @if(validationErrors.length > 0){
+    <div class="validation-errors">
+      <p>Validation Errors:</p>
+      <ul>
+        @for(error of validationErrors; track $index){
+        <li>{{ error }}</li>
+        }
+      </ul>
+    </div>
     }
   </div>
 </div>
-
-@if(validationErrors.length > 0 && tableAgents.length > 0){
-<div class="validation-errors">
-  <h4>Validation Errors:</h4>
-  <ul>
-    @for(error of validationErrors; track $index){
-
-    <li>{{ error }}</li>
-    }
-  </ul>
-</div>
-} @if(showModal()){
+@if(showModal()){
 <app-create-agent
   [crewId]="crewId()!"
   (onAgentCreate)="onAgentCreated()"

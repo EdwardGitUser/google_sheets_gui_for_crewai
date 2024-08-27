@@ -1,13 +1,15 @@
-<div class="main-container">
-  <h1>Simple Google Sheet Gui for crewAI</h1>
+<main class="main-container">
+  <header><h1>Simple Google Sheet Gui for crewAI</h1></header>
 
-  @if(isLoggedIn){
-  <p>{{ username }}</p>
-  }@else{
-  <p>You are not logged in.</p>
-  }
+  <section class="username-container">
+    @if(isLoggedIn){
+    <p>{{ username }}</p>
+    }@else{
+    <p>You are not logged in.</p>
+    }
+  </section>
 
-  <div class="buttons-container">
+  <section class="buttons-container">
     <div
       class="load-crew-container"
       (mouseenter)="onHover()"
@@ -51,7 +53,7 @@
     >
       <i class="fas fa-plus-circle"></i> Create Crew
     </button>
-  </div>
+  </section>
 
   <router-outlet></router-outlet>
-</div>
+</main>

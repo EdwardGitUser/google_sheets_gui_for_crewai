@@ -1,11 +1,12 @@
 <div class="main-page-table-container">
-  @if(crewName()){
-  <div class="crew-name">Current Crew: {{ crewName() }}</div>
-  }
   <div class="navigation-tabs">
     <a routerLink="agents" routerLinkActive="active">Agents</a>
     <a routerLink="tasks" routerLinkActive="active">Tasks</a>
   </div>
+
+  @if(crewName()){
+  <div class="crew-name">Current Crew: {{ crewName() }}</div>
+  }
 
   <button class="kickoff-btn" (click)="navigateToKickoff()">
     Crew Kickoff
@@ -14,4 +15,5 @@
     <i class="fas fa-trash-alt"></i> Delete Crew
   </button>
 </div>
+
 <router-outlet></router-outlet>

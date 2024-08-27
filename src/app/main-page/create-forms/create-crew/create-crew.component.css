@@ -9,59 +9,57 @@
 }
 
 .form-container {
-  width: 30em;
-  max-width: 500px;
+  width: 24rem;
+  max-width: 30rem;
   margin: 0 auto;
   position: fixed;
   top: 50%;
   left: 50%;
-  padding: 2em;
+  padding: 1.5rem;
   transform: translate(-50%, -50%);
   z-index: 1000;
   background-color: #fff;
-  border: 2px solid #131a25;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border: 0.125rem solid #131a25;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 h2 {
-  font-size: 2.5em;
+  font-size: 2rem;
   color: #131a25;
-  margin-bottom: 1.5em;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 h2 i {
-  padding-top: 0.3em;
-  margin-left: 0.5em;
-  padding-bottom: 0.1em;
-  font-size: 0.9em;
+  padding-top: 0.3rem;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
   color: #131a25;
 }
 
 .form-group {
-  margin-bottom: 2em;
+  margin-bottom: 1.5rem;
   text-align: left;
 }
 
 label {
   display: block;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.5rem;
   font-weight: bold;
   color: #131a25;
-  font-size: 1.2em;
+  font-size: 1rem;
 }
 
 input,
 select {
   width: 100%;
-  padding: 1em;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1.2em;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
@@ -71,23 +69,23 @@ input:focus,
 select:focus {
   border-color: #131a25;
   outline: none;
-  box-shadow: 0 0 5px rgba(19, 26, 37, 0.2);
+  box-shadow: 0 0 0.313rem rgba(19, 26, 37, 0.2);
 }
 
 .button-group {
   display: flex;
-  justify-content: space-between; /* Space between buttons */
+  justify-content: space-between;
   align-items: center;
 }
 
 button[type="submit"] {
-  padding: 0.75em 1.5em;
+  padding: 0.5rem 1rem;
   background-color: #131a25;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1rem;
   transition: background-color 0.3s ease, transform 0.3s ease;
   width: auto;
 }
@@ -99,30 +97,30 @@ button[type="submit"].button-disabled {
 
 button[type="submit"]:hover:not(:disabled) {
   background-color: #0f141d;
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
 }
 
 .back-btn {
-  padding: 0.75em 1.5em;
+  padding: 0.5rem 1rem;
   background-color: #f5f5f5;
   color: #131a25;
-  border: 2px solid #131a25;
-  border-radius: 8px;
+  border: 0.125rem solid #131a25;
+  border-radius: 0.5rem;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1rem;
   transition: background-color 0.3s ease, transform 0.3s ease;
   width: auto;
 }
 
 .back-btn:hover {
   background-color: #e0e0e0;
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
 }
 
 .error {
   color: #d9534f;
-  font-size: 0.875em;
-  margin-top: 0.5em;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
 }
 
 .error small {
@@ -131,44 +129,44 @@ button[type="submit"]:hover:not(:disabled) {
 
 @media (max-width: 768px) {
   .form-container {
-    padding: 2em;
+    padding: 1.5rem;
   }
 
   h2 {
-    font-size: 2em;
+    font-size: 1.75rem;
   }
 
   input,
   select {
-    font-size: 1em;
-    padding: 0.75em;
+    font-size: 0.9rem;
+    padding: 0.75rem;
   }
 
   button[type="submit"],
   .back-btn {
-    padding: 0.75em 1.5em;
-    font-size: 1.2em;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .form-container {
-    padding: 1.5em;
+    padding: 1.25rem;
   }
 
   h2 {
-    font-size: 1.75em;
+    font-size: 1.5rem;
   }
 
   input,
   select {
-    font-size: 0.9em;
-    padding: 0.5em;
+    font-size: 0.8rem;
+    padding: 0.5rem;
   }
 
   button[type="submit"],
   .back-btn {
-    padding: 0.5em 1em;
-    font-size: 1em;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
   }
 }

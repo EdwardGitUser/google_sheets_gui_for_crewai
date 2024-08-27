@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Task } from '../../../shared/models/task.model';
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { TasksService } from '../../../services/tasks.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AgentsService } from '../../../services/agents.service';
 import { Agent } from '../../../shared/models/agents.model';
@@ -11,7 +11,7 @@ import { AddTaskComponent } from '../../create-forms/add-task/add-task.component
 @Component({
   selector: 'app-task-table',
   standalone: true,
-  imports: [NgClass, NgFor, FormsModule, RouterModule, AddTaskComponent],
+  imports: [NgClass, FormsModule, RouterModule, AddTaskComponent],
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
 })
@@ -63,18 +63,25 @@ export class TaskTableComponent implements OnInit {
     this.validationErrors = [];
     let isValid = true;
 
-    this.tableTasks.forEach((task, rowIndex) => {
-      // Validate Title
-      if (!task.title || task.title.length < 3) {
-        this.validationErrors.push(
-          `Error in row ${
-            rowIndex + 1
-          }, column Title: Title is required and must be at least 3 characters long.`
-        );
-        isValid = false;
-      }
+    const fieldsToValidate = [
+      { name: 'Title', key: 'title' },
+      { name: 'Description', key: 'description' },
+      { name: 'Expected Output', key: 'expected_output' },
+    ];
 
-      // Validate Assigned Agent
+    this.tableTasks.forEach((task, rowIndex) => {
+      fieldsToValidate.forEach((field) => {
+        const value = task[field.key as keyof Task];
+        if (!value || (value as string).length < 3) {
+          this.validationErrors.push(
+            `Error in row ${rowIndex + 1}, column ${field.name}: ${
+              field.name
+            } is required and must be at least 3 characters long.`
+          );
+          isValid = false;
+        }
+      });
+
       if (!isAgentValid(task.agentId, this.agents)) {
         this.validationErrors.push(
           `Error in row ${

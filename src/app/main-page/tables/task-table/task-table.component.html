@@ -1,76 +1,74 @@
-<div class="tasks-table-container">
+<div class="tasks-table-wrapper">
   @if(tableTasks.length > 0){
-  <table class="tasks-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Expected Output</th>
-        <th>Assigned Agent ID</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(task of tableTasks; track task.id){
-      <tr>
-        <td>{{ task.id }}</td>
-        <td>
-          <input [(ngModel)]="task.title" />
-        </td>
-        <td>
-          <textarea [(ngModel)]="task.description"></textarea>
-        </td>
-        <td>
-          <textarea [(ngModel)]="task.expected_output"></textarea>
-        </td>
-        <td>
-          <select [(ngModel)]="task.agentId">
-            @if(!task.agentId){
-            <option value="null">Assign a task</option>
-            } @for(agent of agents; track agent.id){
-            <option [ngValue]="agent.id">
-              {{ agent.name }}
-            </option>
-            }
-          </select>
-        </td>
-        <td>
-          <button (click)="deleteTask(task.id)">❌</button>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-  } @if(tableTasks.length === 0){
-  <div>
-    <p>No tasks available.</p>
+  <div class="tasks-table-container">
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Expected Output</th>
+          <th>Assigned Agent ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(task of tableTasks; track task.id){
+        <tr>
+          <td>{{ task.id }}</td>
+          <td>
+            <input [(ngModel)]="task.title" />
+          </td>
+          <td>
+            <textarea [(ngModel)]="task.description"></textarea>
+          </td>
+          <td>
+            <textarea [(ngModel)]="task.expected_output"></textarea>
+          </td>
+          <td>
+            <select [(ngModel)]="task.agentId">
+              @if(!task.agentId){
+              <option value="null">Assign a task</option>
+              } @for(agent of agents;track agent.id){
+              <option [ngValue]="agent.id">
+                {{ agent.name }}
+              </option>
+              }
+            </select>
+          </td>
+          <td>
+            <button (click)="deleteTask(task.id)">❌</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
-  } @if(validationErrors.length > 0){
+  } @if(tableTasks.length === 0){
+  <p>No tasks available.</p>
+  }
+</div>
+
+<div class="bottom-container">
+  <div class="buttons-container">
+    <button class="add-task-btn" (click)="openAddTaskModal()">Add Task</button>
+    @if(tableTasks.length > 0){
+    <button class="reload-btn" (click)="reloadTasks()">Reload Tasks</button>
+    <button class="save-task-btn" (click)="saveTasks()">Update Tasks</button>
+    }
+  </div>
+  @if(validationErrors.length > 0){
   <div class="validation-errors">
+    <p>Validation Errors:</p>
     <ul>
       @for(error of validationErrors; track $index){
-
       <li>{{ error }}</li>
       }
     </ul>
   </div>
   }
 </div>
-
-<div class="buttons-container">
-  <button class="add-task-btn" (click)="openAddTaskModal()">Add Task</button>
-
-  <div>
-    @if(tableTasks.length > 0){
-
-    <button class="add-task-btn" (click)="reloadTasks()">Reload Tasks</button>
-    <button class="save-task-btn" (click)="saveTasks()">Update Tasks</button>
-    }
-  </div>
-</div>
 @if(showModal()){
-
 <app-add-task
   [crewId]="crewId()!"
   [agents]="agents"

@@ -2,9 +2,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 3.8em;
+  width: 4.5rem;
   height: 100vh;
-  z-index: 2;
+  z-index: 1000;
   background-color: #131a25;
   color: #fff;
   transition: width 0.3s ease;
@@ -13,14 +13,14 @@
   flex-direction: column;
   align-items: flex-start;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  padding: 1em;
+  padding: 1rem;
 }
 
 .logo {
   width: 100%;
   text-align: center;
-  padding: 1.3em 0;
-  font-size: 1.9em;
+  padding: 1.3rem 0;
+  font-size: 1.7rem;
   color: #fff;
   display: flex;
   align-items: center;
@@ -31,28 +31,31 @@
   width: 100%;
   border: none;
   border-top: 1px solid #444;
-  margin: 0.6em 0;
+  margin: 0.6rem 0;
 }
 
 .menu {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1rem;
+}
+
+.authenticated-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .menu-item {
-  width: 100%;
-  padding: 1em 1.2em;
+  width: calc(100% + 2rem);
+  margin-left: -0.6rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s ease, font-weight 0.3s ease;
-  border-radius: 10px;
-}
-
-.home {
-  width: 1em;
 }
 
 .menu-item:hover {
@@ -61,20 +64,20 @@
 }
 
 .menu-icon {
-  font-size: 1.4em;
-  margin-right: 1em;
+  font-size: 1.4rem;
+  margin-right: 1rem;
   transition: margin 0.3s ease;
 }
 
 .menu-text {
-  font-size: 1.3em;
+  font-size: 1.3rem;
   opacity: 0;
   white-space: nowrap;
   transition: opacity 0.3s ease;
 }
 
 .sidebar:hover {
-  width: 12.5em;
+  width: 12.5rem;
 }
 
 .sidebar:hover .menu-text {
@@ -82,31 +85,36 @@
 }
 
 .sidebar:hover .menu-icon {
-  margin-right: 1em;
+  margin-right: 1rem;
 }
 
 .logout {
   margin-top: auto;
-  margin-bottom: 5em;
+  margin-bottom: 2rem;
 }
 
 .logout-item {
   border-top: 1px solid #444;
-  padding-top: 1em;
+  padding-top: 1rem;
 }
 
 @media (max-width: 1100px) {
   .sidebar {
-    width: 3em;
+    width: 3rem;
   }
 
   .sidebar:hover {
-    width: 3em;
+    width: 3rem;
+  }
+
+  .menu-item {
+    width: calc(100% + 1rem);
+    margin-left: -1rem;
   }
 
   .menu-icon {
-    font-size: 1.2em;
-    margin-right: 0.8em;
+    font-size: 1.2rem;
+    margin-right: 0.8rem;
   }
 
   .menu-text {
@@ -115,50 +123,31 @@
 
   .logout {
     margin-top: auto;
-    margin-bottom: 10em;
+    margin-bottom: 10rem;
   }
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 2.8em;
+    width: 2.8rem;
   }
 
   .sidebar:hover {
-    width: 2.8em;
+    width: 2.8rem;
+  }
+
+  .menu-item {
+    width: calc(100% + 1.2rem);
+    margin-left: -1.2rem;
   }
 
   .menu-icon {
-    font-size: 1.1em;
-    margin-right: 0.6em;
+    font-size: 1.1rem;
+    margin-right: 0.6rem;
   }
 
   .logout {
     margin-top: auto;
-    margin-bottom: 8em;
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar {
-    width: 2.5em;
-  }
-
-  .sidebar:hover {
-    width: 2.5em;
-  }
-
-  .menu-icon {
-    font-size: 1em;
-    margin-right: 0.5em;
-  }
-
-  .menu-text {
-    display: none;
-  }
-
-  .logout {
-    margin-top: auto;
-    margin-bottom: 10em;
+    margin-bottom: 8rem;
   }
 }
