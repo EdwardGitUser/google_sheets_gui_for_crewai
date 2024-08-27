@@ -7,13 +7,11 @@ import { isLoggedInGuard } from './shared/guards/isLoggedIn.guard';
 import { MainPageComponent } from './main-page/main-page.component';
 
 import { CreateCrewComponent } from './main-page/create-forms/create-crew/create-crew.component';
-import { CreateAgentComponent } from './main-page/create-forms/create-agent/create-agent.component';
 
-import { AddTaskComponent } from './main-page/create-forms/add-task/add-task.component';
 import { KickoffComponent } from './main-page/kickoff/kickoff.component';
 import { TableAgentsComponent } from './main-page/tables/table-agents/table-agents.component';
 import { TaskTableComponent } from './main-page/tables/task-table/task-table.component';
-import { GoogleSheetComponent } from './main-page/google-sheet/google-sheet.component';
+// import { GoogleSheetComponent } from './main-page/google-sheet/google-sheet.component';
 
 export const routes: Routes = [
   {
@@ -22,7 +20,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'crew/:id/google-sheet',
-        component: GoogleSheetComponent,
+        // component: GoogleSheetComponent,
+        loadComponent: () =>
+          import('./main-page/google-sheet/google-sheet.component').then(
+            (mod) => mod.GoogleSheetComponent
+          ),
         canActivate: [isLoggedInGuard],
         children: [
           {
