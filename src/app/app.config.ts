@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(),
 
-    // Correct way to import modules
+  
     importProvidersFrom(
       HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
         delay: 500,
