@@ -35,7 +35,7 @@ export class TasksService {
   //CREATE
   onCreateTask(
     crewId: string,
-    agentId: string,
+    agentId: string | null,
     title: string,
     description: string,
     expected_output: string
@@ -49,7 +49,6 @@ export class TasksService {
       expected_output,
     };
 
-  
     this.tasksSignal.update((tasks) => [...tasks, newTask]);
     this.saveTasksToLocalStorage();
     console.log('After adding task:', this.tasksSignal());

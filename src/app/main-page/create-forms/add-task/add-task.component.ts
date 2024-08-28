@@ -72,9 +72,14 @@ export class AddTaskComponent implements OnInit {
   //SUBMIT FORM
   onSubmit(): void {
     if (this.taskForm.valid) {
+      const agentIdValue =
+        this.taskForm.value.agentId === 'null'
+          ? null
+          : this.taskForm.value.agentId;
+
       const newTask: Task = this.tasksService.onCreateTask(
         this.crewId(),
-        this.taskForm.value.agentId,
+        agentIdValue,
         this.taskForm.value.title,
         this.taskForm.value.description,
         this.taskForm.value.expected_output

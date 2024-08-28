@@ -55,6 +55,7 @@
         <label for="agentId">Assign to Agent:</label>
         <select id="agentId" formControlName="agentId">
           <option value="" disabled>Select an agent</option>
+          <option [value]="null">Save without assigning</option>
           @for(agent of agents(); track agent.id){
           <option [value]="agent.id">
             {{ agent.name }}

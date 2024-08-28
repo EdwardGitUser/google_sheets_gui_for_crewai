@@ -84,7 +84,7 @@ export class AuthService {
       this.saveUsersToLocalStorage();
       return true;
     } else {
-      console.error('Insufficient balance or invalid amount.');
+      console.log('Insufficient balance or invalid amount.');
       return false;
     }
   }

@@ -81,15 +81,6 @@ export class TaskTableComponent implements OnInit {
           isValid = false;
         }
       });
-
-      if (!isAgentValid(task.agentId, this.agents)) {
-        this.validationErrors.push(
-          `Error in row ${
-            rowIndex + 1
-          }, column Assigned Agent: Task must be assigned to an existing agent.`
-        );
-        isValid = false;
-      }
     });
 
     return isValid;

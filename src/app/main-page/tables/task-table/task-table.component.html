@@ -17,13 +17,13 @@
         <tr>
           <td>{{ task.id }}</td>
           <td>
-            <input [(ngModel)]="task.title" />
+            <textarea [(ngModel)]="task.title" rows="3"></textarea>
           </td>
           <td>
-            <textarea [(ngModel)]="task.description"></textarea>
+            <textarea [(ngModel)]="task.description" rows="3"></textarea>
           </td>
           <td>
-            <textarea [(ngModel)]="task.expected_output"></textarea>
+            <textarea [(ngModel)]="task.expected_output" rows="3"></textarea>
           </td>
           <td>
             <select [(ngModel)]="task.agentId">

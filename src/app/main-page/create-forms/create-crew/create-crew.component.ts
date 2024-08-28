@@ -36,7 +36,14 @@ export class CreateCrewComponent implements OnInit {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
+      ],
       process: ['sequential', Validators.required],
       llm: ['gpt-4', Validators.required],
     });
