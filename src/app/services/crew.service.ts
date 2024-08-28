@@ -3,6 +3,7 @@ import { Crew } from '../shared/models/crew.model';
 import { AgentsService } from './agents.service';
 import { TasksService } from './tasks.service';
 import { Agent } from '../shared/models/agents.model';
+import { Task } from '../shared/models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,21 +35,6 @@ export class CrewService {
       return [];
     }
   }
-  // ADD AGENT
-  addAgentToCrew(agent: Agent, crewId: string): void {
-    this.crewsSignal.update((crews) => {
-      return crews.map((crew) => {
-        if (crew.id === crewId) {
-          return {
-            ...crew,
-            agents: [...crew.agents, agent],
-          };
-        }
-        return crew;
-      });
-    });
-    this.saveCrewsToLocalStorage();
-  }
 
   //CREATE
   createCrew(
@@ -63,8 +49,6 @@ export class CrewService {
       userId,
       process,
       llm,
-      agents: [],
-      tasks: [],
     };
     this.crewsSignal.update((crews) => [...crews, newCrew]);
     this.saveCrewsToLocalStorage();

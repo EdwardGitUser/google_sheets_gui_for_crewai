@@ -18,6 +18,7 @@ import { TasksService } from '../../../services/tasks.service';
 export class TableAgentsComponent implements OnInit {
   crewId = signal<string | null>(null);
 
+  //можна зробити і використовуючи сигнали, пробував і так і так
   private initialAgents: Agent[] = [];
   tableAgents: Agent[] = [];
 
@@ -106,7 +107,8 @@ export class TableAgentsComponent implements OnInit {
       this.agentsService.deleteAgentById(currentCrewId!, agentId);
 
       this.loadAgents();
-      console.log('Temp agents after deletion:', this.tableAgents);
+
+      console.log('Table agents after deletion:', this.tableAgents);
     }
   }
 

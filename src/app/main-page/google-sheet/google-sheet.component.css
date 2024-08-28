@@ -1,12 +1,14 @@
 :host {
   width: 100%;
 }
+
 .vertical-divider {
   width: 1px;
   height: 2rem;
   background-color: #dadce0;
   align-self: stretch;
 }
+
 .google-sheet-container {
   display: flex;
   align-items: center;
@@ -129,6 +131,27 @@
 .crew-llm select:hover {
   border-color: #c1c1c1;
 }
+
+.kickoff-btn {
+  background-color: white;
+  color: #000000;
+  border: 1px solid #131a25;
+  padding: 0.625rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(60, 64, 67, 0.2);
+  margin: 0 auto;
+}
+
+.kickoff-btn:hover {
+  background-color: #000000;
+  color: white;
+}
+
 .delete-crew {
   background-color: #6b140e;
   color: #fff;

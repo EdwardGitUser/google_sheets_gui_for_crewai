@@ -3,9 +3,9 @@
 
   <div *ngIf="user">
     <div class="profile-info">
-      <p><strong>ID:</strong> {{ user.id }}</p>
-      <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Balance:</strong> ${{ user.balance | number : "1.2-2" }}</p>
+      <p><strong>ID:</strong> {{ user()!.id }}</p>
+      <p><strong>Username:</strong> {{ user()!.username }}</p>
+      <p><strong>Balance:</strong> ${{ user()!.balance | number : "1.2-2" }}</p>
     </div>
 
     <hr class="divider" />

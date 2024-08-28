@@ -43,16 +43,16 @@ export const routes: Routes = [
             component: TaskTableComponent,
             canActivate: [isLoggedInGuard],
           },
+          {
+            path: 'kickoff',
+            component: KickoffComponent,
+            canActivate: [isLoggedInGuard],
+          },
         ],
       },
       {
         path: 'create-crew',
         component: CreateCrewComponent,
-        canActivate: [isLoggedInGuard],
-      },
-      {
-        path: 'kickoff',
-        component: KickoffComponent,
         canActivate: [isLoggedInGuard],
       },
     ],

@@ -121,7 +121,7 @@ export class TaskTableComponent implements OnInit {
 
       this.loadTasks();
 
-      console.log('Temp tasks after deletion:', this.tableTasks);
+      console.log('Table tasks after deletion:', this.tableTasks);
     }
   }
 

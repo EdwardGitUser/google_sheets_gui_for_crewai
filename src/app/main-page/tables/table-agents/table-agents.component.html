@@ -13,7 +13,7 @@
             <th>Goal</th>
             <th>Tool</th>
             <th>Verbose</th>
-            <th>Del.</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -21,7 +21,11 @@
           <tr>
             <td class="id">{{ agent.id }}</td>
             <td>
-              <input class="name" type="text" [(ngModel)]="agent.name" />
+              <textarea
+                class="name"
+                [(ngModel)]="agent.name"
+                rows="3"
+              ></textarea>
             </td>
             <td>
               <textarea
@@ -31,10 +35,14 @@
               ></textarea>
             </td>
             <td>
-              <input class="role" type="text" [(ngModel)]="agent.role" />
+              <textarea
+                class="role"
+                [(ngModel)]="agent.role"
+                rows="3"
+              ></textarea>
             </td>
             <td>
-              <textarea [(ngModel)]="agent.goal" rows="1"></textarea>
+              <textarea [(ngModel)]="agent.goal" rows="5"></textarea>
             </td>
             <td>
               <select [(ngModel)]="agent.tool">

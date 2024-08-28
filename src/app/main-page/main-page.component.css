@@ -63,11 +63,7 @@ button.create-crew {
   background-color: #34a853;
   color: #fff;
 }
-button.kickoff-btn {
-  background-color: white;
-  color: #000000;
-  border: 1px solid #131a25;
-}
+
 button.load-crew:hover:not(.not-logged-in) {
   background-color: #0f336e;
   box-shadow: 0 1px 4px rgba(60, 64, 67, 0.3);
@@ -78,10 +74,6 @@ button.create-crew:hover:not(.not-logged-in) {
   box-shadow: 0 1px 4px rgba(60, 64, 67, 0.3);
 }
 
-button.kickoff-btn:hover:not(.not-logged-in) {
-  background-color: #000000;
-  color: white;
-}
 .crew-list {
   position: absolute;
   top: 100%;

@@ -70,6 +70,12 @@ export class GoogleSheetComponent {
     }
   }
 
+  navigateToKickoff() {
+    if (window.confirm('Are you sure you want to KICKOFF the crew?')) {
+      this.router.navigate(['kickoff'], { relativeTo: this.route });
+    }
+  }
+
   deleteCrew(): void {
     const currentCrewId = this.crewId;
     if (window.confirm('Are you sure you want to delete this crew?')) {

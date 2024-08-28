@@ -9,7 +9,7 @@ import { CrewService } from './crew.service';
 export class AgentsService {
   private agentsSignal = signal<Agent[]>(this.loadAgentsFromLocalStorage());
 
-  constructor(private tasksService: TasksService) {}
+  constructor() {}
 
   //GET
   getAgents(): readonly Agent[] {
@@ -82,8 +82,6 @@ export class AgentsService {
   }
 
   deleteAgentById(crewId: string, agentId: string): void {
-    this.tasksService.updateTasksForDeletedAgent(crewId, agentId);
-
     this.agentsSignal.update((agents) =>
       agents.filter((agent) => agent.id !== agentId)
     );

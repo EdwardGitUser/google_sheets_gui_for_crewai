@@ -98,7 +98,7 @@ export class CreateAgentComponent implements OnInit {
 
       console.log('Agent created:', newAgent);
 
-      this.crewService.addAgentToCrew(newAgent, this.crewId());
+  
 
       this.onAgentCreate.emit(newAgent);
     }

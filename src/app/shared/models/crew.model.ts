@@ -7,6 +7,6 @@ export interface Crew {
   userId: string;
   process: 'sequential' | 'hierarchical';
   llm: 'gpt-4mini' | 'gpt-4' | 'gpt-4o';
-  agents: Agent[];
-  tasks: Task[];
+  // agents: Agent[];
+  // tasks: Task[];
 }

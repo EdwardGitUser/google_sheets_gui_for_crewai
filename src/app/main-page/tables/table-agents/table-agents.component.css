@@ -162,12 +162,12 @@
 
 .agents-table th:nth-child(1),
 .agents-table td:nth-child(1) {
-  width: 10%;
+  width: 7%;
 }
 
 .agents-table th:nth-child(2),
 .agents-table td:nth-child(2) {
-  width: 15%;
+  width: 12%;
 }
 
 .agents-table th:nth-child(3),
@@ -177,12 +177,12 @@
 
 .agents-table th:nth-child(4),
 .agents-table td:nth-child(4) {
-  width: 10%;
+  width: 11%;
 }
 
 .agents-table th:nth-child(5),
 .agents-table td:nth-child(5) {
-  width: 15%;
+  width: 17%;
 }
 
 .agents-table th:nth-child(6),
@@ -192,10 +192,10 @@
 
 .agents-table th:nth-child(7),
 .agents-table td:nth-child(7) {
-  width: 8%;
+  width: 9%;
 }
 
 .agents-table th:nth-child(8),
 .agents-table td:nth-child(8) {
-  width: 5%;
+  width: 7%;
 }

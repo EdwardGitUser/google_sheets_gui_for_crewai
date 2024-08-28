@@ -7,9 +7,7 @@ import { Task } from '../shared/models/task.model';
 export class TasksService {
   private tasksSignal = signal<Task[]>(this.loadTasksFromLocalStorage());
 
-  constructor() {
-    console.log(this.tasksSignal());
-  }
+  constructor() {}
 
   //GET
   getTasks(): readonly Task[] {
@@ -51,7 +49,7 @@ export class TasksService {
       expected_output,
     };
 
-    console.log('Before adding task:', this.tasksSignal());
+  
     this.tasksSignal.update((tasks) => [...tasks, newTask]);
     this.saveTasksToLocalStorage();
     console.log('After adding task:', this.tasksSignal());

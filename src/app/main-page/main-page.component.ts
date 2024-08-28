@@ -36,6 +36,7 @@ export class MainPageComponent implements OnInit {
   get balance(): number | null {
     return this.authService.currentUser?.balance || null;
   }
+
   get isLoggedIn(): boolean {
     return !!this.authService.currentUser;
   }
@@ -60,12 +61,6 @@ export class MainPageComponent implements OnInit {
   createCrew() {
     if (window.confirm('Are you sure you want to create a new crew?')) {
       this.router.navigate(['/create-crew']);
-    }
-  }
-
-  navigateToKickoff() {
-    if (window.confirm('Are you sure you want to kickoff a crew?')) {
-      this.router.navigate(['kickoff']);
     }
   }
 }
