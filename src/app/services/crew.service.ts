@@ -1,9 +1,5 @@
 import { Injectable, signal } from '@angular/core';
 import { Crew } from '../shared/models/crew.model';
-import { AgentsService } from './agents.service';
-import { TasksService } from './tasks.service';
-import { Agent } from '../shared/models/agents.model';
-import { Task } from '../shared/models/task.model';
 
 @Injectable({
   providedIn: 'root',

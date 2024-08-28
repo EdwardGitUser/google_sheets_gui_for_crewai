@@ -53,7 +53,6 @@ export class AuthService {
     );
     this.saveUsersToLocalStorage();
 
-    // Update the logged-in user's balance if they are the one affected
     if (this.loggedInUserSignal()?.id === userId) {
       this.loggedInUserSignal.update((user) =>
         user ? { ...user, balance: user.balance + amount } : user
