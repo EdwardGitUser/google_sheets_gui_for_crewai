@@ -104,7 +104,7 @@ export class TableAgentsComponent implements OnInit {
     if (confirmSave) {
       this.tasksService.updateTasksForDeletedAgent(currentCrewId!, agentId);
 
-      this.agentsService.deleteAgentById(currentCrewId!, agentId);
+      this.agentsService.deleteAgentById(agentId);
 
       this.loadAgents();
 
