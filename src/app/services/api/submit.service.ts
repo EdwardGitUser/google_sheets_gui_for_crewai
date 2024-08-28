@@ -9,7 +9,7 @@ import { Task } from '../../shared/models/task.model';
   providedIn: 'root',
 })
 export class SubmitService {
-  private apiUrl = 'api/submitCrewData'; // URL - in-memory API
+  private apiUrl = '/api/submitCrewData'; // URL - in-memory API
 
   constructor(private http: HttpClient) {}
 

@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -20,12 +20,11 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(),
 
-    {
-      provide: HttpClientInMemoryWebApiModule,
-      useFactory: () =>
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-          delay: 500,
-        }),
-    },
+    // Correct way to import modules
+    importProvidersFrom(
+      HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+        delay: 500,
+      })
+    ),
   ],
 };
