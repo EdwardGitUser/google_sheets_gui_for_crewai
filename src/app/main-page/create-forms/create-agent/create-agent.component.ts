@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import {
   lettersOnlyValidator,
   lettersRequiredValidator,
@@ -18,7 +18,7 @@ import { CrewService } from '../../../services/crew.service';
 @Component({
   selector: 'app-create-agent',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, FormsModule],
+  imports: [ReactiveFormsModule, NgClass, FormsModule, NgIf],
   templateUrl: './create-agent.component.html',
   styleUrls: ['./create-agent.component.css'],
 })
@@ -32,7 +32,7 @@ export class CreateAgentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private crewService: CrewService,
+
     private agentsService: AgentsService
   ) {}
 
@@ -97,8 +97,6 @@ export class CreateAgentComponent implements OnInit {
       );
 
       console.log('Agent created:', newAgent);
-
-  
 
       this.onAgentCreate.emit(newAgent);
     }
