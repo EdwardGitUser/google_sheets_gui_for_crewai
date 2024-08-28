@@ -79,7 +79,7 @@ export class AgentsService {
     this.saveAgentsToLocalStorage();
   }
 
-  deleteAgentById(agentId: string): void {
+  deleteAgentById(crewId: string, agentId: string): void {
     this.agentsSignal.update((agents) =>
       agents.filter((agent) => agent.id !== agentId)
     );
