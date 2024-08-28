@@ -2,12 +2,16 @@
   <button class="go-back-btn" (click)="goBack()">Go Back</button>
 
   @if(canLoadTemplate) {
+  <div class="start-crew-container">
+    <button class="start-crew-btn" (click)="startCrew()">Start Crew</button>
+  </div>
+  } @if(responseMessage) {
   <div class="result-container">
     <p class="separator">#################################</p>
     <p class="result-title">RESULT CREWAI</p>
     <div class="result-content">{{ responseMessage }}</div>
   </div>
-  } @else {
+  } @else if (!canLoadTemplate) {
   <p class="no-result">
     Either the crew does not exist, not all agents have been assigned tasks, or
     there are no agents/tasks available.

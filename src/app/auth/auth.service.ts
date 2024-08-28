@@ -53,6 +53,7 @@ export class AuthService {
     );
     this.saveUsersToLocalStorage();
 
+    // Update the logged-in user's balance if they are the one affected
     if (this.loggedInUserSignal()?.id === userId) {
       this.loggedInUserSignal.update((user) =>
         user ? { ...user, balance: user.balance + amount } : user
@@ -79,8 +80,21 @@ export class AuthService {
     const currentUser = this.loggedInUserSignal();
     if (currentUser && amount > 0 && currentUser.balance >= amount) {
       currentUser.balance -= amount;
+
+      // Update signals
       this.loggedInUserSignal.set(currentUser);
+      this.usersSignal.update((users) =>
+        users.map((user) =>
+          user.id === currentUser.id
+            ? { ...user, balance: currentUser.balance }
+            : user
+        )
+      );
+
+      // Save updated users and logged in user to localStorage
       this.saveUsersToLocalStorage();
+      this.saveLoggedInUserToLocalStorage();
+
       return true;
     } else {
       console.log('Insufficient balance or invalid amount.');

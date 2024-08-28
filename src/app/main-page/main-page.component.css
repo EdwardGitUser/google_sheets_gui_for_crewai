@@ -118,6 +118,10 @@ button.create-crew:hover:not(.not-logged-in) {
   color: #4a4a4a;
 }
 
+.crew-list:hover li i {
+  color: #ffffff;
+}
+
 .crew-list p {
   color: #4a4a4a;
   text-align: center;

@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit {
   }
 
   get balance(): number | null {
-    return this.authService.currentUser?.balance || null;
+    return this.authService.currentUser?.balance ?? 0;
   }
 
   get isLoggedIn(): boolean {

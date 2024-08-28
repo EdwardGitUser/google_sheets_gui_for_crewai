@@ -8,6 +8,7 @@ import { Task } from '../../shared/models/task.model';
 import { Crew } from '../../shared/models/crew.model';
 import { CrewService } from '../../services/crew.service';
 import { SubmitService } from '../../services/api/submit.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-kickoff',
@@ -27,6 +28,7 @@ export class KickoffComponent implements OnInit {
   responseMessage: string | null = null;
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
     private crewService: CrewService,
     private agentsService: AgentsService,
     private tasksService: TasksService,
@@ -49,8 +51,25 @@ export class KickoffComponent implements OnInit {
       this.tasks = this.tasksService.getTasksByCrewId(crewId);
 
       this.canLoadTemplate = this.isAgentsTasksValid();
-      if (this.canLoadTemplate) {
-        this.submitData();
+    }
+  }
+
+  startCrew(): void {
+    if (this.crew && this.agents && this.tasks) {
+      const balanceDecreased = this.authService.decreaseUserBalance(1);
+      if (balanceDecreased) {
+        this.submitService
+          .submitCrewData(this.crew, this.agents, this.tasks)
+          .subscribe({
+            next: (response) => {
+              this.responseMessage = response.message;
+            },
+            error: (error) => {
+              console.error('Submission failed:', error);
+            },
+          });
+      } else {
+        alert('Failed to start crew: Insufficient balance.');
       }
     }
   }
@@ -63,21 +82,6 @@ export class KickoffComponent implements OnInit {
         this.tasks.some((task) => task.agentId === agent.id)
       )
     );
-  }
-
-  private submitData(): void {
-    if (this.crew && this.agents && this.tasks) {
-      this.submitService
-        .submitCrewData(this.crew, this.agents, this.tasks)
-        .subscribe({
-          next: (response) => {
-            this.responseMessage = response.message;
-          },
-          error: (error) => {
-            console.error('Submission failed:', error);
-          },
-        });
-    }
   }
 
   goBack(): void {

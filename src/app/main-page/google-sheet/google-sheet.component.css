@@ -6,6 +6,7 @@
   width: 1px;
   height: 2rem;
   background-color: #dadce0;
+  margin: auto;
   align-self: stretch;
 }
 
@@ -144,7 +145,6 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 1rem;
   box-shadow: 0 2px 4px rgba(60, 64, 67, 0.2);
-  margin: 0 auto;
 }
 
 .kickoff-btn:hover {

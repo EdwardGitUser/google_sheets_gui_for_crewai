@@ -71,7 +71,7 @@ export class GoogleSheetComponent {
   }
 
   navigateToKickoff() {
-    if (window.confirm('Are you sure you want to KICKOFF the crew?')) {
+    if (window.confirm('Proceed to kickoff configurator?')) {
       this.router.navigate(['kickoff'], { relativeTo: this.route });
     }
   }
