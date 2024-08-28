@@ -7,6 +7,7 @@ import { Agent } from '../../shared/models/agents.model';
 import { Task } from '../../shared/models/task.model';
 import { Crew } from '../../shared/models/crew.model';
 import { CrewService } from '../../services/crew.service';
+import { SubmitService } from '../../services/api/submit.service';
 
 @Component({
   selector: 'app-kickoff',
@@ -23,12 +24,13 @@ export class KickoffComponent implements OnInit {
   tasks!: Task[];
 
   canLoadTemplate: boolean = false;
-
+  responseMessage: string | null = null;
   constructor(
     private route: ActivatedRoute,
     private crewService: CrewService,
     private agentsService: AgentsService,
     private tasksService: TasksService,
+    private submitService: SubmitService,
     private location: Location
   ) {}
 
@@ -47,6 +49,9 @@ export class KickoffComponent implements OnInit {
       this.tasks = this.tasksService.getTasksByCrewId(crewId);
 
       this.canLoadTemplate = this.isAgentsTasksValid();
+      if (this.canLoadTemplate) {
+        this.submitData();
+      }
     }
   }
 
@@ -60,7 +65,20 @@ export class KickoffComponent implements OnInit {
     );
   }
 
-
+  private submitData(): void {
+    if (this.crew && this.agents && this.tasks) {
+      this.submitService
+        .submitCrewData(this.crew, this.agents, this.tasks)
+        .subscribe({
+          next: (response) => {
+            this.responseMessage = response.message;
+          },
+          error: (error) => {
+            console.error('Submission failed:', error);
+          },
+        });
+    }
+  }
 
   goBack(): void {
     this.location.back();
