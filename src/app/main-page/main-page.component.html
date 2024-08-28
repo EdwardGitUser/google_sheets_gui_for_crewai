@@ -3,7 +3,7 @@
 
   <section class="username-container">
     @if(isLoggedIn){
-    <p>{{ username }}</p>
+    <p>{{ username }} ${{ balance | number : "1.2-2" }}</p>
     }@else{
     <p>You are not logged in.</p>
     }
@@ -52,6 +52,17 @@
       (click)="createCrew()"
     >
       <i class="fas fa-plus-circle"></i> Create Crew
+    </button>
+
+    <button
+      [ngClass]="{
+        'not-logged-in': !isLoggedIn,
+        'kickoff-btn': isLoggedIn
+      }"
+      [disabled]="!isLoggedIn"
+      (click)="navigateToKickoff()"
+    >
+      Crew Kickoff
     </button>
   </section>
 

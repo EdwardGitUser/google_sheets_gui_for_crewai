@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Crew } from '../shared/models/crew.model';
 import { AgentsService } from './agents.service';
 import { TasksService } from './tasks.service';
+import { Agent } from '../shared/models/agents.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +10,7 @@ import { TasksService } from './tasks.service';
 export class CrewService {
   private crewsSignal = signal<Crew[]>(this.loadCrewsFromLocalStorage());
 
-  constructor(
-    private agentsService: AgentsService,
-    private tasksService: TasksService
-  ) {}
+  constructor() {}
 
   //GET
   getCrews(): readonly Crew[] {
@@ -36,18 +34,37 @@ export class CrewService {
       return [];
     }
   }
+  // ADD AGENT
+  addAgentToCrew(agent: Agent, crewId: string): void {
+    this.crewsSignal.update((crews) => {
+      return crews.map((crew) => {
+        if (crew.id === crewId) {
+          return {
+            ...crew,
+            agents: [...crew.agents, agent],
+          };
+        }
+        return crew;
+      });
+    });
+    this.saveCrewsToLocalStorage();
+  }
 
   //CREATE
   createCrew(
     name: string,
     userId: string,
-    process: 'sequential' | 'hierarchical' = 'sequential'
+    process: 'sequential' | 'hierarchical' = 'sequential',
+    llm: 'gpt-4mini' | 'gpt-4' | 'gpt-4o' = 'gpt-4'
   ): Crew {
     const newCrew: Crew = {
       id: Math.floor(Math.random() * 10000).toString(),
       name,
       userId,
       process,
+      llm,
+      agents: [],
+      tasks: [],
     };
     this.crewsSignal.update((crews) => [...crews, newCrew]);
     this.saveCrewsToLocalStorage();
@@ -55,6 +72,43 @@ export class CrewService {
   }
 
   //UPDATE, SAVE
+  updateCrew(updatedCrew: Crew): void {
+    this.crewsSignal.update((crews) =>
+      crews.map((crew) => (crew.id === updatedCrew.id ? updatedCrew : crew))
+    );
+    this.saveCrewsToLocalStorage();
+  }
+
+  updateCrewProcess(
+    crewId: string,
+    newProcess: 'sequential' | 'hierarchical'
+  ): void {
+    this.crewsSignal.update((crews) =>
+      crews.map((crew) => {
+        if (crew.id === crewId) {
+          return { ...crew, process: newProcess };
+        }
+        return crew;
+      })
+    );
+    this.saveCrewsToLocalStorage();
+  }
+
+  updateCrewLlm(
+    crewId: string,
+    newLlm: 'gpt-4mini' | 'gpt-4' | 'gpt-4o'
+  ): void {
+    this.crewsSignal.update((crews) =>
+      crews.map((crew) => {
+        if (crew.id === crewId) {
+          return { ...crew, llm: newLlm };
+        }
+        return crew;
+      })
+    );
+    this.saveCrewsToLocalStorage();
+  }
+
   private saveCrewsToLocalStorage(): void {
     localStorage.setItem('crews', JSON.stringify(this.crewsSignal()));
   }
@@ -66,9 +120,6 @@ export class CrewService {
       console.error('Attempted to delete a crew that does not exist.');
       return;
     }
-
-    this.tasksService.deleteTasksByCrewId(crewId);
-    this.agentsService.deleteAgentsByCrewId(crewId);
 
     this.crewsSignal.update((crews) =>
       crews.filter((crew) => crew.id !== crewId)

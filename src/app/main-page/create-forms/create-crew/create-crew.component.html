@@ -23,6 +23,24 @@
       </select>
     </div>
 
+    <div class="form-group">
+      <label>LLM Type</label>
+      <div class="checkbox-group">
+        <label>
+          <input type="radio" formControlName="llm" value="gpt-4mini" />
+          GPT-4 Mini
+        </label>
+        <label>
+          <input type="radio" formControlName="llm" value="gpt-4" />
+          GPT-4
+        </label>
+        <label>
+          <input type="radio" formControlName="llm" value="gpt-4o" />
+          GPT-4o
+        </label>
+      </div>
+    </div>
+
     <div class="button-group">
       <button type="button" class="back-btn" (click)="goBack()">
         <i class="fas fa-arrow-left"></i> Back

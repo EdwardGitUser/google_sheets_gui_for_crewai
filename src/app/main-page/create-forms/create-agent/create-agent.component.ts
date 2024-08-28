@@ -13,6 +13,7 @@ import {
 } from '../../../shared/validators/agents-table-validators';
 import { AgentsService } from '../../../services/agents.service';
 import { Agent } from '../../../shared/models/agents.model';
+import { CrewService } from '../../../services/crew.service';
 
 @Component({
   selector: 'app-create-agent',
@@ -31,7 +32,7 @@ export class CreateAgentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-
+    private crewService: CrewService,
     private agentsService: AgentsService
   ) {}
 
@@ -96,6 +97,8 @@ export class CreateAgentComponent implements OnInit {
       );
 
       console.log('Agent created:', newAgent);
+
+      this.crewService.addAgentToCrew(newAgent, this.crewId());
 
       this.onAgentCreate.emit(newAgent);
     }

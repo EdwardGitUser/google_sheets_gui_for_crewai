@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Agent } from '../shared/models/agents.model';
 import { TasksService } from './tasks.service';
+import { CrewService } from './crew.service';
 
 @Injectable({
   providedIn: 'root',
@@ -49,10 +50,10 @@ export class AgentsService {
       verbose,
       tool,
     };
-    console.log('before', this.agentsSignal);
+
     this.agentsSignal.update((agents) => [...agents, newAgent]);
     this.saveAgentsToLocalStorage();
-    console.log(this.agentsSignal);
+    console.log(this.agentsSignal());
 
     return newAgent;
   }

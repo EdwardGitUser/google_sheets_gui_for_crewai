@@ -19,6 +19,10 @@ export class AuthService {
     return this.loggedInUser();
   }
 
+  getUserById(userId: string): User | null {
+    return this.users.find((user) => user.id === userId) || null;
+  }
+
   private loadUsersFromLocalStorage(): void {
     const storedUsers = localStorage.getItem('users');
     if (storedUsers) {
@@ -40,6 +44,15 @@ export class AuthService {
       } else {
         this.logout(); // if expired
       }
+    }
+  }
+
+  //ADD
+  addToUserBalance(userId: string, amount: number): void {
+    const user = this.getUserById(userId);
+    if (user) {
+      user.balance += amount;
+      this.saveUsersToLocalStorage();
     }
   }
 
@@ -70,6 +83,7 @@ export class AuthService {
         id: Math.floor(Math.random() * 10000).toString(),
         username,
         password,
+        balance: 0,
       };
       this.users.push(newUser);
       this.saveUsersToLocalStorage();

@@ -4,7 +4,6 @@
   left: 0;
   width: 4.5rem;
   height: 100vh;
-  z-index: 1000;
   background-color: #131a25;
   color: #fff;
   transition: width 0.3s ease;
@@ -14,6 +13,7 @@
   align-items: flex-start;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  z-index: 1000;
 }
 
 .logo {
@@ -76,6 +76,12 @@
   transition: opacity 0.3s ease;
 }
 
+.profile {
+  padding-left: 0.4rem;
+}
+.profile-icon {
+  padding-left: 0.1rem;
+}
 .sidebar:hover {
   width: 12.5rem;
 }

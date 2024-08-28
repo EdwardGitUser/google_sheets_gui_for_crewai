@@ -38,6 +38,7 @@ export class CreateCrewComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       process: ['sequential', Validators.required],
+      llm: ['gpt-4', Validators.required],
     });
   }
 
@@ -51,12 +52,12 @@ export class CreateCrewComponent implements OnInit {
       const newCrew = this.crewService.createCrew(
         this.form.value.name,
         this.authService.currentUser.id,
-        this.form.value.process
+        this.form.value.process,
+        this.form.value.llm
       );
-      console.log(newCrew.id);
+      console.log(newCrew);
 
       this.router.navigate([`/crew/${newCrew.id}/google-sheet/`]);
-      localStorage.setItem('currentCrewId', newCrew.id.toString());
     }
   }
 

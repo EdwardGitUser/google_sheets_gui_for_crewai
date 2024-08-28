@@ -1,22 +1,48 @@
-<div class="main-page-table-container">
-  <div class="navigation-tabs">
-    <a routerLink="agents" routerLinkActive="active">Agents</a>
-    <a routerLink="tasks" routerLinkActive="active">Tasks</a>
+<div class="google-sheet-container">
+  <div class="crew-info">
+    <div class="navigation-tabs">
+      <a routerLink="agents" routerLinkActive="active">Agents</a>
+      <a routerLink="tasks" routerLinkActive="active">Tasks</a>
+    </div>
+
+    <div class="vertical-divider"></div>
+
+    @if(crew){
+    <div class="crew-name">Current Crew: {{ crew.name }}</div>
+
+    <div class="vertical-divider"></div>
+
+    <div class="crew-process">
+      <label for="process-select">Process:</label>
+      <select
+        id="process-select"
+        [(ngModel)]="selectedProcess"
+        (ngModelChange)="updateProcess()"
+      >
+        <option value="sequential">Sequential</option>
+        <option value="hierarchical">Hierarchical</option>
+      </select>
+    </div>
+
+    <div class="vertical-divider"></div>
+
+    <div class="crew-llm">
+      <label for="llm-select">LLM:</label>
+      <select
+        id="llm-select"
+        [(ngModel)]="selectedLlm"
+        (ngModelChange)="updateLlm()"
+      >
+        <option value="gpt-4mini">GPT-4 Mini</option>
+        <option value="gpt-4">GPT-4</option>
+        <option value="gpt-4o">GPT-4o</option>
+      </select>
+    </div>
+    }
   </div>
 
-  <hr class="separator" />
-
-  @if(crewName()){
-  <div class="crew-name">Current Crew: {{ crewName() }}</div>
-  }
-
-  <hr class="separator" />
-
-  <button class="kickoff-btn" (click)="navigateToKickoff()">
-    Crew Kickoff
-  </button>
   <button class="delete-crew" (click)="deleteCrew()">
-    <i class="fas fa-trash-alt"></i> Delete Crew
+    <i class="fas fa-trash-alt"></i>
   </button>
 </div>
 

@@ -100,6 +100,33 @@ button[type="submit"]:hover:not(:disabled) {
   transform: translateY(-0.125rem);
 }
 
+.checkbox-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #131a25;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="radio"] {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  accent-color: #131a25;
+}
+
+.checkbox-group input[type="radio"]:focus {
+  outline: none;
+  box-shadow: 0 0 0.313rem rgba(19, 26, 37, 0.2);
+}
+
 .back-btn {
   padding: 0.5rem 1rem;
   background-color: #f5f5f5;

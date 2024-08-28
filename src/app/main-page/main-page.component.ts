@@ -2,13 +2,13 @@ import { Component, computed, OnInit } from '@angular/core';
 import { CrewService } from '../services/crew.service';
 
 import { AuthService } from '../auth/auth.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [RouterOutlet, NgClass, NgIf, NgFor, RouterModule],
+  imports: [RouterOutlet, NgClass, RouterModule, DecimalPipe],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
@@ -20,7 +20,6 @@ export class MainPageComponent implements OnInit {
   );
 
   hovered = false;
-  crewId: string | null = null;
 
   constructor(
     private router: Router,
@@ -34,6 +33,9 @@ export class MainPageComponent implements OnInit {
     return this.authService.currentUser?.username || null;
   }
 
+  get balance(): number | null {
+    return this.authService.currentUser?.balance || null;
+  }
   get isLoggedIn(): boolean {
     return !!this.authService.currentUser;
   }
@@ -50,8 +52,7 @@ export class MainPageComponent implements OnInit {
 
   viewAgents(crewId: string) {
     if (window.confirm('Are you sure you want to view agents for this crew?')) {
-      this.crewId = crewId;
-      localStorage.setItem('currentCrewId', String(crewId));
+      localStorage.setItem('currentCrewId', crewId);
       this.router.navigate([`/crew/${crewId}/google-sheet`]);
     }
   }
@@ -62,16 +63,9 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  deleteCrew() {
-    if (
-      this.crewId !== null &&
-      window.confirm('Are you sure you want to delete this crew?')
-    ) {
-      this.crewService.deleteCrew(this.crewId);
-      this.crewId = null;
-
-      this.router.navigate(['/']);
-      localStorage.removeItem('currentCrewId');
+  navigateToKickoff() {
+    if (window.confirm('Are you sure you want to kickoff a crew?')) {
+      this.router.navigate(['kickoff']);
     }
   }
 }

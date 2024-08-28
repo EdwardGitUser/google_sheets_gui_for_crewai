@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { CreateAgentComponent } from '../../create-forms/create-agent/create-agent.component';
+import { TasksService } from '../../../services/tasks.service';
 
 @Component({
   selector: 'app-table-agents',
@@ -26,6 +27,7 @@ export class TableAgentsComponent implements OnInit {
 
   constructor(
     private agentsService: AgentsService,
+    private tasksService: TasksService,
     private route: ActivatedRoute
   ) {}
 
@@ -99,6 +101,8 @@ export class TableAgentsComponent implements OnInit {
     const confirmSave = window.confirm('Do you want to save the changes?');
     const currentCrewId = this.crewId();
     if (confirmSave) {
+      this.tasksService.updateTasksForDeletedAgent(currentCrewId!, agentId);
+
       this.agentsService.deleteAgentById(currentCrewId!, agentId);
 
       this.loadAgents();

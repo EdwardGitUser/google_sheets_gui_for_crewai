@@ -11,6 +11,7 @@ import { CreateCrewComponent } from './main-page/create-forms/create-crew/create
 import { KickoffComponent } from './main-page/kickoff/kickoff.component';
 import { TableAgentsComponent } from './main-page/tables/table-agents/table-agents.component';
 import { TaskTableComponent } from './main-page/tables/task-table/task-table.component';
+import { ProfileComponent } from './auth/profile/profile.component';
 // import { GoogleSheetComponent } from './main-page/google-sheet/google-sheet.component';
 
 export const routes: Routes = [
@@ -42,16 +43,16 @@ export const routes: Routes = [
             component: TaskTableComponent,
             canActivate: [isLoggedInGuard],
           },
-          {
-            path: 'kickoff',
-            component: KickoffComponent,
-            canActivate: [isLoggedInGuard],
-          },
         ],
       },
       {
         path: 'create-crew',
         component: CreateCrewComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'kickoff',
+        component: KickoffComponent,
         canActivate: [isLoggedInGuard],
       },
     ],
@@ -66,7 +67,11 @@ export const routes: Routes = [
     component: SignupComponent,
     canActivate: [AuthGuard],
   },
-
+  {
+    path: 'profile/:id',
+    component: ProfileComponent,
+    canActivate: [isLoggedInGuard],
+  },
   {
     path: '**',
     redirectTo: '',
