@@ -31,26 +31,30 @@
 
   @if(getUser()){
   <nav class="authenticated-menu">
-    <a routerLink="" class="menu-item">
-      <div class="menu-icon home">
-        <i class="fa fa-home"></i>
-      </div>
-      <span class="menu-text">Main Page</span>
-    </a>
-    <a [routerLink]="['/profile', getUser()!.id]" class="menu-item">
-      <div class="menu-icon profile-icon">
-        <i class="fa fa-user"></i>
-      </div>
-      <span class="menu-text profile">Profile</span>
-    </a>
-    <section class="menu logout" [ngClass]="{ 'logout-item': true }">
-      <div class="menu-item" (click)="logout()">
+    <div>
+      <a routerLink="" class="menu-item">
+        <div class="menu-icon home">
+          <i class="fa fa-home"></i>
+        </div>
+        <span class="menu-text">Main Page</span>
+      </a>
+      <a [routerLink]="['/profile', getUser()!.id]" class="menu-item">
+        <div class="menu-icon profile-icon">
+          <i class="fa fa-user"></i>
+        </div>
+        <span class="menu-text profile">Profile</span>
+      </a>
+    </div>
+
+    <!-- user authenticated -->
+    <div class="logout">
+      <div class="menu-item logout-item" (click)="logout()">
         <div class="menu-icon">
           <i class="fa fa-sign-out-alt"></i>
         </div>
         <span class="menu-text">Logout</span>
       </div>
-    </section>
+    </div>
   </nav>
   }
 </aside>

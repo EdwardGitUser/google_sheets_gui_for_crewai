@@ -2,7 +2,7 @@ import { Component, computed, OnInit } from '@angular/core';
 import { CrewService } from '../services/crew.service';
 
 import { AuthService } from '../auth/auth.service';
-import { DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -21,6 +21,7 @@ export class MainPageComponent implements OnInit {
 
   hovered = false;
 
+  isHomePageActive = true;
   constructor(
     private router: Router,
     private crewService: CrewService,

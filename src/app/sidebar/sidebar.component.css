@@ -12,7 +12,6 @@
   flex-direction: column;
   align-items: flex-start;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
   z-index: 1000;
 }
 
@@ -34,7 +33,8 @@
   margin: 0.6rem 0;
 }
 
-.menu {
+.menu,
+.authenticated-menu {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -42,16 +42,14 @@
 }
 
 .authenticated-menu {
-  display: flex;
-  flex-direction: column;
+  flex-grow: 1;
   justify-content: space-between;
-  height: 100%;
 }
 
 .menu-item {
-  width: calc(100% + 2rem);
-  margin-left: -0.6rem;
+  width: 100%;
   padding: 1rem;
+  padding-left: 1.3rem;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -79,9 +77,11 @@
 .profile {
   padding-left: 0.4rem;
 }
+
 .profile-icon {
   padding-left: 0.1rem;
 }
+
 .sidebar:hover {
   width: 12.5rem;
 }
@@ -95,7 +95,6 @@
 }
 
 .logout {
-  margin-top: auto;
   margin-bottom: 2rem;
 }
 
@@ -112,12 +111,9 @@
   .sidebar:hover {
     width: 3rem;
   }
-
   .menu-item {
-    width: calc(100% + 1rem);
-    margin-left: -1rem;
+    padding-left: 0.7rem;
   }
-
   .menu-icon {
     font-size: 1.2rem;
     margin-right: 0.8rem;
@@ -125,11 +121,6 @@
 
   .menu-text {
     display: none;
-  }
-
-  .logout {
-    margin-top: auto;
-    margin-bottom: 10rem;
   }
 }
 
@@ -140,11 +131,6 @@
 
   .sidebar:hover {
     width: 2.8rem;
-  }
-
-  .menu-item {
-    width: calc(100% + 1.2rem);
-    margin-left: -1.2rem;
   }
 
   .menu-icon {
