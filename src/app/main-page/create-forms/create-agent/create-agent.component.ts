@@ -6,19 +6,18 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   lettersOnlyValidator,
   lettersRequiredValidator,
 } from '../../../shared/validators/agents-table-validators';
 import { AgentsService } from '../../../services/agents.service';
 import { Agent } from '../../../shared/models/agents.model';
-import { CrewService } from '../../../services/crew.service';
 
 @Component({
   selector: 'app-create-agent',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, FormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgClass, FormsModule],
   templateUrl: './create-agent.component.html',
   styleUrls: ['./create-agent.component.css'],
 })
@@ -30,11 +29,7 @@ export class CreateAgentComponent implements OnInit {
 
   agentForm!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-
-    private agentsService: AgentsService
-  ) {}
+  constructor(private fb: FormBuilder, private agentsService: AgentsService) {}
 
   ngOnInit(): void {
     this.initializeForm();
